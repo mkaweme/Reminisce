@@ -11,7 +11,7 @@ const PORTRAITS = [
   { size:"30 X 30", price : 280, aspectRatio : 1 },
   { size:"A4 X 2", price : 250, aspectRatio: 1.41 },
 ];
-const portraits = () => {
+const Portraits = () => {
   return (
     <View style={styles.constainer}>
       <Text style={styles.header}>Select Portrait Size</Text>
@@ -38,7 +38,7 @@ const portraits = () => {
   );
 };
 
-export default portraits;
+export default Portraits;
 
 const styles = StyleSheet.create({
   constainer: {
