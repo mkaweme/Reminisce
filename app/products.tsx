@@ -25,7 +25,7 @@ const PRODUCTS: { id: number, title: string, backgroundColor: string, link: Rela
     image: "https://picsum.photos/200/300",
   },
 ];
-const products = () => {
+const Products = () => {
   return (
     <FlatList 
       data={PRODUCTS} 
@@ -39,32 +39,12 @@ const products = () => {
           backgroundColor={item.backgroundColor}
         />
       } 
-    >         
-      <View>
-        <Text>Splits</Text>
-        <View></View>
-        <Text>3 Piece</Text>
-        <Text>4 Piece Nice | 90CM * 120CM</Text>
-        <Text>4 Piece Joy | 70CM * 120CM</Text>
-        <Text>5 Piece Sweet | 90CM * 150CM</Text>
-        <Text>6 Piece Home | 3 * 50CM L * 25CM W | 3 * 25CM * 25CM</Text>
-      </View>
-      <View>
-        <Text>Combos</Text>
-        <View></View>
-        <Text>3 Piece | 2 * A4 | 1 * A3</Text>
-        <Text>4 Piece | 2 * A4 | 2 * A3</Text>
-        <Text>4 Piece | 4 * A4</Text>
-        <Text>4 Piece | 4 * A4 | 2 * A3</Text>
-        <Text>5 Piece MOMENTS | 4 * 20CM L * 40CM W| 1 * 59CM L * 35CM W</Text>
-        <Text>6 Piece</Text>
-        <Text>7 Piece Warm | 1 * A1 | 6 * 25CM * 25CM</Text>
-      </View>
+    >     
     </FlatList>
   );
 };
 
-export default products;
+export default Products;
 
 type ItemProps = { title: string, image: string, style : object, backgroundColor: string, link: RelativePathString };
 
