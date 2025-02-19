@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
 import logo_mini from "../assets/images/logo_mini.jpg";
+import threePieceBackground from "../assets/images/3_Piece_Background.jpg";
 
 const UploadPortrait = () => {
 
   const { size, price, aspectRatio: aspectRatioParam } = useLocalSearchParams();
   const aspectRatio = Array.isArray(aspectRatioParam) ? parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
   const [image, setImage] = useState<string | null> (null);
-  const [image2, setImage2] = useState<string | null> (null);
-
-  //Create a function to selecting an image from the device
+  const [image2, setImage2] = useState<string | null> (null);  //Create a function to selecting an image from the device
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -25,7 +24,6 @@ const UploadPortrait = () => {
       return result.assets[0].uri;
     } else return null;
   };
-  
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center" }}>
       <View style={styles.button}>
@@ -33,10 +31,10 @@ const UploadPortrait = () => {
         <Text style={styles.buttonText}> : </Text>
         <Text style={styles.buttonText}>K{price}</Text>
       </View>
-      <View>
+      <ImageBackground source={threePieceBackground} style={styles.fullImageContainer}>
         <View>
           <View style={styles.imageContainer}>
-            <Image source={image ? { uri: image } : logo_mini} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
+            <Image source={image ? { uri: image } : logo_mini} style={{ width: 250, height: 250, resizeMode: "contain" }} />
           </View>
           <Button title="Select Image" onPress={async () => setImage(await pickImage())} />
         </View>
@@ -53,12 +51,11 @@ const UploadPortrait = () => {
               </View>
             ) : null
         } 
-      </View>
+      </ImageBackground>
+  
     </ScrollView>
   );
-};
-
-export default UploadPortrait;
+};export default UploadPortrait;
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     margin: 20,
-    width: 200,
+    width: 150,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -77,12 +74,18 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff",
-    fontSize: 20,
+    fontFamily: "BebasNeue-Regular",
+    fontSize: 30,
     fontWeight: "bold",
+  },
+  fullImageContainer: {
+    height: 550,
+    width: "100%",
   },
   imageContainer : {
     display: "flex",
     flexDirection: "column",
+    marginTop: 30,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000000",
@@ -90,7 +93,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
-    margin: 20
   },
   button2: {
     display: "flex",
