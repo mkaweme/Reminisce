@@ -6,3 +6,5 @@ declare module "*.png" {
   const content: ImageData;
   export default content;
 }
+
+declare module "*.ttf";
