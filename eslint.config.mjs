@@ -25,7 +25,8 @@ export default [
       "stylistic/semi": ["error", "always"],
       "stylistic/quotes": ["error", "double"],
       "stylistic/indent" : ["error", 2],
-      "stylistic/object-curly-spacing": ["error", "always"]
+      "stylistic/object-curly-spacing": ["error", "always"],
+      "stylistic/no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
     },
   },
   prettierConfig,
