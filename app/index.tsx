@@ -4,9 +4,17 @@ import { Image } from "react-native";
 import logo from "../assets/images/logo_2_transparent.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
+import { useFonts } from "expo-font";
+import BebasNeueRegular from "../assets/fonts/BebasNeue-Regular.ttf";
 
 export default function Index() {
+  const [fontsLoaded] = useFonts({
+    "BebasNeue-Regular": BebasNeueRegular,
+  });
 
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <LinearGradient 
       colors={["#b4baba", "#e7d4aa"]} 
@@ -55,8 +63,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#3d7794",
   },
   title: {
-    fontSize: 30,
+    fontSize: 36,
     fontWeight: "bold",
+    fontFamily: "BebasNeue-Regular",
     color: "#2c7aa2",
     width: "60%",
     textAlign: "center",
