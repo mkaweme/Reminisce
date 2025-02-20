@@ -28,17 +28,17 @@ const Dine = () => {
       <View style={styles.splitContainer}>
         <View style={styles.previewContainer}>
           <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image1} />
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_1} />
           </View>
         </View>
         <View style={styles.previewContainer}>
           <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image2} />
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_2} />
           </View>
         </View>
         <View style={styles.previewContainer}>
           <View style={styles.previewWindow}>
-            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image3} />
+            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_3} />
           </View>
         </View>
         <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage(await pickImage())}>
@@ -106,17 +106,17 @@ const styles = StyleSheet.create({
     height: 210,
     overflow: "hidden",
   },
-  image1: {
+  image_1: {
     width: 270,
     height: 210,
   },
-  image2: {
+  image_2: {
     width: 270,
     height: 210,
     position: "absolute",
     left: -90,
   },
-  image3: {
+  image_3: {
     width: 270,
     height: 210,
     position: "absolute",
