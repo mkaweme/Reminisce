@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
 
-const Joy = () => {
+const Nice = () => {
 
   const [image, setImage] = useState<string | null> (null);
 
@@ -25,24 +25,24 @@ const Joy = () => {
     <View style={styles.container}>
       <Text style={styles.splitCanvasType}>4 PIECE NICE [L]</Text>
       <View style={styles.splitContainer}>
-        <View style={{ position: "relative", top: 25 }}> 
-          <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image1} />
+        <View style={styles.previewContainer_1}> 
+          <View style={styles.previewWindow_1}>
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_1} />
           </View>
         </View>
-        <View style={styles.previewContainer}>
-          <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image2} />
+        <View style={styles.previewContainer_2}>
+          <View style={styles.previewWindow_2}>
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_2} />
           </View>
         </View>
-        <View style={{ position: "relative", top: 25, height: 140 }}>
-          <View style={{ width: 75, height: 140, overflow: "hidden" }}>
-            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image3} />
+        <View style={styles.previewContainer_3}>
+          <View style={styles.previewWindow_3}>
+            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_3} />
           </View>
         </View>
-        <View style={styles.previewContainer}>
-          <View style={styles.previewWindow}>
-            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image4} />
+        <View style={styles.previewContainer_1}>
+          <View style={styles.previewWindow_1}>
+            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_4} />
           </View>
         </View>
         <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage(await pickImage())}>
@@ -62,15 +62,14 @@ const Joy = () => {
   );
 };
 
-export default Joy;
+export default Nice;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dddddd",
-    
+    backgroundColor: "#b19cd9cc",
   },
   splitCanvasType: {
     position: "relative",
@@ -92,12 +91,15 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 315,
-    height: 180,
+    width: 310,
+    height: 225,
     alignContent: "center",
-    alignItems: "center",
-    marginTop: 15,
     justifyContent: "space-between",
+  },
+  previewContainer_1: {
+    position: "relative",
+    top: 55,
+    height: 140,
     shadowColor: "#000",
     shadowOffset: { 
       width: 5, 
@@ -107,39 +109,70 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
   },
-  previewContainer: {
+  previewContainer_2: {
     position: "relative",
-  },
-  previewWindow: {
-    width: 75,
+    top: 30,
     height: 140,
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  previewContainer_3: {
+    position: "relative",
+    height: 140,
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  previewWindow_1: {
+    width: 75,
+    height: 160,
     overflow: "hidden",
   },
-  image1: {
-    width: 300,
-    height: 170,
-    top: -25,
+  previewWindow_2: {
+    width: 75,
+    height: 200,
+    overflow: "hidden",
   },
-  image2: {
+  previewWindow_3: {
+    width: 75,
+    height: 220,
+    overflow: "hidden",
+  },
+  image_1: {
     width: 300,
-    height: 170,
+    height: 225,
+    top: -55,
+  },
+  image_2: {
+    width: 300,
+    height: 225,
     position: "absolute",
     left: -75,
-    top: 0,
+    top: -30,
   },
-  image3: {
+  image_3: {
     width: 300,
-    height: 170,
+    height: 225,
     position: "absolute",
     left: -150,
-    top: -25,
   },
-  image4: {
+  image_4: {
     width: 300,
-    height: 170,
+    height: 225,
     position: "absolute",
     left: -225,
-     
+    top: -55, 
   },
   cameraIcon: {
     position: "absolute",
@@ -191,7 +224,6 @@ const styles = StyleSheet.create({
     color: "#09759a",
     fontSize: 24,
     fontWeight: "bold",
-    // fontFamily: "BebasNeue-Regular",
   },
 
 });
