@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
+import { useFonts } from "expo-font";
+import BebasNeueRegular from "../../assets/fonts/BebasNeue-Regular.ttf";
 
 const Joy = () => {
 
+  const [fontsLoaded] = useFonts({
+    "BebasNeue-Regular": BebasNeueRegular,
+  });
+  
+  if (!fontsLoaded) {
+    return null;
+  }
+    
   const [image, setImage] = useState<string | null> (null);
 
   //Define a function for selecting an image from the device
@@ -25,24 +35,24 @@ const Joy = () => {
     <View style={styles.container}>
       <Text style={styles.splitCanvasType}>4 PIECE JOY</Text>
       <View style={styles.splitContainer}>
-        <View style={{ position: "relative", top: 25 }}> 
+        <View style={styles.previewContainer_1}> 
           <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image1} />
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_1} />
           </View>
         </View>
-        <View style={styles.previewContainer}>
+        <View style={styles.previewContainer_2}>
           <View style={styles.previewWindow}>
-            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image2} />
+            <Image source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_2} />
           </View>
         </View>
-        <View style={{ position: "relative", top: 25 }}>
+        <View style={styles.previewContainer_1}>
           <View style={{ width: 75, height: 140, overflow: "hidden" }}>
-            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image3} />
+            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_3} />
           </View>
         </View>
-        <View style={styles.previewContainer}>
+        <View style={styles.previewContainer_2}>
           <View style={styles.previewWindow}>
-            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image4} />
+            <Image source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} style={styles.image_4} />
           </View>
         </View>
         <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage(await pickImage())}>
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 315,
+    width: 305,
     height: 180,
     alignContent: "center",
     alignItems: "center",
@@ -107,7 +117,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
   },
-  previewContainer: {
+  previewContainer_1: {
+    position: "relative",
+    top: 25,
+  },
+  previewContainer_2: {
     position: "relative",
   },
   previewWindow: {
@@ -115,31 +129,30 @@ const styles = StyleSheet.create({
     height: 140,
     overflow: "hidden",
   },
-  image1: {
+  image_1: {
     width: 300,
     height: 170,
     top: -25,
   },
-  image2: {
+  image_2: {
     width: 300,
     height: 170,
     position: "absolute",
     left: -75,
     top: 0,
   },
-  image3: {
+  image_3: {
     width: 300,
     height: 170,
     position: "absolute",
     left: -150,
     top: -25,
   },
-  image4: {
+  image_4: {
     width: 300,
     height: 170,
     position: "absolute",
     left: -225,
-     
   },
   cameraIcon: {
     position: "absolute",
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     color: "#09759a",
     fontSize: 24,
     fontWeight: "bold",
-    // fontFamily: "BebasNeue-Regular",
+    fontFamily: "BebasNeue-Regular",
   },
 
 });
