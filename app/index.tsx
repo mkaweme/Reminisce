@@ -15,6 +15,7 @@ export default function Index() {
   if (!fontsLoaded) {
     return null;
   }
+  
   return (
     <LinearGradient 
       colors={["#b4baba", "#e7d4aa"]} 
