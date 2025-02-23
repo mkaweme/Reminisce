@@ -14,7 +14,8 @@ const Joy = () => {
   if (!fontsLoaded) {
     return null;
   }
-    
+
+  //Define state variables
   const [image, setImage] = useState<string | null> (null);
 
   //Define a function for selecting an image from the device
