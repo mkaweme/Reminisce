@@ -5,6 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 
 const Nice = () => {
 
+  //Define state variables
   const [image, setImage] = useState<string | null> (null);
 
   //Define a function for selecting an image from the device
