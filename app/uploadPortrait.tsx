@@ -10,7 +10,13 @@ const UploadPortrait = () => {
   const { size, price, aspectRatio: aspectRatioParam } = useLocalSearchParams();
   const aspectRatio = Array.isArray(aspectRatioParam) ? parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
   const [image, setImage] = useState<string | null> (null);
-  const [image2, setImage2] = useState<string | null> (null);  //Create a function to selecting an image from the device
+  const [image2, setImage2] = useState<string | null> (null); 
+   
+  /**
+   * Prompts the user to select an image from the device's library and allows them to edit it.
+   * The aspect ratio of the image is set to 1:aspectRatio, where aspectRatio is the value of the aspectRatio search param.
+   * If the user selects an image, the URI of the edited image is returned; otherwise, null is returned.
+   */
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -55,7 +61,9 @@ const UploadPortrait = () => {
   
     </ScrollView>
   );
-};export default UploadPortrait;
+};
+
+export default UploadPortrait;
 
 const styles = StyleSheet.create({
   container: {
