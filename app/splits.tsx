@@ -1,5 +1,5 @@
 import React from "react";
-import { Image,ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import Dine from "./components/dine";
 import Joy from "./components/joy";
 import Nice from "./components/nice";
@@ -9,7 +9,7 @@ import Home from "./components/home";
 const Splits = () => {
     
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center", }}>
+    <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center" }}>
       <Dine />
       <Joy />
       <Nice />
