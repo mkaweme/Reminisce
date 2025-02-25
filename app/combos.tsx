@@ -4,6 +4,7 @@ import Cherry from "./components/cherry";
 import Time from "./components/time";
 import Warm from "./components/warm";
 import Moments from "./components/moments";
+import Fun from "./components/fun";
 
 const Combos: React.FC = () => {
 
@@ -13,6 +14,7 @@ const Combos: React.FC = () => {
       <Warm />
       <Time />
       <Moments />
+      <Fun />
     </ScrollView>
   );
 };
