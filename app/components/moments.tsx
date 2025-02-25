@@ -66,7 +66,8 @@ const Moments = () => {
         </View>
       </View>
       <View style={styles.details}>
-        <Text style={styles.splitCanvasDimensions}>1: 59CM X 35CM | 4: 20CM X 40CM</Text>
+        <Text style={styles.splitCanvasDimensions}>1: 59CM X 35CM</Text>
+        <Text style={styles.splitCanvasDimensions}>4: 20CM X 40CM</Text>
         <View style={styles.priceTab}>
           <Text style={styles.priceTabText}>K750</Text>
         </View>
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     width: "100%",
     columnGap: 10,
     marginTop: 30,
-    // backgroundColor: "yellow",
     height: 260,
+    justifyContent: "center",
   },
   columnImagesContainer_1: {
     display: "flex",
