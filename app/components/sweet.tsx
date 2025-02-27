@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
+import { Link } from "expo-router";
 
 const Sweet = () => {
 
@@ -61,9 +62,11 @@ const Sweet = () => {
           <Text style={styles.priceTabText}>K850</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
-        <Text style={styles.orderButtonText}>ORDER</Text>
-      </TouchableOpacity>
+      <Link href="/order" asChild>
+        <TouchableOpacity style={styles.orderButton}>
+          <Text style={styles.orderButtonText}>ORDER</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
