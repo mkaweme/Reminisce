@@ -4,6 +4,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
 import { useFonts } from "expo-font";
 import BebasNeueRegular from "../../assets/fonts/BebasNeue-Regular.ttf";
+import { Link } from "expo-router";
 
 const Joy = () => {
 
@@ -66,9 +67,11 @@ const Joy = () => {
           <Text style={styles.priceTabText}>K780</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
-        <Text style={styles.orderButtonText}>ORDER</Text>
-      </TouchableOpacity>
+      <Link href="/order" asChild>
+        <TouchableOpacity style={styles.orderButton}>
+          <Text style={styles.orderButtonText}>ORDER</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
