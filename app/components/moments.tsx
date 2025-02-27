@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Link } from "expo-router";
 
 const Moments = () => {
 
@@ -72,9 +73,12 @@ const Moments = () => {
           <Text style={styles.priceTabText}>K750</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
-        <Text style={styles.orderButtonText}>ORDER</Text>
-      </TouchableOpacity>
+      <Link href="/order" asChild>
+        <TouchableOpacity style={styles.orderButton}>
+          <Text style={styles.orderButtonText}>ORDER</Text>
+        </TouchableOpacity>
+      </Link>
+
     </View>
   );
 };
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#e0b0ff",
+    backgroundColor: "#ff004d66",
   },
   comboType: {
     fontSize: 36,
