@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Link } from "expo-router";
 
 const Fun = () => {
 
@@ -80,9 +81,11 @@ const Fun = () => {
           <Text style={styles.priceTabText}>K750</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.orderButton}>
-        <Text style={styles.orderButtonText}>ORDER</Text>
-      </TouchableOpacity>
+      <Link href="/order" asChild>
+        <TouchableOpacity style={styles.orderButton}>
+          <Text style={styles.orderButtonText}>ORDER</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#e0b0ff",
+    backgroundColor: "#00808099",
   },
   comboType: {
     fontSize: 36,
@@ -130,8 +133,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image_1: {
-    width: 80, 
-    height: 100, 
+    width: 70, 
+    height: 90, 
     resizeMode: "stretch",
     shadowColor: "#000000",
     shadowOffset: { width: 2, height: 2 },
