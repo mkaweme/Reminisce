@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
-import logo_mini from "../assets/images/logo_mini.jpg";
 import threePieceBackground from "../assets/images/3_Piece_Background.jpg";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const UploadPortrait = () => {
 
   const { size, price, aspectRatio: aspectRatioParam } = useLocalSearchParams();
   const aspectRatio = Array.isArray(aspectRatioParam) ? parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
-  const [image, setImage] = useState<string | null> (null);
-  const [image2, setImage2] = useState<string | null> (null); 
+  const [image_1, setImage_1] = useState<string | null> (null);
+  const [image_2, setImage_2] = useState<string | null> (null); 
    
   /**
    * Prompts the user to select an image from the device's library and allows them to edit it.
@@ -40,18 +40,21 @@ const UploadPortrait = () => {
       <ImageBackground source={threePieceBackground} style={styles.fullImageContainer}>
         <View>
           <View style={styles.imageContainer}>
-            <Image source={image ? { uri: image } : logo_mini} style={{ width: 250, height: 250, resizeMode: "contain" }} />
+            <Image source={image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 250, height: 250, resizeMode: "contain" }} />
+            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_1(await pickImage())}>
+              <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+            </TouchableOpacity>
           </View>
-          <Button title="Select Image" onPress={async () => setImage(await pickImage())} />
+          <Button title="Select Image" onPress={async () => setImage_1(await pickImage())} />
         </View>
         {
           size == "A4 X 2" 
             ? (
               <View>
                 <View style={styles.imageContainer}>
-                  <Image source={image2 ? { uri: image2 } : logo_mini} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
+                  <Image source={image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
                 </View>
-                <TouchableOpacity style={styles.button2} onPress={async () => setImage2(await pickImage())}>
+                <TouchableOpacity style={styles.button2} onPress={async () => setImage_2(await pickImage())}>
                   <Text style={{ color: "#fff" }}>Select Image</Text>
                 </TouchableOpacity>
               </View>
@@ -101,6 +104,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+  },
+  cameraIcon: {
+    position: "absolute",
+    borderColor: "#ffffff66",
+    borderWidth: 3,
+    borderRadius: 25,
+    padding: 5,
+    bottom: 0,
+    right: 0,
   },
   button2: {
     display: "flex",
