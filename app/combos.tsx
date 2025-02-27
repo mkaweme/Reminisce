@@ -5,6 +5,7 @@ import Time from "./components/time";
 import Warm from "./components/warm";
 import Moments from "./components/moments";
 import Fun from "./components/fun";
+import Growth from "./components/growth";
 
 const Combos: React.FC = () => {
 
@@ -15,6 +16,7 @@ const Combos: React.FC = () => {
       <Time />
       <Moments />
       <Fun />
+      <Growth />
     </ScrollView>
   );
 };
