@@ -14,6 +14,7 @@ const Order: React.FC = () => {
   //Create state variables
   const [delivery, setDelivery] = useState<boolean>(false);
   const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
+  const [distance, setDistance] = useState<number>(0);
 
   const url = Platform.OS === "android" ? "geo:0,0?q=Select+Location"
     : "http://maps.apple.com/?q=Select+Location";
@@ -28,26 +29,31 @@ const Order: React.FC = () => {
     setLocation(userLocation.coords);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+    
+  const fetchRoute = async () => {
+      
     if (!location) return;
+    const origin = `${-15.3339709},${28.3523437}`;
+    const destination = `${location.latitude},${location.longitude}`;
+    const apiKey = "AIzaSyA5b4EXmyeF04v08pMkmidct3gs_I16jM0";
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
   
-    const fetchRoute = async () => {
-      const origin = `${location.latitude},${location.longitude}`;
-      const destination = `${selectedLocation.latitude},${selectedLocation.longitude}`;
-      const apiKey = "AIzaSyA5b4EXmyeF04v08pMkmidct3gs_I16jM0Y";
-      const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("data :", data);
   
-      const response = await fetch(url);
-      const data = await response.json();
+    if (data.routes.length) {
+      const meters = data.routes[0].legs[0].distance.value;
+      setDistance(meters / 1000); // Convert to km
+    }
+
+    console.log("Current location is ", location);
+    console.log("Distance is ", distance);
+  };
   
-      if (data.routes.length) {
-        const meters = data.routes[0].legs[0].distance.value;
-        setDistance(meters / 1000); // Convert to km
-      }
-    };
-  
-    fetchRoute();
-  }, [selectedLocation]);
+  // fetchRoute();
+  // }, [location]);
     
   return (
     <View style={styles.container}>
@@ -64,8 +70,7 @@ const Order: React.FC = () => {
         <Text style={styles.deliveryButtonText}>Add Delivery</Text>
       </TouchableOpacity>
       { delivery && (
-        <TouchableOpacity style={styles.mapContainer} onPress={() => Linking.openURL(url)}>
-          <Text style={styles.addressButtonText}>Select Address</Text>
+        <View style={styles.mapContainer} >
           <MapView style={styles.map} initialRegion={{
             latitude: location ? location.latitude : 0,
             longitude: location ? location.longitude : 0,
@@ -95,9 +100,11 @@ const Order: React.FC = () => {
                 })}
               />
             )}
-
           </MapView>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.addressButton} onPress={() => fetchRoute()}>
+            <Text style={styles.addressButtonText}>Set Address</Text>
+          </TouchableOpacity>
+        </View>
       ) }
     </View>
   );
@@ -127,20 +134,26 @@ const styles = StyleSheet.create({
     margin: 30,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 20,
-  },
-  addressButtonText : {
-    marginLeft: 20,
-    color: "#ffffff",
-    fontSize: 24,
-    fontWeight: "bold",
   },
   map: {
     width: "100%",
     height: 300,
-    borderWidth: 1,
+    borderWidth: 3,
     borderColor: "#09759a",
-    position: "absolute",
-    top: 0,
+  },
+  addressButton : {
+    flexDirection: "row",
+    backgroundColor: "#09759a",
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    marginTop: 20,
+  },
+  addressButtonText : {
+    color: "#ffffff",
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
