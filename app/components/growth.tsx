@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+    objectFit: "cover",
   },
   image_3: {
     width: 100, 
@@ -190,6 +191,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+    objectFit: "cover",
   },
   cameraIcon_1: {
     position: "absolute",
