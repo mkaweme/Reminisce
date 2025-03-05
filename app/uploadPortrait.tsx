@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import threePieceBackground from "../assets/images/3_Piece_Background.jpg";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -45,23 +45,23 @@ const UploadPortrait = () => {
               <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
-          <Button title="Select Image" onPress={async () => setImage_1(await pickImage())} />
+          
         </View>
         {
           size == "A4 X 2" 
             ? (
-              <View>
-                <View style={styles.imageContainer}>
-                  <Image source={image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
-                </View>
-                <TouchableOpacity style={styles.button2} onPress={async () => setImage_2(await pickImage())}>
-                  <Text style={{ color: "#fff" }}>Select Image</Text>
-                </TouchableOpacity>
+              <View style={styles.imageContainer}>
+                <Image source={image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
               </View>
+            
             ) : null
         } 
+        <Link href={{ pathname: "/order", params: { price: price } }} asChild>
+          <TouchableOpacity style={styles.orderButton}>
+            <Text style={styles.orderButtonText}>ORDER</Text>
+          </TouchableOpacity>
+        </Link>
       </ImageBackground>
-  
     </ScrollView>
   );
 };
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   fullImageContainer: {
     height: 550,
     width: "100%",
+    alignItems: "center",
   },
   imageContainer : {
     display: "flex",
@@ -114,12 +115,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
-  button2: {
+  orderButtonContainer: {
     display: "flex",
+    flexDirection: "row",
+    width: 150,
+    alignSelf: "center",
+    justifyContent: "center",
     alignItems: "center",
-    color: "white",
-    marginBottom: 20,
-    backgroundColor: "#5c799a", 
-    padding: 10, 
-  }
+    marginTop: 30,
+    backgroundColor: "yellow",
+  },
+  orderButton : {
+    width: 150,
+    height: 40,
+    margin: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+    backgroundColor: "#09759a",
+  },
+  orderButtonText : {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
 });
