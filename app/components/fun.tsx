@@ -48,13 +48,13 @@ const Fun = () => {
         </View>
         <View style={styles.columnImagesContainer}>
           <View style={styles.imageContainer}>
-            <Image source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} style={styles.image_2} />
+            <Image source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} style={styles.image_2} resizeMode="cover"/>
             <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_3(await pickImage())}>
               <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" />
             </TouchableOpacity>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} style={styles.image_2} />
+            <Image source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} style={styles.image_2} resizeMode="cover"/>
             <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_4(await pickImage())}>
               <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" />
             </TouchableOpacity>
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+    
   },
   cameraIcon: {
     position: "absolute",
