@@ -38,6 +38,7 @@ const Order: React.FC = () => {
     const origin = `${-15.3339709},${28.3523437}`;
     const destination = `${location.latitude},${location.longitude}`;
     const apiKey = Constants.expoConfig?.extra?.GOOGLE_MAPS_API_KEY;
+    console.log("API key is ", apiKey);
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
   
     const response = await fetch(url);
