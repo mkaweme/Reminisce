@@ -3,6 +3,7 @@ import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from "rea
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import Constants from "expo-constants";
 
 export type OpenMapArgs = {
   lat: string | number;
@@ -36,7 +37,7 @@ const Order: React.FC = () => {
     if (!location) return;
     const origin = `${-15.3339709},${28.3523437}`;
     const destination = `${location.latitude},${location.longitude}`;
-    const apiKey = "AIzaSyA5b4EXmyeF04v08pMkmidct3gs_I16jM0";
+    const apiKey = Constants.expoConfig?.extra?.GOOGLE_MAPS_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
   
     const response = await fetch(url);
