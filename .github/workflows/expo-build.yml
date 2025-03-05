@@ -1,0 +1,35 @@
+name: Expo Build
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+      - name: Inject Secrets into app.json
+        run: |
+          jq --arg GOOGLE_MAPS_API_KEY "$GOOGLE_MAPS_API_KEY" \
+          '.expo.extra.googleMapsApiKey = $GOOGLE_MAPS_API_KEY' app.json > app.tmp.json && mv app.tmp.json app.json
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Expo App
+        run: expo build:android  # or expo export, expo prebuild, etc.
