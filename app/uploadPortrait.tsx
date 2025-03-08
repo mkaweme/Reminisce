@@ -52,6 +52,9 @@ const UploadPortrait = () => {
             ? (
               <View style={styles.imageContainer}>
                 <Image source={image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
+                <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_2(await pickImage())}>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
               </View>
             
             ) : null
