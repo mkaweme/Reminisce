@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Linking, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Divider } from "@rneui/themed";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import Sweet from "./components/sweet";
+import Moments from "./components/moments";
 import Constants from "expo-constants";
 
 export type OpenMapArgs = {
@@ -16,9 +19,9 @@ const Order: React.FC = () => {
   const [delivery, setDelivery] = useState<boolean>(false);
   const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
   const [distance, setDistance] = useState<number>(0);
-
-  const url = Platform.OS === "android" ? "geo:0,0?q=Select+Location"
-    : "http://maps.apple.com/?q=Select+Location";
+  const [itemsTotal, setItemsTotal] = useState<number>(1600);
+  const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const getLocationPersmission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -29,8 +32,6 @@ const Order: React.FC = () => {
     const userLocation = await Location.getCurrentPositionAsync({});
     setLocation(userLocation.coords);
   };
-
-  // useEffect(() => {
     
   const fetchRoute = async () => {
       
@@ -43,23 +44,40 @@ const Order: React.FC = () => {
   
     const response = await fetch(url);
     const data = await response.json();
-    console.log("data :", data);
   
     if (data.routes.length) {
       const meters = data.routes[0].legs[0].distance.value;
       setDistance(meters / 1000); // Convert to km
     }
 
-    console.log("Current location is ", location);
-    console.log("Distance is ", distance);
+    setDeliveryFee(calculateFee(distance));
   };
   
-  // fetchRoute();
-  // }, [location]);
-    
+  // Delivery 0 - 5 Km , K30, 5 - 10KM: K50, 10 - 15KM: K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndo
+  const calculateFee = (distance: number) => {
+    if (distance <= 5) return 30;
+    if (distance <= 10) return 50;
+    if (distance <= 15) return 80;
+    if (distance <= 20) return 150;
+    return 200;
+  };
+
+  //Use a useEffect to rerender the component and show new delivy fee when the distance changes
+  useEffect(() => {
+    setDeliveryFee(calculateFee(distance));   
+  }, [distance]);
+
   return (
-    <View style={styles.container}>
-      <Text>Order</Text>
+    <ScrollView style={styles.container}>
+      <Modal visible={showModal} onRequestClose={() => setShowModal(false)}>
+        <Text>Modal</Text>
+      </Modal>
+      <Text>Your Order</Text>
+      <Divider />
+      <Sweet />
+      <Divider />
+      <Moments />
+      <Divider />
       <TouchableOpacity style={styles.deliveryButton} onPress={() => {
         getLocationPersmission();
         setDelivery(!delivery);
@@ -106,9 +124,32 @@ const Order: React.FC = () => {
           <TouchableOpacity style={styles.addressButton} onPress={() => fetchRoute()}>
             <Text style={styles.addressButtonText}>Set Address</Text>
           </TouchableOpacity>
+          <View style={styles.deliveryFeeContainer}>
+            <Text style={styles.deliveryFeeText}>Courier Fee : </Text>
+            <Text style={styles.deliveryFeeText}>K{deliveryFee}</Text>
+          </View>
         </View>
       ) }
-    </View>
+      <Divider />
+      <View style={styles.totalContainer}>
+        <View style={styles.totalItem}>
+          <Text>Items </Text>
+          <Text>K{itemsTotal}</Text>
+        </View>
+        <View style={styles.totalItem}>
+          <Text>Courier </Text>
+          <Text>K{deliveryFee}</Text>
+        </View>
+        <View style={styles.totalItem}>
+          <Text>Order Total </Text>
+          <Text>K{itemsTotal + deliveryFee}</Text>
+        </View>
+      </View>
+      <Divider />
+      <TouchableOpacity style={styles.orderButton} onPress={() => setShowModal(true)}>
+        <Text style={styles.addressButtonText}>Place Order</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
@@ -133,7 +174,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   mapContainer: {
-    margin: 30,
+    marginVertical: 30,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -157,5 +198,32 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 24,
     fontWeight: "bold",
+  },
+  deliveryFeeContainer: {
+    flexDirection: "row",
+    margin: 20,
+  },
+  deliveryFeeText : {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  totalContainer: {
+    flexDirection: "column",
+    margin: 20,
+  },
+  totalItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 5,
+  },
+  orderButton : {
+    flexDirection: "row",
+    backgroundColor: "#09759a",
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    margin: 20,
   },
 });
