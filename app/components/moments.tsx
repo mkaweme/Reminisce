@@ -78,7 +78,6 @@ const Moments = () => {
           <Text style={styles.orderButtonText}>ORDER</Text>
         </TouchableOpacity>
       </Link>
-
     </View>
   );
 };
