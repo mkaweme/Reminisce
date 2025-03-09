@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider } from "@rneui/themed";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
@@ -70,9 +70,100 @@ const Order: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <Modal visible={showModal} onRequestClose={() => setShowModal(false)}>
-        <Text>Modal</Text>
+        <ScrollView>
+          <Text style={styles.header}>Confrim Order</Text>
+          <Divider />
+          <View style={styles.sweetContainer}>
+            <Text style={styles.splitCanvasType}>5 PIECE SWEET</Text>
+            <View style={styles.splitContainer}>
+              <View style={styles.previewContainer_1}> 
+                <View style={styles.previewWindow_1}>
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_1} />
+                </View>
+              </View>
+              <View style={styles.previewContainer_2}>
+                <View style={styles.previewWindow_2}>
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_2} />
+                </View>
+              </View>
+              <View style={styles.previewContainer_3}>
+                <View style={styles.previewWindow_3}>
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_3} />
+                </View>
+              </View>
+              <View style={styles.previewContainer_2}>
+                <View style={styles.previewWindow_2}>
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_4} />
+                </View>
+              </View>
+              <View style={styles.previewContainer_1}>
+                <View style={styles.previewWindow_1}>
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_5} />
+                </View>
+              </View>
+            </View>
+            <View style={styles.details}>
+              <Text style={styles.splitCanvasDimensions}>90CM X 150CM : K850</Text>
+            </View>
+            <TouchableOpacity style={styles.removeButton}>
+              <Text>Remove</Text>
+            </TouchableOpacity>
+          </View>
+          <Divider />
+          <View style={styles.momentsContainer}>
+            <Text style={styles.splitCanvasType}>5 PIECE MOMENTS</Text>
+            <View style={styles.imagesContainer}>
+              <View style={styles.columnImagesContainer_1}>
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                </View>
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                </View>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image source={{ uri : "https://picsum.photos/200/300" }} style={styles.image} />
+              </View>
+              <View style={styles.columnImagesContainer_2}>
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                </View>
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                </View>
+              </View>
+            </View>
+            <View style={styles.momentsDetails}>
+              <Text style={styles.splitCanvasDimensions}>1: 59CM X 35CM</Text>
+              <Text style={styles.splitCanvasDimensions}>4: 20CM X 40CM</Text>
+              <Text style={styles.splitCanvasDimensions }>K750</Text>
+            </View>
+            <TouchableOpacity style={styles.removeButton}> 
+              <Text>Remove</Text>
+            </TouchableOpacity>
+          </View>
+          <Divider />
+          <View style={styles.totalContainer}>
+            <View style={styles.totalItem}>
+              <Text>Items </Text>
+              <Text>K{itemsTotal}</Text>
+            </View>
+            <View style={styles.totalItem}>
+              <Text>Courier </Text>
+              <Text>K{deliveryFee}</Text>
+            </View>
+            <View style={styles.totalItem}>
+              <Text>Order Total </Text>
+              <Text>K{itemsTotal + deliveryFee}</Text>
+            </View>
+          </View>
+          <Divider />
+          <TouchableOpacity style={styles.orderButton} onPress={() => setShowModal(true)}>
+            <Text style={styles.addressButtonText}>Confirm and Pay</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </Modal>
-      <Text>Your Order</Text>
+      <Text style={styles.header}>Your Order</Text>
       <Divider />
       <Sweet />
       <Divider />
@@ -160,6 +251,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
+  header: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignSelf: "center",
+    margin: 10,
+  },
   deliveryButton : {
     flexDirection: "row",
     backgroundColor: "#ffffff",
@@ -179,7 +276,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: "100%",
+    width: "90%",
     height: 300,
     borderWidth: 3,
     borderColor: "#09759a",
@@ -225,5 +322,196 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 15,
     margin: 20,
+  },
+  sweetContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#edf9eb",
+    padding: 15,
+  },
+  splitCanvasType: {
+    position: "relative",
+    fontSize: 30,
+    fontWeight: "bold",
+    fontFamily: "BebasNeue-Regular",
+    margin: 15,
+  },
+  fullImageContainer: {
+    height: 500,
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  splitContainer: {
+    flexDirection: "row",
+    width: 310,
+    height: 180,
+    alignContent: "center",
+    justifyContent: "space-between",
+  },
+  previewContainer_1: {
+    position: "relative",
+    top: 25,
+    height: 140,
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  previewContainer_2: {
+    position: "relative",
+    top: 10,
+    height: 160,
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  previewContainer_3: {
+    position: "relative",
+    height: 180,
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  previewWindow_1: {
+    width: 60,
+    height: 130,
+    overflow: "hidden",
+  },
+  previewWindow_2: {
+    width: 60,
+    height: 160,
+    overflow: "hidden",
+  },
+  previewWindow_3: {
+    width: 60,
+    height: 180,
+    overflow: "hidden",
+  },
+  image_1: {
+    width: 300,
+    height: 180,
+    top: -25,
+  },
+  image_2: {
+    width: 300,
+    height: 180,
+    position: "absolute",
+    left: -60,
+    top: -10,
+  },
+  image_3: {
+    width: 300,
+    height: 180,
+    position: "absolute",
+    left: -120,
+  },
+  image_4: {
+    width: 300,
+    height: 180,
+    position: "absolute",
+    left: -180,
+    top: -10,  
+  },
+  image_5: {
+    width: 300,
+    height: 180,
+    position: "absolute",
+    left: -240,
+    top: -25,  
+  },
+  details: {
+    marginVertical: 15,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  splitCanvasDimensions: {
+    fontSize: 24,
+    fontWeight: "bold",
+    fontFamily: "BebasNeue-Regular",
+  },
+  removeButton : {
+    backgroundColor: "#ffffff",
+    height: 30,
+    width: 80,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+  },
+  momentsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    backgroundColor: "#ff004d66",
+  },
+  comboType: {
+    fontSize: 36,
+    fontWeight: "bold",
+    fontFamily: "BebasNeue-Regular",
+    marginTop: 30,
+  },
+  imagesContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    columnGap: 10,
+    height: 260,
+    justifyContent: "center",
+  },
+  columnImagesContainer_1: {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 15,
+    alignSelf: "flex-end",
+  },
+  columnImagesContainer_2: {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 15,
+  },
+  imageContainer : {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2.5,
+    elevation: 5,
+  },
+  image: {
+    width: 120, 
+    height: 180, 
+    resizeMode: "stretch",
+    shadowColor: "#000000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2.5,
+    elevation: 5,
+  },
+  momentsDetails: {
+    marginVertical: 10,
+    flexDirection: "column",
+    alignContent: "center",
+    alignItems: "center",
   },
 });
