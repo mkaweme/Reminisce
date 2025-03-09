@@ -87,11 +87,6 @@ const styles = StyleSheet.create({
     fontFamily: "BebasNeue-Regular",
     marginTop: 30,
   },
-  header: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginVertical: 30,
-  },
   fullImageContainer: {
     height: 500,
     width: "90%",
@@ -201,10 +196,10 @@ const styles = StyleSheet.create({
   },
   details: {
     width: 275,
-    marginTop: 15,
     backgroundColor: "#ffffff66",
     alignContent: "center",
     alignItems: "center",
+    margin: 15,
   },
   splitCanvasDimensions: {
     fontSize: 30,
@@ -214,7 +209,6 @@ const styles = StyleSheet.create({
   priceTab: {
     display: "flex",
     flexDirection: "row",
-    marginBottom: 10,
     width: 100,
     alignItems: "center",
     justifyContent: "center",
@@ -241,5 +235,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-
 });
