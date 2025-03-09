@@ -24,6 +24,13 @@ const PRODUCTS: { id: number, title: string, backgroundColor: string, link: Rela
     link: "/combos" as RelativePathString,
     image: "https://picsum.photos/200/300",
   },
+  {
+    id: 4,
+    title: "Hexagons",
+    backgroundColor: "#cd212a",
+    link: "/hexagons" as RelativePathString,
+    image: "https://picsum.photos/200/300",
+  },
 ];
 const Products = () => {
   return (
