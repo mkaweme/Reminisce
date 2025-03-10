@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
+import HexagonImage from "./components/hexagonImage";
 
 const Hexagons = () => {
   //Define state variables
@@ -29,28 +30,30 @@ const Hexagons = () => {
       <Text style={styles.comboType}>Hexagons</Text>
       <View style={styles.imagesContainer}>
         <View style={styles.imageContainer}>
-          <Image source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 100, height: 141 }} />
-          <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_1(await pickImage())}>
+          <HexagonImage source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} size={150} />
+          <TouchableOpacity style={styles.cameraIcon_1} onPress={async () => setImage_1(await pickImage())}>
             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
           </TouchableOpacity>
         </View>
-        <View style={styles.imageContainer}>
-          <Image source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 141, height: 200, }} />
-          <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_2(await pickImage())}>
-            <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imageContainer}>
-          <Image source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 100, height: 141 }} />
-          <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_3(await pickImage())}>
-            <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-          </TouchableOpacity>
+        <View style={styles.horizonalContainer}>
+          <View style={styles.imageContainer}>
+            <HexagonImage source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} size={150} />
+            <TouchableOpacity style={styles.cameraIcon_2} onPress={async () => setImage_2(await pickImage())}>
+              <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.imageContainer}>
+            <HexagonImage source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} size={150} />
+            <TouchableOpacity style={styles.cameraIcon_2} onPress={async () => setImage_3(await pickImage())}>
+              <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
       <View style={styles.details}>
-        <Text style={styles.splitCanvasDimensions}>1 X A3 | 2 X A4</Text>
+        <Text style={styles.splitCanvasDimensions}>3 X A4</Text>
         <View style={styles.priceTab}>
-          <Text style={styles.priceTabText}>K750</Text>
+          <Text style={styles.priceTabText}>K650</Text>
         </View>
       </View>
       <Link href="/order" asChild>
@@ -76,14 +79,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    margin: 15,
   },
   imagesContainer: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
-    rowGap: 10,
-    marginTop: 30,
     alignItems: "center",
     justifyContent: "space-between",
   },
@@ -92,14 +93,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "yellow",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
   },
-  cameraIcon: {
+  cameraIcon_1: {
+    position: "absolute",
+    borderColor: "#ffffff66",
+    borderWidth: 3,
+    borderRadius: 25,
+    padding: 5,
+    bottom: 100,
+    right: 0,
+  },
+  cameraIcon_2: {
     position: "absolute",
     borderColor: "#ffffff66",
     borderWidth: 3,
@@ -107,6 +111,11 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 0,
     right: 0,
+  },
+  horizonalContainer: {
+    display: "flex",
+    flexDirection: "row",
+    top: -50,
   },
   details: {
     width: 275,
@@ -150,4 +159,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
   },
+  
 });
