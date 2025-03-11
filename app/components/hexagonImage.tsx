@@ -12,8 +12,6 @@ interface HexagonImageProps {
 const HexagonImage: React.FC<HexagonImageProps> = ({ 
   source, 
   size = 200,
-  // shadowOffset = 8,
-  // shadowColor = "#00000044",
 }) => {
   const points = `
     ${size * 0.5},0 
@@ -32,12 +30,6 @@ const HexagonImage: React.FC<HexagonImageProps> = ({
             <Polygon points={points} />
           </ClipPath>
         </Defs>
-        {/* <Polygon
-          points={points} 
-          fill={shadowColor} 
-          x={shadowOffset / 2}
-          y={shadowOffset / 2}
-        /> */}
         <Image 
           href={source.uri} 
           width={size} 
