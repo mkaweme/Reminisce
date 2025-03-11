@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { 
+  Image, 
+  Modal, 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  View } from "react-native";
 import { Divider } from "@rneui/themed";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
@@ -17,7 +24,8 @@ const Order: React.FC = () => {
 
   //Create state variables
   const [delivery, setDelivery] = useState<boolean>(false);
-  const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
+  const [location, setLocation] = 
+    useState<Location.LocationObjectCoords | null>(null);
   const [distance, setDistance] = useState<number>(0);
   const [itemsTotal, setItemsTotal] = useState<number>(1600);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
@@ -40,7 +48,8 @@ const Order: React.FC = () => {
     const destination = `${location.latitude},${location.longitude}`;
     const apiKey = Constants.expoConfig?.extra?.GOOGLE_MAPS_API_KEY;
     console.log("API key is ", apiKey);
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=
+      ${origin}&destination=${destination}&key=${apiKey}`;
   
     const response = await fetch(url);
     const data = await response.json();
@@ -53,7 +62,11 @@ const Order: React.FC = () => {
     setDeliveryFee(calculateFee(distance));
   };
   
-  // Delivery 0 - 5 Km , K30, 5 - 10KM: K50, 10 - 15KM: K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndo
+  // Delivery 0 - 5 Km ,
+  //  K30, 5 - 10KM: 
+  // K50, 10 - 15KM: 
+  // K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndo
+  
   const calculateFee = (distance: number) => {
     if (distance <= 5) return 30;
     if (distance <= 10) return 50;
