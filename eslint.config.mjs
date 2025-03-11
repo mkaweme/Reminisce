@@ -26,7 +26,11 @@ export default [
       "stylistic/quotes": ["error", "double"],
       "stylistic/indent" : ["error", 2],
       "stylistic/object-curly-spacing": ["error", "always"],
-      "stylistic/no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
+      "stylistic/no-multiple-empty-lines": [
+        "error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }
+      ],
+      "stylistic/max-len": ["error", { "code": 80, "tabWidth": 2}],
+      // "prettier/prettier": ["error", { "printWidth": 80 }]
     },
   },
   prettierConfig,
