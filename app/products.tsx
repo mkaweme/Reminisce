@@ -2,7 +2,12 @@ import React from "react";
 import { Link, RelativePathString } from "expo-router";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const PRODUCTS: { id: number, title: string, backgroundColor: string, link: RelativePathString, image: string }[] = [
+const PRODUCTS: { 
+  id: number, 
+  title: string, 
+  backgroundColor: string, 
+  link: RelativePathString, 
+  image: string }[] = [
   {
     id: 1,
     title: "PORTRAITS",
@@ -53,7 +58,13 @@ const Products = () => {
 
 export default Products;
 
-type ItemProps = { title: string, image: string, style : object, backgroundColor: string, link: RelativePathString };
+type ItemProps = { 
+  title: string, 
+  image: string, 
+  style : object, 
+  backgroundColor: string, 
+  link: RelativePathString 
+};
 
 const Item = ({ title, image, style, backgroundColor, link }: ItemProps) => (
   <View style={{ ...style, backgroundColor: backgroundColor }}>
