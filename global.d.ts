@@ -8,3 +8,13 @@ declare module "*.png" {
 }
 
 declare module "*.ttf";
+
+declare type CanvasItem = {
+  id: string;
+  name: string;
+  price: number;
+  size: string;
+  imageUrls: string[];
+  quantity: number ;
+  totalPrice: number;
+};
