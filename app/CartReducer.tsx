@@ -4,16 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [] as { 
-      id: string; 
-      price: number; 
-      quantity: number; 
-      totalPrice: number; 
-      name: string }[],
+    items: [] as CanvasItem[],
     totalQuantity: 0,
     changed: false,
   },
   reducers: {
+
     replaceCart(state, action) {
       state.totalQuantity = action.payload.totalQuantity;
       state.items = action.payload.items;
@@ -30,6 +26,8 @@ const cartSlice = createSlice({
           quantity: 1,
           totalPrice: newItem.price,
           name: newItem.title,
+          imageUrls: newItem.imageUrls,
+          size: newItem.size
         });
       } else {
         existingItem.quantity++;
@@ -37,17 +35,17 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      const id = action.payload;
-      const existingItem = state.items.find((item) => item.id === id);
-      state.totalQuantity--;
-      state.changed = true;
+      const newItem = action.payload;
+      const existingItem = state.items.find((item) => item.id === newItem.id);
       if (!existingItem) {
         // handle the case when existingItem is not found
         return;
       }
+      state.totalQuantity--;
+      state.changed = true;
       if (existingItem.quantity === 1) {
         //If there's only one of this item in the cart(items array), filter it out
-        state.items = state.items.filter((item) => item.id !== id);
+        state.items = state.items.filter((item) => item.id !== newItem.id);
       } else {
         //If there's more than one of this item in the cart, reduce its quantity by 1
         //and reduce its total price
