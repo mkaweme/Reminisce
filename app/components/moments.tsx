@@ -33,34 +33,69 @@ const Moments = () => {
       <View style={styles.imagesContainer}>
         <View style={styles.columnImagesContainer_1}>
           <View style={styles.imageContainer}>
-            <Image source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
-            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_1(await pickImage())}>
+            <Image 
+              source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
+              style={{ width: 120, height: 60 }} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon}
+              onPress={async () => setImage_1(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={12} color="white" />
             </TouchableOpacity>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
-            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_2(await pickImage())}>
+            <Image source={
+              image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }
+            } 
+            style={{ width: 120, height: 60 }} />
+            <TouchableOpacity 
+              style={styles.cameraIcon} 
+              onPress={async () => setImage_2(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={12} color="white" />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.imageContainer}>
-          <Image source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} style={styles.image} />
-          <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_3(await pickImage())}>
-            <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" />
+          <Image 
+            source={
+              image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }
+            } style={styles.image} 
+          />
+          <TouchableOpacity 
+            style={styles.cameraIcon} 
+            onPress={async () => setImage_3(await pickImage())}>
+            <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" 
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.columnImagesContainer_2}>
           <View style={styles.imageContainer}>
-            <Image source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
-            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_4(await pickImage())}>
+            <Image 
+              source={
+                image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }
+              } 
+              style={{ width: 120, height: 60 }} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon} 
+              onPress={async () => setImage_4(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={12} color="white" />
             </TouchableOpacity>
           </View>
           <View style={styles.imageContainer}>
-            <Image source={image_5 ? { uri: image_5 } : { uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
-            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_5(await pickImage())}>
+            <Image 
+              source={
+                image_5 ? { uri: image_5 } : { uri : "https://picsum.photos/200/300" }
+              } 
+              style={{ width: 120, height: 60 }} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon} 
+              onPress={async () => setImage_5(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={12} color="white" />
             </TouchableOpacity>
           </View>
