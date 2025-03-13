@@ -29,7 +29,7 @@ export default [
       "stylistic/no-multiple-empty-lines": [
         "error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }
       ],
-      "stylistic/max-len": ["error", { "code": 80, "tabWidth": 2}],
+      "stylistic/max-len": ["error", { "code": 96, "tabWidth": 2 }],
       // "prettier/prettier": ["error", { "printWidth": 80 }]
     },
   },
