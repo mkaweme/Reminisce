@@ -1,21 +1,71 @@
 import React, { useState } from "react";
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { 
+  Image, 
+  ImageBackground,  
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  View 
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { Link, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import threePieceBackground from "../assets/images/3_Piece_Background.jpg";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "./CartReducer";
+import { RootState } from "./store";
 
 const UploadPortrait = () => {
 
-  const { size, price, aspectRatio: aspectRatioParam } = useLocalSearchParams();
-  const aspectRatio = Array.isArray(aspectRatioParam) ? parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
+  //Define state variables
+  const { size, price , aspectRatio: aspectRatioParam } = useLocalSearchParams();
+  const itemPrice = Number(price);
+  const aspectRatio = Array.isArray(aspectRatioParam) ? 
+    parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
   const [image_1, setImage_1] = useState<string | null> (null);
   const [image_2, setImage_2] = useState<string | null> (null); 
+  const [noImage, setNoImage] = useState<boolean>(false);
    
+  const cartItems = useSelector((state : RootState) => state.cart.items);
+  const dispatch = useDispatch();
+
+  //Define a function that adds an item to the cart
+  const addItemToCart = () => {
+    if(!image_1) {
+      setNoImage(true);
+      return;
+    }
+    const item = {
+      id: size,
+      name: size,
+      price: itemPrice,
+      size: size,
+      imageUrls: [image_1, image_2],
+      quantity: 1,
+      totalPrice: itemPrice,
+    };
+    dispatch(cartActions.addToCart(item));
+  };
+  //Define a function that aremoves an item from the cart
+  const removeItemFromCart = () => {
+    const item = {
+      id: size,
+      name: size,
+      price: itemPrice,
+      size: size,
+      imageUrls: [image_1, image_2],
+      quantity: 1,
+      totalPrice: itemPrice,
+    };
+    dispatch(cartActions.removeFromCart(item));
+  };
+  
   /**
-   * Prompts the user to select an image from the device's library and allows them to edit it.
-   * The aspect ratio of the image is set to 1:aspectRatio, where aspectRatio is the value of the aspectRatio search param.
-   * If the user selects an image, the URI of the edited image is returned; otherwise, null is returned.
+   * Prompts the user to select an image from the device's librarY.
+   * The aspect ratio is set to 1: aspectRatio, which is passed to search param.
+   * If the user selects an image, the URI of the image is returned; 
+   * otherwise, null is returned.
    */
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -27,9 +77,12 @@ const UploadPortrait = () => {
 
     //If an images was selected and the process wasn't cancelled
     if (!result.canceled) {
+      setNoImage(false);
       return result.assets[0].uri;
     } else return null;
+
   };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center" }}>
       <View style={styles.button}>
@@ -40,30 +93,65 @@ const UploadPortrait = () => {
       <ImageBackground source={threePieceBackground} style={styles.fullImageContainer}>
         <View>
           <View style={styles.imageContainer}>
-            <Image source={image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 250, height: 250, resizeMode: "contain" }} />
-            <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_1(await pickImage())}>
-              <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+            <Image 
+              source={
+                image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }
+              }
+              style={{ width: 250, height: 250, resizeMode: "contain" }} />
+            <TouchableOpacity style={styles.cameraIcon} 
+              onPress={async () => setImage_1(await pickImage())}>
+              <MaterialCommunityIcons name="camera-plus-outline" 
+                size={24} color="white" />
             </TouchableOpacity>
           </View>
-          
+          { noImage ? 
+            (
+              <>
+                <Text style={styles.warning}>
+                  Please upload an image before adding an item to cart
+                </Text>
+              </>
+            ) : <></>}
         </View>
         {
           size == "A4 X 2" 
             ? (
               <View style={styles.imageContainer}>
-                <Image source={image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }} style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} />
-                <TouchableOpacity style={styles.cameraIcon} onPress={async () => setImage_2(await pickImage())}>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                <Image 
+                  source={
+                    image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }
+                  } 
+                  style={{ 
+                    width: 300, height: 300 * aspectRatio, resizeMode: "contain" 
+                  }} />
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_2(await pickImage())}
+                >
+                  <MaterialCommunityIcons 
+                    name="camera-plus-outline" 
+                    size={24} color="white"
+                  />
                 </TouchableOpacity>
               </View>
             
             ) : null
-        } 
-        <Link href={{ pathname: "/order", params: { price: price } }} asChild>
-          <TouchableOpacity style={styles.orderButton}>
-            <Text style={styles.orderButtonText}>ORDER</Text>
-          </TouchableOpacity>
-        </Link>
+        }
+        {
+          cartItems.some((value) => value.size == size ) ? (
+            <TouchableOpacity style={styles.orderButton} 
+              onPress={removeItemFromCart}
+            >
+              <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+            </TouchableOpacity>
+         
+          ) : (
+            <TouchableOpacity style={styles.orderButton} 
+              onPress={addItemToCart}
+            >
+              <Text style={styles.orderButtonText}>ADD TO CART</Text>
+            </TouchableOpacity>
+          )} 
       </ImageBackground>
     </ScrollView>
   );
@@ -118,6 +206,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  warning : {
+    color: "white",
+  },
   orderButtonContainer: {
     display: "flex",
     flexDirection: "row",
@@ -129,7 +220,7 @@ const styles = StyleSheet.create({
     backgroundColor: "yellow",
   },
   orderButton : {
-    width: 150,
+    width: 250,
     height: 40,
     margin: 20,
     alignItems: "center",
@@ -138,8 +229,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#09759a",
   },
   orderButtonText : {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+
     color: "#ffffff",
   },
 });
