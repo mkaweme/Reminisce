@@ -14,22 +14,27 @@ import * as Location from "expo-location";
 import Sweet from "./components/sweet";
 import Moments from "./components/moments";
 import Constants from "expo-constants";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 export type OpenMapArgs = {
   lat: string | number;
   lng: string | number;
   label: string;
 };
-const Order: React.FC = () => {
 
+const Order: React.FC = () => {
+ 
   //Create state variables
   const [delivery, setDelivery] = useState<boolean>(false);
-  const [location, setLocation] = 
-    useState<Location.LocationObjectCoords | null>(null);
+  const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
   const [distance, setDistance] = useState<number>(0);
   const [itemsTotal, setItemsTotal] = useState<number>(1600);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const cartItems = useSelector((state : RootState) => state.cart.items);
+  console.log("Cartitems are : ", cartItems);
 
   const getLocationPersmission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -63,7 +68,7 @@ const Order: React.FC = () => {
   };
   
   // Delivery 0 - 5 Km ,
-  //  K30, 5 - 10KM: 
+  // K30, 5 - 10KM: 
   // K50, 10 - 15KM: 
   // K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndo
   
@@ -75,7 +80,8 @@ const Order: React.FC = () => {
     return 200;
   };
 
-  //Use a useEffect to rerender the component and show new delivy fee when the distance changes
+  //Use a useEffect to rerender the component and show new delivy fee when the distance 
+  //changes
   useEffect(() => {
     setDeliveryFee(calculateFee(distance));   
   }, [distance]);
@@ -91,27 +97,32 @@ const Order: React.FC = () => {
             <View style={styles.splitContainer}>
               <View style={styles.previewContainer_1}> 
                 <View style={styles.previewWindow_1}>
-                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_1} />
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.image_1} />
                 </View>
               </View>
               <View style={styles.previewContainer_2}>
                 <View style={styles.previewWindow_2}>
-                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_2} />
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.image_2} />
                 </View>
               </View>
               <View style={styles.previewContainer_3}>
                 <View style={styles.previewWindow_3}>
-                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_3} />
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.image_3} />
                 </View>
               </View>
               <View style={styles.previewContainer_2}>
                 <View style={styles.previewWindow_2}>
-                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_4} />
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.image_4} />
                 </View>
               </View>
               <View style={styles.previewContainer_1}>
                 <View style={styles.previewWindow_1}>
-                  <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.image_5} />
+                  <Image source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.image_5} />
                 </View>
               </View>
             </View>
@@ -128,21 +139,26 @@ const Order: React.FC = () => {
             <View style={styles.imagesContainer}>
               <View style={styles.columnImagesContainer_1}>
                 <View style={styles.imageContainer}>
-                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={{ width: 120, height: 60 }} />
                 </View>
                 <View style={styles.imageContainer}>
-                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={{ width: 120, height: 60 }} />
                 </View>
               </View>
               <View style={styles.imageContainer}>
-                <Image source={{ uri : "https://picsum.photos/200/300" }} style={styles.image} />
+                <Image source={{ uri : "https://picsum.photos/200/300" }} 
+                  style={styles.image} />
               </View>
               <View style={styles.columnImagesContainer_2}>
                 <View style={styles.imageContainer}>
-                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={{ width: 120, height: 60 }} />
                 </View>
                 <View style={styles.imageContainer}>
-                  <Image source={{ uri : "https://picsum.photos/200/300" }} style={{ width: 120, height: 60 }} />
+                  <Image source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={{ width: 120, height: 60 }} />
                 </View>
               </View>
             </View>
