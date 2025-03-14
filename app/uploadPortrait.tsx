@@ -19,7 +19,7 @@ import { RootState } from "./store";
 const UploadPortrait = () => {
 
   //Define state variables
-  const { size, price , aspectRatio: aspectRatioParam } = useLocalSearchParams();
+  const { size, price , aspectRatio: aspectRatioParam, type } = useLocalSearchParams();
   const itemPrice = Number(price);
   const aspectRatio = Array.isArray(aspectRatioParam) ? 
     parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
@@ -44,6 +44,7 @@ const UploadPortrait = () => {
       imageUrls: [image_1, image_2],
       quantity: 1,
       totalPrice: itemPrice,
+      type: type
     };
     dispatch(cartActions.addToCart(item));
   };
@@ -57,6 +58,7 @@ const UploadPortrait = () => {
       imageUrls: [image_1, image_2],
       quantity: 1,
       totalPrice: itemPrice,
+      type: type
     };
     dispatch(cartActions.removeFromCart(item));
   };
