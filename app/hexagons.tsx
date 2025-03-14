@@ -27,31 +27,49 @@ const Hexagons = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.comboType}>Hexagons</Text>
+      <Text style={styles.canvasType}>Hexagons</Text>
       <View style={styles.imagesContainer}>
         <View style={styles.imageContainer}>
-          <HexagonImage source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} size={150} />
-          <TouchableOpacity style={styles.cameraIcon_1} onPress={async () => setImage_1(await pickImage())}>
+          <HexagonImage 
+            source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
+            size={150} 
+          />
+          <TouchableOpacity 
+            style={styles.cameraIcon_1} 
+            onPress={async () => setImage_1(await pickImage())}
+          >
             <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
           </TouchableOpacity>
         </View>
         <View style={styles.horizonalContainer}>
           <View style={styles.imageContainer}>
-            <HexagonImage source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} size={150} />
-            <TouchableOpacity style={styles.cameraIcon_2} onPress={async () => setImage_2(await pickImage())}>
+            <HexagonImage 
+              source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} 
+              size={150} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon_2} 
+              onPress={async () => setImage_2(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
           <View style={styles.imageContainer}>
-            <HexagonImage source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} size={150} />
-            <TouchableOpacity style={styles.cameraIcon_2} onPress={async () => setImage_3(await pickImage())}>
+            <HexagonImage 
+              source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
+              size={150} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon_2} 
+              onPress={async () => setImage_3(await pickImage())}
+            >
               <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
         </View>
       </View>
       <View style={styles.details}>
-        <Text style={styles.splitCanvasDimensions}>3 X A4</Text>
+        <Text style={styles.canvasDimensions}>3 X A4</Text>
         <View style={styles.priceTab}>
           <Text style={styles.priceTabText}>K650</Text>
         </View>
@@ -75,7 +93,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#e0b0ff",
   },
-  comboType: {
+  canvasType: {
     fontSize: 40,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
-  splitCanvasDimensions: {
+  canvasDimensions: {
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
@@ -158,6 +176,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#ffffff",
-  },
-  
+  }, 
 });
