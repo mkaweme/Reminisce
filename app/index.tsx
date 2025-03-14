@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Image } from "react-native";
 import logo from "../assets/images/logo_2_transparent.png";
 import { LinearGradient } from "expo-linear-gradient";
@@ -18,13 +18,15 @@ export default function Index() {
   
   return (
     <LinearGradient 
-      colors={["#b4baba", "#e7d4aa"]} 
+      colors={["#34ffc688", "#62004d"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }}  
       style={styles.container}
     >
       <View style={styles.banner}>
-        <Image source={logo} width={684} height={766} style={styles.logo}/>
+        <ImageBackground source={require("../assets/images/logo_background.png")} >
+          <Image source={logo} width={684} height={766} style={styles.logo}/>
+        </ImageBackground>
         <View style={styles.divider}></View>
         <Text style={styles.title}>WELCOME TO REMINISCE CANVAS.</Text>
       </View>
@@ -54,6 +56,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
 
   },
+  logoContainer: {
+    
+  },
   logo: {
     width: 100,
     height: 125,
@@ -78,17 +83,17 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
-    width: 150,
-    height: 50,
+    width: 200,
+    height: 64,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
     alignSelf: "center",
-    backgroundColor: "#3d7794",
+    backgroundColor: "#ffffff",
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+    color: "#1f1f1f",
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
