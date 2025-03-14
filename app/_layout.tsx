@@ -6,7 +6,7 @@ import store from "./store";
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <Stack screenOptions={{ headerTitleAlign: "center"}}>
+      <Stack screenOptions={{ headerTitleAlign: "center" }}>
         <Stack.Screen name="combos" options={{ title: "Combos" }} />
         <Stack.Screen name="index" options={{ title: "Home" }} />
         <Stack.Screen name="order" options={{ title: "Order" }} />
