@@ -17,4 +17,5 @@ declare type CanvasItem = {
   imageUrls: string[];
   quantity: number ;
   totalPrice: number;
+  type: string
 };
