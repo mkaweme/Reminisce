@@ -6,10 +6,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { useFonts } from "expo-font";
 import BebasNeueRegular from "../assets/fonts/BebasNeue-Regular.ttf";
+import GaladaRegular from "../assets/fonts/Galada-Regular.ttf";
+import logoBackground from "../assets/images/logo_background.png";
 
 export default function Index() {
   const [fontsLoaded] = useFonts({
     "BebasNeue-Regular": BebasNeueRegular,
+    "Galada-Regular":   GaladaRegular,
   });
 
   if (!fontsLoaded) {
@@ -24,10 +27,9 @@ export default function Index() {
       style={styles.container}
     >
       <View style={styles.banner}>
-        <ImageBackground source={require("../assets/images/logo_background.png")} >
+        <ImageBackground source={logoBackground} style={styles.logoContainer} >
           <Image source={logo} width={684} height={766} style={styles.logo}/>
         </ImageBackground>
-        <View style={styles.divider}></View>
         <Text style={styles.title}>WELCOME TO REMINISCE CANVAS.</Text>
       </View>
       <Text style={styles.text}>
@@ -50,14 +52,16 @@ const styles = StyleSheet.create({
   banner: {
     display: "flex",
     flexDirection: "column",
-    marginTop: 80,
-    height: "40%",
     alignItems: "center",
     justifyContent: "space-around",
 
   },
   logoContainer: {
-    
+    width: 162,
+    height: 162,
+    marginVertical: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
   logo: {
     width: 100,
@@ -70,16 +74,17 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
-    fontWeight: "bold",
-    fontFamily: "BebasNeue-Regular",
-    color: "#2c7aa2",
+    fontFamily: "Galada-Regular",
+    color: "#ffffff",
     width: "60%",
     textAlign: "center",
   },
   text: {
-    margin: 20,
+    margin: 16,
     fontSize: 16,
     fontFamily: "Inter-Regular",
+    color: "#ffffff",
+    textAlign: "center",
   },
   button: {
     marginTop: 30,
