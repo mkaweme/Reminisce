@@ -11,140 +11,216 @@ import {
 } from "react-native";
 import { Divider } from "@rneui/base";
 import HexagonImage from "./components/hexagonImage";
+import { LinearGradient } from "expo-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const Products = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.section}>
-          <Text style={styles.canvasType}>PORTRAITS</Text>
-          <Image style={styles.portrait} source={{ uri: "https://picsum.photos/200/300" }} />
-          <Link href="/portraitSizes" asChild>
-            <TouchableOpacity style={styles.orderButton}>
-              <Text style={styles.orderButtonText}>SELECT</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-        <Divider />
-        <View style={styles.section}>
-          <Text style={styles.canvasType}>SPLITS</Text>
-          <View style={styles.splitContainer}>
-            <View style={styles.splitPreviewContainer_1}> 
-              <View style={styles.splitPreviewWindow}>
-                <Image 
-                  source={{ uri: "https://picsum.photos/200/300" }} 
-                  style={styles.splitImage_1} 
+      <LinearGradient 
+        colors={["#34ffc688", "#62004d"]} 
+        start={{ x:0, y: 0 }} 
+        end={{ x: 1, y: 1 }}    
+      >
+        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+          <View style={styles.section}>
+            <MaskedView
+              maskElement={(
+                <View
+                  style={[
+                    StyleSheet.absoluteFill, 
+                    { borderWidth : 3, borderRadius: 10 }]}
                 />
+              )}
+              style={[StyleSheet.absoluteFill]}
+            >
+              <LinearGradient
+                colors={["#d900aa", "#34ffc6"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[StyleSheet.absoluteFill]}
+              />
+            </MaskedView>
+            <Text style={styles.canvasType}>PORTRAITS</Text>
+            <Image style={styles.portrait} source={{ uri: "https://picsum.photos/200/300" }} />
+            <Link href="/portraitSizes" asChild>
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>  
+          <Divider />
+          <View style={styles.section}>
+            <MaskedView
+              maskElement={(
+                <View
+                  style={[
+                    StyleSheet.absoluteFill, 
+                    { borderWidth : 3, borderRadius: 10 }]}
+                />
+              )}
+              style={[StyleSheet.absoluteFill]}
+            >
+              <LinearGradient
+                colors={["#d900aa", "#34ffc6"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[StyleSheet.absoluteFill]}
+              />
+            </MaskedView>
+            <Text style={styles.canvasType}>SPLITS</Text>
+            <View style={styles.splitContainer}>
+              <View style={styles.splitPreviewContainer_1}> 
+                <View style={styles.splitPreviewWindow}>
+                  <Image 
+                    source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.splitImage_1} 
+                  />
+                </View>
+              </View>
+              <View style={styles.splitPreviewContainer_2}>
+                <View style={styles.splitPreviewWindow}>
+                  <Image
+                    source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.SplitImage_2} 
+                  />
+                </View>
+              </View>
+              <View style={styles.splitPreviewContainer_1}>
+                <View style={{ width: 75, height: 140, overflow: "hidden" }}>
+                  <Image 
+                    source={{ uri: "https://picsum.photos/200/300" }} 
+                    style={styles.splitImage_3} 
+                  />
+                </View>
+              </View>
+              <View style={styles.splitPreviewContainer_2}>
+                <View style={styles.splitPreviewWindow}>
+                  <Image 
+                    source={{ uri: "https://picsum.photos/200/300" }}
+                    style={styles.splitImage_4} 
+                  />
+                </View>
               </View>
             </View>
-            <View style={styles.splitPreviewContainer_2}>
-              <View style={styles.splitPreviewWindow}>
-                <Image
-                  source={{ uri: "https://picsum.photos/200/300" }} 
-                  style={styles.SplitImage_2} 
+            <Link href="/splits" asChild>
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>  
+          <Divider />
+          <View style={styles.section}>
+            <MaskedView
+              maskElement={(
+                <View
+                  style={[
+                    StyleSheet.absoluteFill, 
+                    { borderWidth : 3, borderRadius: 10 }]}
                 />
+              )}
+              style={[StyleSheet.absoluteFill]}
+            >
+              <LinearGradient
+                colors={["#d900aa", "#34ffc6"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[StyleSheet.absoluteFill]}
+              />
+            </MaskedView>
+            <Text style={styles.canvasType}>COMBOS</Text>
+            <View style={styles.comboImagesContainer}>
+              <View style={styles.comboColumnImagesContainer}>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_1} 
+                  />
+                </View>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_1} 
+                  />
+                </View>
+              </View>
+              <View style={styles.comboColumnImagesContainer}>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_2} resizeMode="cover"
+                  />
+                </View>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_2} resizeMode="cover"
+                  />
+                </View>
+              </View>
+              <View style={styles.comboColumnImagesContainer}>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_1} 
+                  />
+                </View>
+                <View style={styles.comboImageContainer}>
+                  <Image 
+                    source={{ uri : "https://picsum.photos/200/300" }} 
+                    style={styles.comboImage_1} 
+                  />
+                </View>
               </View>
             </View>
-            <View style={styles.splitPreviewContainer_1}>
-              <View style={{ width: 75, height: 140, overflow: "hidden" }}>
-                <Image 
-                  source={{ uri: "https://picsum.photos/200/300" }} 
-                  style={styles.splitImage_3} 
+            <Link href="/combos" asChild>
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>  
+          <Divider />
+          <View style={styles.section}>
+            <MaskedView
+              maskElement={(
+                <View
+                  style={[
+                    StyleSheet.absoluteFill, 
+                    { borderWidth : 3, borderRadius: 10 }]}
                 />
-              </View>
-            </View>
-            <View style={styles.splitPreviewContainer_2}>
-              <View style={styles.splitPreviewWindow}>
-                <Image 
-                  source={{ uri: "https://picsum.photos/200/300" }}
-                  style={styles.splitImage_4} 
-                />
-              </View>
-            </View>
-          </View>
-          <Link href="/splits" asChild>
-            <TouchableOpacity style={styles.orderButton}>
-              <Text style={styles.orderButtonText}>SELECT</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-        <Divider />
-        <View style={styles.section}>
-          <Text style={styles.canvasType}>COMBOS</Text>
-          <View style={styles.comboImagesContainer}>
-            <View style={styles.comboColumnImagesContainer}>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_1} 
-                />
-              </View>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_1} 
-                />
-              </View>
-            </View>
-            <View style={styles.comboColumnImagesContainer}>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_2} resizeMode="cover"
-                />
-              </View>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_2} resizeMode="cover"
-                />
-              </View>
-            </View>
-            <View style={styles.comboColumnImagesContainer}>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_1} 
-                />
-              </View>
-              <View style={styles.comboImageContainer}>
-                <Image 
-                  source={{ uri : "https://picsum.photos/200/300" }} 
-                  style={styles.comboImage_1} 
-                />
-              </View>
-            </View>
-          </View>
-          <Link href="/combos" asChild>
-            <TouchableOpacity style={styles.orderButton}>
-              <Text style={styles.orderButtonText}>SELECT</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-        <Divider />
-        <View style={styles.section}>
-          <Text style={styles.canvasType}>Hexagons</Text>
-          <View style={styles.hexagonImagesContainer}>
-            <View style={styles.hexagonImageContainer}>
-              <HexagonImage source={{ uri : "https://picsum.photos/200/300" }} size={150} />
-            </View>
-            <View style={styles.hexagonHorizonalContainer}>
+              )}
+              style={[StyleSheet.absoluteFill]}
+            >
+              <LinearGradient
+                colors={["#d900aa", "#34ffc6"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[StyleSheet.absoluteFill]}
+              />
+            </MaskedView>
+            <Text style={styles.canvasType}>HEXAGONS</Text>
+            <View style={styles.hexagonImagesContainer}>
               <View style={styles.hexagonImageContainer}>
                 <HexagonImage source={{ uri : "https://picsum.photos/200/300" }} size={150} />
               </View>
-              <View style={styles.hexagonImageContainer}>
-                <HexagonImage source={{ uri : "https://picsum.photos/200/300" }} size={150} />
+              <View style={styles.hexagonHorizonalContainer}>
+                <View style={styles.hexagonImageContainer}>
+                  <HexagonImage source={{ uri : "https://picsum.photos/200/300" }} size={150} />
+                </View>
+                <View style={styles.hexagonImageContainer}>
+                  <HexagonImage source={{ uri : "https://picsum.photos/200/300" }} size={150} />
+                </View>
               </View>
             </View>
-          </View>
-          <Link href="/hexagons" asChild>
-            <TouchableOpacity style={styles.orderButton}>
-              <Text style={styles.orderButtonText}>SELECT</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-      </ScrollView>    
+            <Link href="/hexagons" asChild>
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>    
+        </ScrollView>
+      </LinearGradient>    
     </SafeAreaView>
   );
 };
@@ -154,28 +230,32 @@ export default Products;
 const styles = StyleSheet.create({
   container : {
     display: "flex",
-    flexDirection: "column",
-    backgroundColor: "skyblue"
+  },
+  gradientContainer: {
+    alignItems: "center",
+    paddingTop: 15,
+    paddingBottom: 45,
   },
   section : {
-    flex: 1,
+    width: "90%",
+    height: 490,
+    padding: 3,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dddddd",
+    backgroundColor: "transparent",
+    marginVertical: 15,
+  },
+  canvasType: {
+    position: "relative",
+    fontSize: 40,
+    fontFamily: "BebasNeue-Regular",
+    marginTop: 20,
+    color: "#ffffff"
   },
   portrait: {
     width: 200,
     height: 300,
     margin: 20,
-    borderColor: "#FFFFFF",
-    borderWidth: 5,
-  },
-  canvasType: {
-    position: "relative",
-    fontSize: 40,
-    fontWeight: "bold",
-    fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
   },
   orderButton : {
     backgroundColor: "#ffffff",
@@ -291,7 +371,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
-    
   },
   hexagonImagesContainer: {
     display: "flex",
@@ -309,6 +388,6 @@ const styles = StyleSheet.create({
   hexagonHorizonalContainer: {
     display: "flex",
     flexDirection: "row",
-    top: -50,
+    top: -40,
   },
 });
