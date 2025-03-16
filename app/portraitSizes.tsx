@@ -1,6 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 
 const PORTRAITS = [
   { size:"A1", price : 540, aspectRatio: 1.41 },
@@ -13,59 +14,88 @@ const PORTRAITS = [
 ];
 const Portraits = () => {
   return (
-    <View style={styles.constainer}>
-      <Text style={styles.header}>Select Portrait Size</Text>
-      {PORTRAITS.map((portrait, index) => (
-        <Link key={index} 
-          href={{ 
-            pathname:"/uploadPortrait", 
-            params: { 
-              size: portrait.size, 
-              price: portrait.price, 
-              aspectRatio: portrait.aspectRatio,
-              type: "portrait" 
-            } 
-          }} 
-          asChild
-        >
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>{portrait.size}</Text>
-            <Text style={styles.buttonText}> : </Text>
-            <Text style={styles.buttonText}>K{portrait.price}</Text>
-          </TouchableOpacity>
-        </Link>
-      ))}
-    </View>
+    <ScrollView style={styles.container}>
+      <LinearGradient 
+        colors={["#2dcc9f", "#62004d"]} 
+        start={{ x:0, y: 0 }} 
+        end={{ x: 1, y: 1 }} 
+        style={styles.gradientContainer}   
+      >
+        <Text style={styles.header}>Select Portrait Size</Text>
+        {PORTRAITS.map((portrait, index) => (
+          <Link key={index} 
+            href={{ 
+              pathname:"/uploadPortrait", 
+              params: { 
+                size: portrait.size, 
+                price: portrait.price, 
+                aspectRatio: portrait.aspectRatio,
+                type: "portrait" 
+              } 
+            }} 
+            asChild
+          >
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>{portrait.size}</Text>
+              <Text style={styles.buttonText}> : </Text>
+              <Text style={styles.buttonText}>K{portrait.price}</Text>
+              <View style={styles.triangle}>
+              </View>
+            </TouchableOpacity>
+          </Link>
+        ))}
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
 export default Portraits;
 
 const styles = StyleSheet.create({
-  constainer: {
+  container: {
     flex: 1,
-    alignItems: "center",
+    height: "100%",
+    backgroundColor: "yellow",
+  },
+  gradientContainer: {
+    padding: 10,
+    flex: 1,
+    height: "100%",
     justifyContent: "center",
-    backgroundColor: "#e7d4b4",
+    alignItems: "center",
   },
   header: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 32,
+    fontWeight: "600",
+    color: "#ffffff",
+    marginVertical: 20,
   },
   button: {
     display: "flex",
     flexDirection: "row",
-    margin: 20,
-    width: 200,
-    height: 50,
+    margin: 15,
+    width: 280,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
-    backgroundColor: "#09759a",
+    backgroundColor: "#ffffff",
   },
   buttonText: {
-    color: "#fff",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  triangle: {
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderRightWidth: 0,
+    borderBottomWidth: 20,
+    borderLeftWidth: 35,
+    borderRightColor: "green",
+    borderBottomColor: "#e5e5e5",
+    borderLeftColor: "transparent",
+    position: "absolute",
+    right: 0,
+    bottom: 0,
   },
 });
