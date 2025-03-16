@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { 
-  Image, 
-  ImageBackground,  
-  ScrollView, 
-  StyleSheet, 
-  Text, 
-  TouchableOpacity, 
-  View 
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
-import threePieceBackground from "../assets/images/3_Piece_Background.jpg";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "./CartReducer";
 import { RootState } from "./store";
+import { LinearGradient } from "expo-linear-gradient";
 
 const UploadPortrait = () => {
 
@@ -87,74 +79,73 @@ const UploadPortrait = () => {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center" }}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{size}</Text>
-        <Text style={styles.buttonText}> : </Text>
-        <Text style={styles.buttonText}>K{price}</Text>
-      </View>
-      <ImageBackground source={threePieceBackground} style={styles.fullImageContainer}>
-        <View>
+      <LinearGradient 
+        colors={["#34ffc688", "#62004d"]} 
+        start={{ x:0, y: 0 }} 
+        end={{ x: 1, y: 1 }} 
+        style={styles.gradientContainer}   
+      >
+        <View style={styles.section}>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.canvasType}>{size}</Text>
+            <Text style={styles.canvasType}> : </Text>
+            <Text style={styles.canvasType}>K{price}</Text>
+          </View>
           <View style={styles.imageContainer}>
             <Image 
-              source={
-                image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }
-              }
-              style={{ width: 250, height: 250, resizeMode: "contain" }} />
-            <TouchableOpacity style={styles.cameraIcon} 
-              onPress={async () => setImage_1(await pickImage())}>
-              <MaterialCommunityIcons name="camera-plus-outline" 
-                size={24} color="white" />
+              source={image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }} 
+              style={styles.portrait} 
+            />
+            <TouchableOpacity 
+              style={styles.cameraIcon} 
+              onPress={async () => setImage_1(await pickImage())}
+            >
+              <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
-          { noImage ? 
-            (
-              <>
-                <Text style={styles.warning}>
-                  Please upload an image before adding an item to cart
-                </Text>
-              </>
-            ) : <></>}
-        </View>
-        {
-          size == "A4 X 2" 
-            ? (
+          {
+            size == "A4 X 2" ? (
               <View style={styles.imageContainer}>
                 <Image 
                   source={
                     image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }
                   } 
-                  style={{ 
-                    width: 300, height: 300 * aspectRatio, resizeMode: "contain" 
-                  }} />
+                  style={{ width: 300, height: 300 * aspectRatio, resizeMode: "contain" }} 
+                />
                 <TouchableOpacity 
                   style={styles.cameraIcon} 
                   onPress={async () => setImage_2(await pickImage())}
                 >
-                  <MaterialCommunityIcons 
-                    name="camera-plus-outline" 
-                    size={24} color="white"
-                  />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                 </TouchableOpacity>
-              </View>
-            
+              </View> 
             ) : null
-        }
-        {
-          cartItems.some((value) => value.size == size ) ? (
-            <TouchableOpacity style={styles.orderButton} 
-              onPress={removeItemFromCart}
-            >
-              <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
-            </TouchableOpacity>
+          }
+          { 
+            noImage ? (
+              <Text style={styles.warning}>
+                Please upload an image before adding an item to cart
+              </Text>
+            ) : null
+          }
+          {
+            cartItems.some((value) => value.size == size ) ? (
+              <TouchableOpacity style={styles.orderButton} 
+                onPress={removeItemFromCart}
+              >
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
          
-          ) : (
-            <TouchableOpacity style={styles.orderButton} 
-              onPress={addItemToCart}
-            >
-              <Text style={styles.orderButtonText}>ADD TO CART</Text>
-            </TouchableOpacity>
-          )} 
-      </ImageBackground>
+            ) : (
+              <TouchableOpacity style={styles.orderButton} 
+                onPress={addItemToCart}
+              >
+                <Text style={styles.orderButtonText}>ADD TO CART</Text>
+              </TouchableOpacity>
+            )
+          } 
+        </View>  
+      </LinearGradient>
     </ScrollView>
   );
 };
@@ -164,23 +155,39 @@ export default UploadPortrait;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
   },
-  button: {
+  gradientContainer: {
+    width: "100%",
+    height: "100%",
+  },
+  detailsContainer: {
     display: "flex",
     flexDirection: "row",
     margin: 20,
-    width: 150,
-    height: 50,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
-    backgroundColor: "#09759a",
   },
-  buttonText: {
+  detailsText: {
     color: "#fff",
     fontFamily: "BebasNeue-Regular",
     fontSize: 30,
-    fontWeight: "bold",
+  },
+  section : {
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  canvasType: {
+    position: "relative",
+    fontSize: 40,
+    fontFamily: "BebasNeue-Regular",
+    marginTop: 20,
+    color: "#ffffff"
+  },
+  portrait: {
+    width: 200,
+    height: 300,
+    margin: 20,
   },
   fullImageContainer: {
     height: 550,
