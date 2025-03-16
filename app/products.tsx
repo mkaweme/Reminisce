@@ -88,7 +88,7 @@ const Products = () => {
                 </View>
               </View>
               <View style={styles.splitPreviewContainer_1}>
-                <View style={{ width: 75, height: 140, overflow: "hidden" }}>
+                <View style={styles.splitPreviewWindow}>
                   <Image 
                     source={{ uri: "https://picsum.photos/200/300" }} 
                     style={styles.splitImage_3} 
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 490,
     padding: 3,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "transparent",
     marginVertical: 15,
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   splitContainer: {
     flexDirection: "row",
     width: 305,
-    height: 180,
+    height: 220,
     alignContent: "center",
     alignItems: "center",
     marginTop: 15,
@@ -298,31 +298,30 @@ const styles = StyleSheet.create({
   },
   splitPreviewWindow: {
     width: 75,
-    height: 140,
+    height: 180,
     overflow: "hidden",
   },
   splitImage_1: {
     width: 300,
-    height: 170,
+    height: 210,
     top: -25,
   },
   SplitImage_2: {
     width: 300,
-    height: 170,
+    height: 210,
     position: "absolute",
     left: -75,
-    top: 0,
   },
   splitImage_3: {
     width: 300,
-    height: 170,
+    height: 210,
     position: "absolute",
     left: -150,
     top: -25,
   },
   splitImage_4: {
     width: 300,
-    height: 170,
+    height: 210,
     position: "absolute",
     left: -225,
   },
