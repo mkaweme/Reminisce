@@ -5,6 +5,11 @@ import * as ImagePicker from "expo-image-picker";
 import { useFonts } from "expo-font";
 import BebasNeueRegular from "../../../assets/fonts/BebasNeue-Regular.ttf";
 import { Link, usePathname } from "expo-router";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient } from "expo-linear-gradient";
+
+const PRICE: number = 780;
+const SIZE: string = "70CM X 120CM";
 
 const Joy = () => {
 
@@ -36,63 +41,114 @@ const Joy = () => {
     
   return (
     <View style={styles.container}>
-      <Text style={styles.splitCanvasType}>4 PIECE JOY</Text>
-      <View style={styles.splitContainer}>
-        <View style={styles.previewContainer_1}> 
-          <View style={styles.previewWindow}>
-            <Image 
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_1} 
+      <View style={styles.section}>
+        <MaskedView
+          maskElement={(
+            <View
+              style={[
+                StyleSheet.absoluteFill, 
+                { borderWidth : 3, borderRadius: 10 }]}
             />
+          )}
+          style={[StyleSheet.absoluteFill]}
+        >
+          <LinearGradient
+            colors={["#d900aa", "#34ffc6"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={[StyleSheet.absoluteFill]}
+          />
+        </MaskedView>
+        <Text style={styles.canvasType}>4 PIECE JOY</Text>
+        <View style={styles.splitContainer}>
+          <View style={styles.previewContainer_1}> 
+            <View style={styles.previewWindow}>
+              <Image 
+                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_1} 
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.previewContainer_2}>
-          <View style={styles.previewWindow}>
-            <Image
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_2} 
-            />
+          <View style={styles.previewContainer_2}>
+            <View style={styles.previewWindow}>
+              <Image
+                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_2} 
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.previewContainer_1}>
-          <View style={{ width: 75, height: 140, overflow: "hidden" }}>
-            <Image 
-              source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_3} 
-            />
+          <View style={styles.previewContainer_1}>
+            <View style={{ width: 75, height: 140, overflow: "hidden" }}>
+              <Image 
+                source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_3} 
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.previewContainer_2}>
-          <View style={styles.previewWindow}>
-            <Image 
-              source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }}
-              style={styles.image_4} 
-            />
+          <View style={styles.previewContainer_2}>
+            <View style={styles.previewWindow}>
+              <Image 
+                source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }}
+                style={styles.image_4} 
+              />
+            </View>
           </View>
+          {
+            pathName.includes("upload") && (
+              <TouchableOpacity 
+                style={styles.cameraIcon} 
+                onPress={async () => setImage(await pickImage())}
+              >
+                <MaskedView
+                  maskElement={(
+                    <View
+                      style={[
+                        StyleSheet.absoluteFill, 
+                        { borderWidth : 3, borderRadius: 10 }]}
+                    />
+                  )}
+                  style={[StyleSheet.absoluteFill]}
+                >
+                  <LinearGradient
+                    colors={["#d900aa", "#34ffc6"]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={[StyleSheet.absoluteFill]}
+                  />
+                </MaskedView>
+                <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+              </TouchableOpacity>
+            )
+          }
         </View>
-        {
-          pathName.includes("upload") &&
-          <TouchableOpacity 
-            style={styles.cameraIcon} onPress={async () => setImage(await pickImage())}
+        <View style={styles.details}>
+          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
+          <LinearGradient 
+            colors={["#34ffc6", "#d900aa" ]} 
+            start={{ x:0, y: 0 }} 
+            end={{ x: 1, y: 1 }} 
+            style={styles.priceContainer}   
           >
-            <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-          </TouchableOpacity>
-        }
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.splitCanvasDimensions}>70CM X 120CM</Text>
-        <View style={styles.priceTab}>
-          <Text style={styles.priceTabText}>K780</Text>
+            <Text style={styles.price}>K{PRICE}</Text>
+          </LinearGradient>
         </View>
-      </View>
-      {
-        pathName.includes("split") &&
-        <Link href="/uploadSplit" asChild>
+        <Link href={{
+          pathname: "/portraitSizes",
+          params: {
+            image: image,
+            canvasType: "3 PIECE DINE",
+            size: SIZE,
+            price: PRICE,
+            type: "split"
+          }
+        }}
+        asChild
+        >
           <TouchableOpacity style={styles.orderButton}>
-            <Text style={styles.orderButtonText}>ORDER</Text>
+            <Text style={styles.orderButtonText}>SELECT</Text>
           </TouchableOpacity>
         </Link>
-      }
+      </View>  
     </View>
   );
 };
@@ -104,19 +160,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dddddd", 
   },
-  splitCanvasType: {
+  section : {
+    height: 490,
+    width: "95%",
+    padding: 3,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 15,
+  },
+  canvasType: {
     position: "relative",
     fontSize: 40,
-    fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
-  },
-  header: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginVertical: 30,
+    marginTop: 20,
+    color: "#ffffff"
   },
   fullImageContainer: {
     height: 500,
@@ -180,18 +238,15 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     position: "absolute",
-    borderColor: "#ffffff66",
-    borderWidth: 3,
-    borderRadius: 25,
     padding: 5,
-    bottom: 0,
-    right: 0,
+    bottom: 5,
+    right: 4,
   },
   details: {
-    width: 275,
-    marginTop: 15,
-    backgroundColor: "#ffffff66",
-    alignContent: "center",
+    width: 300,
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "space-between",
     alignItems: "center",
   },
   splitCanvasDimensions: {
@@ -199,21 +254,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
   },
-  priceTab: {
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 10,
+  priceContainer: {
+    fontSize: 40,
     width: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    backgroundColor: "#09759a",
-  },
-  priceTabText: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold",
+    height: 50,
     fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    alignItems: "center",
+    borderRadius:5,
+  },
+  price: {
+    fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    fontSize: 40,
   },
   orderButton : {
     backgroundColor: "#ffffff",
