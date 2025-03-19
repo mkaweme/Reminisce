@@ -1,7 +1,9 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
+
+const { height } = Dimensions.get("screen"); // Get full screen height
 
 const PORTRAITS = [
   { size:"A1", price : 540, aspectRatio: 1.41 },
@@ -13,6 +15,7 @@ const PORTRAITS = [
   { size:"A4 X 2", price : 250, aspectRatio: 1.41 },
 ];
 const Portraits = () => {
+
   return (
     <ScrollView style={styles.container}>
       <LinearGradient 
@@ -53,15 +56,12 @@ export default Portraits;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: "100%",
-    backgroundColor: "yellow",
+    height: height,
   },
   gradientContainer: {
     padding: 10,
     flex: 1,
-    height: "100%",
-    justifyContent: "center",
+    height: height,
     alignItems: "center",
   },
   header: {
