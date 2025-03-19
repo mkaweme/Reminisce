@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
-import { Link } from "expo-router";
+import { Link, usePathname } from "expo-router";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient } from "expo-linear-gradient";
 
+const PRICE: number = 650;
+const SIZE: string = "3 : 70CM X 90CM";
 const Dine = () => {
 
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
 
+  const pathName: string = usePathname();
+
+  console.log("Pathname : ", pathName);
   //Define a function for selecting an image from the device
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -25,50 +32,105 @@ const Dine = () => {
     
   return (
     <View style={styles.container}>
-      <Text style={styles.splitCanvasType}>3 PIECE DINE</Text>
-      <View style={styles.splitContainer}>
-        <View style={styles.previewContainer}>
-          <View style={styles.previewWindow}>
-            <Image 
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_1} 
+      <View style={styles.section}>
+        <MaskedView
+          maskElement={(
+            <View
+              style={[
+                StyleSheet.absoluteFill, 
+                { borderWidth : 3, borderRadius: 10 }]}
             />
-          </View>
-        </View>
-        <View style={styles.previewContainer}>
-          <View style={styles.previewWindow}>
-            <Image 
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_2} 
-            />
-          </View>
-        </View>
-        <View style={styles.previewContainer}>
-          <View style={styles.previewWindow}>
-            <Image 
-              source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-              style={styles.image_3} 
-            />
-          </View>
-        </View>
-        <TouchableOpacity 
-          style={styles.cameraIcon} 
-          onPress={async () => setImage(await pickImage())}
+          )}
+          style={[StyleSheet.absoluteFill]}
         >
-          <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.splitCanvasDimensions}>3 : 70CM X 30CM</Text>
-        <View style={styles.priceTab}>
-          <Text style={styles.priceTabText}>K650</Text>
+          <LinearGradient
+            colors={["#d900aa", "#34ffc6"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={[StyleSheet.absoluteFill]}
+          />
+        </MaskedView>
+        <Text style={styles.canvasType}>3 PIECE DINE</Text>
+        <View style={styles.splitContainer}>
+          <View style={styles.previewContainer}>
+            <View style={styles.previewWindow}>
+              <Image 
+                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_1} 
+              />
+            </View>
+          </View>
+          <View style={styles.previewContainer}>
+            <View style={styles.previewWindow}>
+              <Image 
+                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_2} 
+              />
+            </View>
+          </View>
+          <View style={styles.previewContainer}>
+            <View style={styles.previewWindow}>
+              <Image 
+                source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+                style={styles.image_3} 
+              />
+            </View>
+          </View>
+          {
+            pathName.includes("upload") && (
+              <TouchableOpacity 
+                style={styles.cameraIcon} 
+                onPress={async () => setImage(await pickImage())}
+              >
+                <MaskedView
+                  maskElement={(
+                    <View
+                      style={[
+                        StyleSheet.absoluteFill, 
+                        { borderWidth : 3, borderRadius: 10 }]}
+                    />
+                  )}
+                  style={[StyleSheet.absoluteFill]}
+                >
+                  <LinearGradient
+                    colors={["#d900aa", "#34ffc6"]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={[StyleSheet.absoluteFill]}
+                  />
+                </MaskedView>
+                <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+              </TouchableOpacity>
+            )}
         </View>
-      </View>
-      <Link href="/order" asChild>
-        <TouchableOpacity style={styles.orderButton}>
-          <Text style={styles.orderButtonText}>ORDER</Text>
-        </TouchableOpacity>
-      </Link>
+        <View style={styles.details}>
+          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
+          <LinearGradient 
+            colors={["#34ffc6", "#d900aa" ]} 
+            start={{ x:0, y: 0 }} 
+            end={{ x: 1, y: 1 }} 
+            style={styles.priceContainer}   
+          >
+            <Text style={styles.price}>K{PRICE}</Text>
+          </LinearGradient>
+        </View>
+        <Link href={{
+          pathname: "/portraitSizes",
+          params: {
+            image: image,
+            canvasType: "3 PIECE DINE",
+            size: SIZE,
+            price: PRICE,
+            type: "split"
+          }
+        }}
+        asChild
+        >
+          <TouchableOpacity style={styles.orderButton}>
+            <Text style={styles.orderButtonText}>SELECT</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>  
     </View>
   );
 };
@@ -80,13 +142,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#707684",
   },
-  splitCanvasType: {
+  section : {
+    height: 490,
+    width: "95%",
+    padding: 3,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 15,
+  },
+  canvasType: {
+    position: "relative",
     fontSize: 40,
-    fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginTop: 20,
+    color: "#ffffff"
   },
   header: {
     fontSize: 30,
@@ -139,40 +209,35 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     position: "absolute",
-    borderColor: "#ffffff66",
-    borderWidth: 3,
-    borderRadius: 25,
     padding: 5,
-    bottom: 0,
-    right: 0,
+    bottom: 5,
+    right: 4,
   },
   details: {
-    width: 275,
+    width: 300,
+    flexDirection: "row",
     marginTop: 20,
-    backgroundColor: "#ffffff66",
-    alignContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   splitCanvasDimensions: {
     fontSize: 30,
-    fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
   },
-  priceTab: {
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 10,
+  priceContainer: {
+    fontSize: 40,
     width: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    backgroundColor: "#09759a",
-  },
-  priceTabText: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold",
+    height: 50,
     fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    alignItems: "center",
+    borderRadius:5,
+  },
+  price: {
+    fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    fontSize: 40,
   },
   orderButton : {
     backgroundColor: "#ffffff",
@@ -184,7 +249,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   orderButtonText : {
-    color: "#09759a",
     fontSize: 24,
     fontWeight: "bold",
   },
