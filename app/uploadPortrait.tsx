@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Dimensions, 
-  Image, 
-  ScrollView, 
-  StyleSheet, 
-  Text, 
-  TouchableOpacity, 
-  View 
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -17,12 +9,12 @@ import { RootState } from "./store";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 
-const { height } = Dimensions.get("window"); // Get full screen height
 const UploadPortrait = () => {
 
-  //Define state variables
   const { size, price , aspectRatio: aspectRatioParam, type } = useLocalSearchParams();
   const itemPrice = Number(price);
+
+  //Define state variables
   const aspectRatio = Array.isArray(aspectRatioParam) ? 
     parseFloat(aspectRatioParam[0]) : parseFloat(aspectRatioParam);
   const [image_1, setImage_1] = useState<string | null> (null);
@@ -91,13 +83,13 @@ const UploadPortrait = () => {
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center" }}>
-      <LinearGradient 
-        colors={["#2dcc9f", "#62004d"]} 
-        start={{ x:0, y: 0 }} 
-        end={{ x: 1, y: 1 }} 
-        style={styles.gradientContainer}   
-      >
+    <LinearGradient 
+      colors={["#2dcc9f", "#62004d"]} 
+      start={{ x:0, y: 0 }} 
+      end={{ x: 1, y: 1 }} 
+      style={styles.gradientContainer}   
+    >
+      <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center" }}>
         <View style={styles.section}>
           <View style={styles.detailsContainer}>
             <Text style={styles.canvasType}>{size}</Text>
@@ -142,26 +134,38 @@ const UploadPortrait = () => {
           </View>
           {
             size == "A4 X 2" ? (
-              <>
-                <View style={styles.imageContainer}>
-                  <Image 
-                    source={
-                      image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }
-                    } 
-                    style={styles.portrait} 
-                  />
-                  <TouchableOpacity 
-                    style={styles.cameraIcon} 
-                    onPress={async () => setImage_2(await pickImage())}
+              <View style={styles.imageContainer}>
+                <Image 
+                  source={
+                    image_2 ? { uri: image_2 } : { uri: "https://picsum.photos/200/300" }
+                  } 
+                  style={styles.portrait} 
+                />
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_2(await pickImage())}
+                >
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 10 }]}
+                      />
+                    )}
+                    style={[StyleSheet.absoluteFill]}
                   >
-                    <MaterialCommunityIcons 
-                      name="camera-plus-outline" 
-                      size={24}
-                      color="white" 
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
                     />
-                  </TouchableOpacity>
-                </View>
-              </>
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
+              </View>
+        
             ) : null
           }
           { 
@@ -173,38 +177,30 @@ const UploadPortrait = () => {
           }
           {
             cartItems.some((value) => value.size == size ) ? (
-              <TouchableOpacity style={styles.orderButton} 
-                onPress={removeItemFromCart}
-              >
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity style={styles.orderButton} 
-                onPress={addItemToCart}
-              >
+              <TouchableOpacity style={styles.orderButton} onPress={addItemToCart}>
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
           } 
         </View>  
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 export default UploadPortrait;
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flex: 1,
-    backgroundColor: "yellow",
-  },
   gradientContainer: {
-    display: "flex",
     flex: 1,
-    width: "100%",
-    height: height,
+    height: "100%",
+  },
+  container: {
+    flex: 1,
   },
   detailsContainer: {
     display: "flex",
@@ -285,7 +281,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   orderButtonText : {
+    color: "#1f1f1f",
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "500",
   },
 });
