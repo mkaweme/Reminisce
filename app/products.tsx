@@ -229,7 +229,7 @@ export default Products;
 
 const styles = StyleSheet.create({
   container : {
-    display: "flex",
+    flex: 1
   },
   gradientContainer: {
     alignItems: "center",
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   },
   orderButton : {
     backgroundColor: "#ffffff",
-    width: 250,
+    width: 150,
     height: 40,
     margin: 20,
     alignItems: "center",
@@ -267,10 +267,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   orderButtonText : {
-    color: "#09759a",
-    fontSize: 24,
-    fontWeight: "bold",
-    fontFamily: "BebasNeue-Regular",
+    color: "#1f1f1f",
+    fontSize: 18,
+    fontWeight: "500",
   },
   splitContainer: {
     flexDirection: "row",
