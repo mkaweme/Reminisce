@@ -4,6 +4,10 @@ import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 
+const PRICE: number = 650;
+const SIZE: string = "1: 59CM X 35CM | 4: 20CM X 40CM";
+const NAME : string = "MOMENTS";
+
 const Moments = () => {
 
   //Define state variables
@@ -29,7 +33,7 @@ const Moments = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.comboType}>5 PIECE MOMENTS</Text>
+      <Text style={styles.canvasType}>5 PIECE MOMENTS</Text>
       <View style={styles.imagesContainer}>
         <View style={styles.columnImagesContainer_1}>
           <View style={styles.imageContainer}>
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#ff004d66",
   },
-  comboType: {
+  canvasType: {
     fontSize: 36,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
