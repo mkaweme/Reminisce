@@ -4,6 +4,10 @@ import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 
+const PRICE: number = 1090;
+const SIZE: string = "4 X A4";
+const NAME : string = "GROWTH";
+
 const Growth = () => {
 
   //Define state variables
@@ -34,7 +38,7 @@ const Growth = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.comboType}>10 PIECE GROWTH</Text>
+      <Text style={styles.canvasType}>10 PIECE GROWTH</Text>
       <View style={styles.imagesContainer}>
         <View style={styles.columnImagesContainer}>
           <View style={styles.imageContainer}>
@@ -166,7 +170,7 @@ const Growth = () => {
       <View style={styles.details}>
         <Text style={styles.splitCanvasDimensions}>2 X A3 | 4 X A4</Text>
         <View style={styles.priceTab}>
-          <Text style={styles.priceTabText}>K750</Text>
+          <Text style={styles.priceTabText}>K1090</Text>
         </View>
       </View>
       <Link href="/order" asChild>
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#964B0099",
   },
-  comboType: {
+  canvasType: {
     fontSize: 36,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
