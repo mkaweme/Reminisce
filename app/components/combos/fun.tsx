@@ -4,6 +4,10 @@ import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 
+const PRICE: number = 750;
+const SIZE: string = "2 X A3 | 4 X A4";
+const NAME : string = "FUN";
+
 const Fun = () => {
 
   //Define state variables
@@ -30,7 +34,7 @@ const Fun = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.comboType}>6 PIECE FUN</Text>
+      <Text style={styles.canvasType}>6 PIECE FUN</Text>
       <View style={styles.imagesContainer}>
         <View style={styles.columnImagesContainer}>
           <View style={styles.imageContainer}>
@@ -112,7 +116,7 @@ const Fun = () => {
       <View style={styles.details}>
         <Text style={styles.canvasDimensions}>2 X A3 | 4 X A4</Text>
         <View style={styles.priceTab}>
-          <Text style={styles.priceTabText}>K750</Text>
+          <Text style={styles.priceTabText}>K810</Text>
         </View>
       </View>
       <Link href="/order" asChild>
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#00808099",
   },
-  comboType: {
+  canvasType: {
     fontSize: 36,
     fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
