@@ -15,6 +15,8 @@ export default function RootLayout() {
         <Stack.Screen name="splits" options={{ title: "Splits" }} />
         <Stack.Screen name="test" options={{ title: "Test" }} />
         <Stack.Screen name="uploadPortrait" options={{ title: "Upload Portrait" }} />
+        <Stack.Screen name="uploadSplit" options={{ title: "Upload Image" }} />
+        <Stack.Screen name="uploadCombo" options={{ title: "Upload Images" }} />
       </Stack>  
     </Provider>
   );
