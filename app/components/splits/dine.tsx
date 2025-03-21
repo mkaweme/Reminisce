@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
-import { Link, usePathname } from "expo-router";
+import { Link, useLocalSearchParams, usePathname } from "expo-router";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
+import { RootState } from "app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "app/CartReducer";
 
 const PRICE: number = 650;
 const SIZE: string = "3 : 70CM X 90CM";
+const NAME : string = "DINE";
 const Dine = () => {
+  
+  const { size, price , type, name } = useLocalSearchParams();
+  const itemPrice = Number(price);
 
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
+  const [noImage, setNoImage] = useState<boolean>(false);
 
   const pathName: string = usePathname();
 
-  console.log("Pathname : ", pathName);
   //Define a function for selecting an image from the device
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -26,10 +33,48 @@ const Dine = () => {
   
     //If an images was selected and the process wasn't cancelled
     if (!result.canceled) {
+      setNoImage(false);
       return result.assets[0].uri;
     } else return null;
   };
-    
+  
+  const cartItems = useSelector((state : RootState) => state.cart.items);
+  const dispatch = useDispatch();
+
+  //Define a function that adds an item to the cart
+  const addItemToCart = () => {
+    if(!image) {
+      setNoImage(true);
+      return;
+    }
+    const item = {
+      id: size,
+      name: name,
+      price: itemPrice,
+      size: size,
+      imageUrls: [image],
+      quantity: 1,
+      totalPrice: itemPrice,
+      type: type
+    };
+    dispatch(cartActions.addToCart(item));
+  };
+  
+  //Define a function that aremoves an item from the cart
+  const removeItemFromCart = () => {
+    const item = {
+      id: size,
+      name: size,
+      price: itemPrice,
+      size: size,
+      imageUrls: [image],
+      quantity: 1,
+      totalPrice: itemPrice,
+      type: type
+    };
+    dispatch(cartActions.removeFromCart(item));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -50,7 +95,7 @@ const Dine = () => {
             style={[StyleSheet.absoluteFill]}
           />
         </MaskedView>
-        <Text style={styles.canvasType}>3 PIECE DINE</Text>
+        <Text style={styles.canvasType}>3 PIECE {NAME}</Text>
         <View style={styles.splitContainer}>
           <View style={styles.previewContainer}>
             <View style={styles.previewWindow}>
@@ -114,22 +159,39 @@ const Dine = () => {
             <Text style={styles.price}>K{PRICE}</Text>
           </LinearGradient>
         </View>
-        <Link href={{
-          pathname: "/portraitSizes",
-          params: {
-            image: image,
-            canvasType: "3 PIECE DINE",
-            size: SIZE,
-            price: PRICE,
-            type: "split"
-          }
-        }}
-        asChild
-        >
-          <TouchableOpacity style={styles.orderButton}>
-            <Text style={styles.orderButtonText}>SELECT</Text>
-          </TouchableOpacity>
-        </Link>
+        { 
+          noImage ? (
+            <Text style={styles.warning}>
+              Please upload an image before adding an item to cart
+            </Text>
+          ) : null
+        }
+        {
+          pathName.includes("upload") ? (
+            cartItems.some((value) => value.size == size ) ? (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.orderButton} onPress={addItemToCart}>
+                <Text style={styles.orderButtonText}>ADD TO CART</Text>
+              </TouchableOpacity>
+            )
+          ) : (
+            <Link href={{
+              pathname: "/uploadSplit",
+              params: {
+                name: NAME,
+              }
+            }}
+            asChild
+            >
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          )
+        }   
       </View>  
     </View>
   );
@@ -157,11 +219,6 @@ const styles = StyleSheet.create({
     fontFamily: "BebasNeue-Regular",
     marginTop: 20,
     color: "#ffffff"
-  },
-  header: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginVertical: 30,
   },
   fullImageContainer: {
     height: 500,
@@ -239,9 +296,12 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 40,
   },
+  warning : {
+    color: "white",
+  },
   orderButton : {
     backgroundColor: "#ffffff",
-    width: 150,
+    width: 250,
     height: 40,
     margin: 20,
     alignItems: "center",
@@ -249,7 +309,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   orderButtonText : {
-    fontSize: 24,
-    fontWeight: "bold",
+    color: "#1f1f1f",
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
