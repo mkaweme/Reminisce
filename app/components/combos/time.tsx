@@ -15,6 +15,7 @@ const NAME : string = "TIME";
 
 const Time: React.FC = () => {
 
+  //Destructure params and convert price to a number
   const { size, price , type, name } = useLocalSearchParams();
   const itemPrice = Number(price);
     
@@ -50,6 +51,7 @@ const Time: React.FC = () => {
       setNoImage(true);
       return;
     }
+    setNoImage(false);
     const item = {
       id: size,
       name: name,
@@ -80,164 +82,187 @@ const Time: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.canvasType}>4 PIECE TIME</Text>
-      <View style={styles.imagesContainer}>
-        <View style={styles.imageContainer}>
-          <Image 
-            source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
-            style={{ width: 80, height: 113 }}
-          />
-          {
-            pathName.includes("upload") && (
-              <TouchableOpacity 
-                style={styles.cameraIcon} 
-                onPress={async () => setImage_1(await pickImage())}
-              >
-                <MaskedView
-                  maskElement={(
-                    <View
-                      style={[
-                        StyleSheet.absoluteFill, 
-                        { borderWidth : 3, borderRadius: 10 }]}
-                    />
-                  )}
-                  style={[StyleSheet.absoluteFill]}
+      <View style={styles.section}>
+        <Text style={styles.canvasType}>4 PIECE TIME</Text>
+        <View style={styles.imagesContainer}>
+          <View style={styles.imageContainer}>
+            <Image 
+              source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
+              style={{ width: 80, height: 113 }}
+            />
+            {
+              pathName.includes("upload") && (
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_1(await pickImage())}
                 >
-                  <LinearGradient
-                    colors={["#d900aa", "#34ffc6"]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 10 }]}
+                      />
+                    )}
                     style={[StyleSheet.absoluteFill]}
-                  />
-                </MaskedView>
-                <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-              </TouchableOpacity>
-            )
-          }
-        </View>
-        <View style={styles.imageContainer}>
-          <Image 
-            source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }}
-            style={{ width: 100, height: 141, }} 
-          />
-          {
-            pathName.includes("upload") && (
-              <TouchableOpacity 
-                style={styles.cameraIcon} 
-                onPress={async () => setImage_2(await pickImage())}
-              >
-                <MaskedView
-                  maskElement={(
-                    <View
-                      style={[
-                        StyleSheet.absoluteFill, 
-                        { borderWidth : 3, borderRadius: 10 }]}
+                  >
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
                     />
-                  )}
-                  style={[StyleSheet.absoluteFill]}
-                >
-                  <LinearGradient
-                    colors={["#d900aa", "#34ffc6"]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={[StyleSheet.absoluteFill]}
-                  />
-                </MaskedView>
-                <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-              </TouchableOpacity>
-            )
-          }
-        </View>
-        <View style={styles.imageContainer}>
-          <Image 
-            source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
-            style={{ width: 100, height: 141, }} 
-          />
-          <TouchableOpacity 
-            style={styles.cameraIcon} 
-            onPress={async () => setImage_3(await pickImage())}
-          >
-            <MaterialCommunityIcons name="camera-plus-outline" size={16} color="white" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imageContainer}>
-          <Image 
-            source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} 
-            style={{ width: 80, height: 113 }} 
-          />
-          {
-            pathName.includes("upload") && (
-              <TouchableOpacity 
-                style={styles.cameraIcon} 
-                onPress={async () => setImage_4(await pickImage())}
-              >
-                <MaskedView
-                  maskElement={(
-                    <View
-                      style={[
-                        StyleSheet.absoluteFill, 
-                        { borderWidth : 3, borderRadius: 10 }]}
-                    />
-                  )}
-                  style={[StyleSheet.absoluteFill]}
-                >
-                  <LinearGradient
-                    colors={["#d900aa", "#34ffc6"]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={[StyleSheet.absoluteFill]}
-                  />
-                </MaskedView>
-                <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
-              </TouchableOpacity>
-            )
-          }
-        </View>
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.canvasDimensions}>{SIZE}</Text>
-        <LinearGradient
-          colors={["#34ffc6", "#d900aa" ]} 
-          start={{ x:0, y: 0 }} 
-          end={{ x: 1, y: 1 }} 
-          style={styles.priceContainer}   
-        >
-          <Text style={styles.price}>K{PRICE}</Text>
-        </LinearGradient>
-      </View>
-      { 
-        noImage ? (
-          <Text style={styles.warning}>
-            Please upload all images before adding an item to cart
-          </Text>
-        ) : null
-      }
-      {
-        pathName.includes("upload") ? (
-          cartItems.some((value) => value.size == size ) ? (
-            <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
-              <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.orderButton} onPress={addItemToCart}>
-              <Text style={styles.orderButtonText}>ADD TO CART</Text>
-            </TouchableOpacity>
-          )
-        ) : (
-          <Link href={{
-            pathname: "/uploadCombo",
-            params: {
-              name: NAME,
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
+              )
             }
-          }}
-          asChild
+          </View>
+          <View style={styles.imageContainer}>
+            <Image 
+              source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }}
+              style={{ width: 100, height: 141, }} 
+            />
+            {
+              pathName.includes("upload") && (
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_2(await pickImage())}
+                >
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 10 }]}
+                      />
+                    )}
+                    style={[StyleSheet.absoluteFill]}
+                  >
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
+                    />
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
+              )
+            }
+          </View>
+          <View style={styles.imageContainer}>
+            <Image 
+              source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
+              style={{ width: 100, height: 141, }} 
+            />
+            {
+              pathName.includes("upload") && (
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_3(await pickImage())}
+                >
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 10 }]}
+                      />
+                    )}
+                    style={[StyleSheet.absoluteFill]}
+                  >
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
+                    />
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
+              )
+            }
+          </View>
+          <View style={styles.imageContainer}>
+            <Image 
+              source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} 
+              style={{ width: 80, height: 113 }} 
+            />
+            {
+              pathName.includes("upload") && (
+                <TouchableOpacity 
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_4(await pickImage())}
+                >
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 10 }]}
+                      />
+                    )}
+                    style={[StyleSheet.absoluteFill]}
+                  >
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
+                    />
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                </TouchableOpacity>
+              )
+            }
+          </View>
+        </View>
+        <View style={styles.details}>
+          <Text style={styles.canvasDimensions}>{SIZE}</Text>
+          <LinearGradient
+            colors={["#34ffc6", "#d900aa" ]} 
+            start={{ x:0, y: 0 }} 
+            end={{ x: 1, y: 1 }} 
+            style={styles.priceContainer}   
           >
-            <TouchableOpacity style={styles.orderButton}>
-              <Text style={styles.orderButtonText}>SELECT</Text>
-            </TouchableOpacity>
-          </Link>
-        )
-      }
+            <Text style={styles.price}>K{PRICE}</Text>
+          </LinearGradient>
+        </View>
+        { 
+          noImage ? (
+            <Text style={styles.warning}>
+              Please upload all images before adding an item to cart
+            </Text>
+          ) : null
+        }
+        {
+          pathName.includes("upload") ? (
+            cartItems.some((value) => value.size == size ) ? (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.orderButton} onPress={addItemToCart}>
+                <Text style={styles.orderButtonText}>ADD TO CART</Text>
+              </TouchableOpacity>
+            )
+          ) : (
+            <Link href={{
+              pathname: "/uploadCombo",
+              params: {
+                name: NAME,
+              }
+            }}
+            asChild
+            >
+              <TouchableOpacity style={styles.orderButton}>
+                <Text style={styles.orderButtonText}>SELECT</Text>
+              </TouchableOpacity>
+            </Link>
+          )
+        }
+      </View>
     </View>
   );
 };
@@ -249,20 +274,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
-    backgroundColor: "#d47e3066",
+  },
+  section: {
+    minHeight: 490,
+    width: "96%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 12,
   },
   canvasType: {
     fontSize: 40,
-    fontWeight: "bold",
     fontFamily: "BebasNeue-Regular",
     marginTop: 30,
+    color: "#ffffff",
   },
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
-    rowGap: 10,
+    width: "95%",
     marginTop: 30,
     alignItems: "center",
     justifyContent: "space-between",
