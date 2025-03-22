@@ -14,6 +14,7 @@ const SIZE: string = "1 X A3 | 2 X A4";
 const NAME : string = "CHERRY";
 const Cherry = () => {
 
+  //Destructure params and convert price to a number
   const { size, price , type, name } = useLocalSearchParams();
   const itemPrice = Number(price);
 
@@ -23,7 +24,8 @@ const Cherry = () => {
   const [image_3, setImage_3] = useState<string | null>(null);
   const [noImage, setNoImage] = useState<boolean>(false);
 
-  const pathName = usePathname();
+  //define a variable for the path name
+  const pathName: string = usePathname();
 
   //Define a function for selecting an image from the device
   const pickImage = async () => {
@@ -229,7 +231,6 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
     marginTop: 20,
