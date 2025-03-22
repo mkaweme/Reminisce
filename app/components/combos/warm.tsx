@@ -14,6 +14,7 @@ const SIZE: string = "4 X A4";
 const NAME : string = "WARM";
 const Warm: React.FC = () => {
   
+  //Destructure params and convert price to a number
   const { size, price , type, name } = useLocalSearchParams();
   const itemPrice = Number(price);
     
@@ -280,11 +281,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
     marginTop: 20,
-    color: "#ffffff"
+    color: "#ffffff",
   },
   imagesContainer: {
     display: "flex",
