@@ -4,12 +4,12 @@ import {
   StyleSheet, 
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import Cherry from "./components/combos/cherry";
-import Fun from "./components/combos/fun";
-import Growth from "./components/combos/growth";
-import Moments from "./components/combos/moments";
-import Time from "./components/combos/time";
-import Warm from "./components/combos/warm";
+import Cherry from "../components/combos/cherry";
+import Fun from "../components/combos/fun";
+import Growth from "../components/combos/growth";
+import Moments from "../components/combos/moments";
+import Time from "../components/combos/time";
+import Warm from "../components/combos/warm";
 import { LinearGradient } from "expo-linear-gradient";
 
 const UploadCombo: React.FC = () => {
