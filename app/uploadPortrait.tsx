@@ -11,6 +11,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 const UploadPortrait = () => {
 
+  //Deconstruct the URL parameters and convert price to a number
   const { size, price , aspectRatio: aspectRatioParam, type } = useLocalSearchParams();
   const itemPrice = Number(price);
 
@@ -20,7 +21,7 @@ const UploadPortrait = () => {
   const [image_1, setImage_1] = useState<string | null> (null);
   const [image_2, setImage_2] = useState<string | null> (null); 
   const [noImage, setNoImage] = useState<boolean>(false);
-
+  
   const cartItems = useSelector((state : RootState) => state.cart.items);
   const dispatch = useDispatch();
 
