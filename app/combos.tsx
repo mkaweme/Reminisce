@@ -1,11 +1,11 @@
 import React from "react";
 import {  StyleSheet, ScrollView } from "react-native";
-import Cherry from "./components/combos/cherry";
-import Time from "./components/combos/time";
-import Warm from "./components/combos/warm";
-import Moments from "./components/combos/moments";
-import Fun from "./components/combos/fun";
-import Growth from "./components/combos/growth";
+import Cherry from "../components/combos/cherry";
+import Time from "../components/combos/time";
+import Warm from "../components/combos/warm";
+import Moments from "../components/combos/moments";
+import Fun from "../components/combos/fun";
+import Growth from "../components/combos/growth";
 import { LinearGradient } from "expo-linear-gradient";
 import { Divider } from "@rneui/base";
 
@@ -13,7 +13,7 @@ const Combos: React.FC = () => {
 
   return (
     <LinearGradient 
-      colors={["#2dcc9f", "#62004d"]} 
+      colors={["#053046", "#41758f"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   
