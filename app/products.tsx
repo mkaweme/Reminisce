@@ -10,7 +10,7 @@ import {
   View 
 } from "react-native";
 import { Divider } from "@rneui/base";
-import HexagonImage from "./components/hexagonImage";
+import HexagonImage from "../components/hexagonImage";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 
@@ -44,7 +44,7 @@ const Products = () => {
             </MaskedView>
             <Text style={styles.canvasType}>PORTRAITS</Text>
             <Image style={styles.portrait} source={{ uri: "https://picsum.photos/200/300" }} />
-            <Link href="/portraitSizes" asChild>
+            <Link href="/portraits" asChild>
               <TouchableOpacity style={styles.orderButton}>
                 <Text style={styles.orderButtonText}>SELECT</Text>
               </TouchableOpacity>
