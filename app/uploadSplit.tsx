@@ -1,11 +1,11 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import Dine from "./components/splits/dine";
-import Home from "./components/splits/home";
-import Joy from "./components/splits/joy";
-import Nice from "./components/splits/nice";
-import Sweet from "./components/splits/sweet";
+import Dine from "../components/splits/dine";
+import Home from "../components/splits/home";
+import Joy from "../components/splits/joy";
+import Nice from "../components/splits/nice";
+import Sweet from "../components/splits/sweet";
 import { LinearGradient } from "expo-linear-gradient";
 
 const UploadSplit: React.FC = () => {
