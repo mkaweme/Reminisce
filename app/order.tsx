@@ -70,7 +70,7 @@ const Order: React.FC = () => {
   // Delivery 0 - 5 Km ,
   // K30, 5 - 10KM: 
   // K50, 10 - 15KM: 
-  // K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndo
+  // K80, 15 - 20Km: K 150> 20Km Out of town: dependent on town Ndola
   
   const calculateFee = (distance: number) => {
     if (distance <= 5) return 30;
