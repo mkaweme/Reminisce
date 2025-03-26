@@ -1,9 +1,7 @@
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-
-const { height } = Dimensions.get("screen"); // Get full screen height
 
 const PORTRAITS = [
   { size:"A1", price : 540, aspectRatio: 1.41 },
@@ -14,16 +12,17 @@ const PORTRAITS = [
   { size:"30 X 30", price : 280, aspectRatio : 1 },
   { size:"A4 X 2", price : 250, aspectRatio: 1.41 },
 ];
+
 const Portraits = () => {
 
   return (
-    <ScrollView style={styles.container}>
-      <LinearGradient 
-        colors={["#2dcc9f", "#62004d"]} 
-        start={{ x:0, y: 0 }} 
-        end={{ x: 1, y: 1 }} 
-        style={styles.gradientContainer}   
-      >
+    <LinearGradient 
+      colors={["#2dcc9f", "#62004d"]} 
+      start={{ x:0, y: 0 }} 
+      end={{ x: 1, y: 1 }} 
+      style={styles.gradientContainer}   
+    >
+      <ScrollView style={styles.container}>
         <Text style={styles.header}>Select Portrait Size</Text>
         {PORTRAITS.map((portrait, index) => (
           <Link key={index} 
@@ -33,7 +32,8 @@ const Portraits = () => {
                 size: portrait.size, 
                 price: portrait.price, 
                 aspectRatio: portrait.aspectRatio,
-                type: "portrait" 
+                type: "PORTRAIT",
+                name: portrait.size,
               } 
             }} 
             asChild
@@ -47,22 +47,21 @@ const Portraits = () => {
             </TouchableOpacity>
           </Link>
         ))}
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 export default Portraits;
 
 const styles = StyleSheet.create({
-  container: {
-    height: height,
-  },
   gradientContainer: {
     padding: 10,
     flex: 1,
-    height: height,
     alignItems: "center",
+  },
+  container: {
+    flex: 1,
   },
   header: {
     fontSize: 32,
