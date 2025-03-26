@@ -11,7 +11,7 @@ import { cartActions } from "./CartReducer";
 
 const PRICE:number = 680;
 const NAME: string = "HEXAGONS";
-const SIZE: string = "3 X 30cm X 30CM";
+const SIZE: string = "3: 30cm X 30CM";
 const Hexagons = () => {
   
   //Define state variables
@@ -51,7 +51,7 @@ const Hexagons = () => {
       imageUrls: [image_1, image_2, image_3],
       quantity: 1,
       totalPrice: PRICE,
-      type: SIZE
+      type: NAME,
     };
     dispatch(cartActions.addToCart(item));
   };
@@ -66,7 +66,7 @@ const Hexagons = () => {
       imageUrls: [image_1, image_2, image_3],
       quantity: 1,
       totalPrice: PRICE,
-      type: SIZE
+      type: NAME,
     };
     dispatch(cartActions.removeFromCart(item));
   };
