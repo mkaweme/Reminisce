@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Link, useLocalSearchParams, usePathname } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import { cartActions } from "app/CartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
@@ -12,11 +12,9 @@ import MaskedView from "@react-native-masked-view/masked-view";
 const PRICE: number = 380;
 const SIZE: string = "1 X A3 | 2 X A4";
 const NAME : string = "CHERRY";
-const Cherry = () => {
+const TYPE: string = "COMBO";
 
-  //Destructure params and convert price to a number
-  const { size, price , type, name } = useLocalSearchParams();
-  const itemPrice = Number(price);
+const Cherry = () => {
 
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -52,14 +50,14 @@ const Cherry = () => {
       return;
     }
     const item = {
-      id: size,
-      name: name,
-      price: itemPrice,
-      size: size,
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
       imageUrls: [image_1,image_2, image_3],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.addToCart(item));
   };
@@ -67,14 +65,14 @@ const Cherry = () => {
   //Define a function that aremoves an item from the cart
   const removeItemFromCart = () => {
     const item = {
-      id: size,
-      name: size,
-      price: itemPrice,
-      size: size,
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
       imageUrls: [image_1,image_2, image_3],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.removeFromCart(item));
   };
@@ -92,9 +90,27 @@ const Cherry = () => {
             {
               pathName.includes("upload") && (
                 <TouchableOpacity 
-                  style={styles.cameraIcon} onPress={async () => setImage_1(await pickImage())}
+                  style={styles.cameraIcon} 
+                  onPress={async () => setImage_1(await pickImage())}
                 >
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaskedView
+                    maskElement={(
+                      <View
+                        style={[
+                          StyleSheet.absoluteFill, 
+                          { borderWidth : 3, borderRadius: 8 }]}
+                      />
+                    )}
+                    style={[StyleSheet.absoluteFill]}
+                  >
+                    <LinearGradient
+                      colors={["#d900aa", "#34ffc6"]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 1 }}
+                      style={[StyleSheet.absoluteFill]}
+                    />
+                  </MaskedView>
+                  <MaterialCommunityIcons name="camera-plus-outline" size={20} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -115,7 +131,7 @@ const Cherry = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -127,7 +143,7 @@ const Cherry = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={20} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -148,7 +164,7 @@ const Cherry = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -160,7 +176,7 @@ const Cherry = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={20} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -186,7 +202,7 @@ const Cherry = () => {
         }
         {
           pathName.includes("upload") ? (
-            cartItems.some((value) => value.size == size ) ? (
+            cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
               </TouchableOpacity>

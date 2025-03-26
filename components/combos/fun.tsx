@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Link, useLocalSearchParams, usePathname } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import { RootState } from "app/store";
 import { useDispatch, useSelector } from "react-redux";
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -12,12 +12,9 @@ import { cartActions } from "app/CartReducer";
 const PRICE: number = 750;
 const SIZE: string = "2 X A3 | 4 X A4";
 const NAME : string = "FUN";
+const TYPE: string = "COMBO";
 
 const Fun = () => {
-
-  //Destructure params and convert price to a number
-  const { size, price , type, name } = useLocalSearchParams();
-  const itemPrice = Number(price);
 
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -57,14 +54,14 @@ const Fun = () => {
       return;
     }
     const item = {
-      id: size,
-      name: name,
-      price: itemPrice,
-      size: size,
-      imageUrls: [image_1,image_2, image_3],
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
+      imageUrls: [image_1,image_2, image_3, image_4, image_5, image_6],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.addToCart(item));
   };
@@ -72,14 +69,14 @@ const Fun = () => {
   //Define a function that aremoves an item from the cart
   const removeItemFromCart = () => {
     const item = {
-      id: size,
-      name: size,
-      price: itemPrice,
-      size: size,
-      imageUrls: [image_1,image_2, image_3],
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
+      imageUrls: [image_1,image_2, image_3, image_4, image_5, image_6],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.removeFromCart(item));
   };
@@ -343,7 +340,7 @@ const Fun = () => {
         }
         {
           pathName.includes("upload") ? (
-            cartItems.some((value) => value.size == size ) ? (
+            cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
               </TouchableOpacity>

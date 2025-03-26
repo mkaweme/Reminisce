@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
-import { Link, useLocalSearchParams, usePathname } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +12,9 @@ import { cartActions } from "app/CartReducer";
 const PRICE: number = 850;
 const SIZE: string = "90CM X 150CM";
 const NAME : string = "SWEET";
+const TYPE: string = "SPLIT";
 
 const Sweet = () => {
-
-  const { size, price , type, name } = useLocalSearchParams();
-  const itemPrice = Number(price);
     
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
@@ -49,14 +47,14 @@ const Sweet = () => {
       return;
     }
     const item = {
-      id: size,
-      name: name,
-      price: itemPrice,
-      size: size,
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
       imageUrls: [image],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.addToCart(item));
   };
@@ -64,14 +62,14 @@ const Sweet = () => {
   //Define a function that aremoves an item from the cart
   const removeItemFromCart = () => {
     const item = {
-      id: size,
-      name: size,
-      price: itemPrice,
-      size: size,
+      id: SIZE,
+      name: NAME,
+      price: PRICE,
+      size: SIZE,
       imageUrls: [image],
       quantity: 1,
-      totalPrice: itemPrice,
-      type: type
+      totalPrice: PRICE,
+      type: TYPE,
     };
     dispatch(cartActions.removeFromCart(item));
   };
@@ -186,7 +184,7 @@ const Sweet = () => {
         }
         {
           pathName.includes("upload") ? (
-            cartItems.some((value) => value.size == size ) ? (
+            cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
               </TouchableOpacity>
