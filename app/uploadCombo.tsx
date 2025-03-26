@@ -14,7 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const UploadCombo: React.FC = () => {
 
-  //Destructure the name from paras
+  //Destructure the name from params
   const { name } = useLocalSearchParams();
   
   // Ensure type is a string
