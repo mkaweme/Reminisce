@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -13,6 +13,8 @@ const PRICE: number = 1090;
 const SIZE: string = "2 X A2 | 2 X A3 | 6 X A4";
 const NAME : string = "GROWTH";
 const TYPE : string = "COMBO";
+
+const WIDTH = Dimensions.get("window").width;
 
 const Growth: React.FC = () => {
     
@@ -549,7 +551,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "78%",
+    columnGap: 10,
     marginTop: 30,
     height: 410,
     justifyContent: "space-between",
@@ -557,8 +559,7 @@ const styles = StyleSheet.create({
   columnImagesContainer: {
     display: "flex",
     flexDirection: "column",
-    rowGap: 10,
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   imageContainer : {
     display: "flex",
@@ -572,37 +573,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image_1: {
-    width: 70, 
+    width: 0.2 * WIDTH, 
     height: 90, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
-    objectFit: "cover",
   },
   image_2: {
-    width: 150, 
+    width: 0.5 * WIDTH, 
     height: 110, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
-    objectFit: "cover",
   },
   image_3: {
-    width: 110, 
+    width: 0.35 * WIDTH, 
     height: 75, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
-    objectFit: "cover",
   },
   cameraIcon: {
     position: "absolute",

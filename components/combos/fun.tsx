@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -14,7 +14,9 @@ const SIZE: string = "2 X A3 | 4 X A4";
 const NAME : string = "FUN";
 const TYPE: string = "COMBO";
 
-const Fun = () => {
+const WIDTH = Dimensions.get("window").width;
+
+const Fun: React.FC = () => {
 
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -393,8 +395,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
-    columnGap: 10,
+    columnGap: 5,
     marginTop: 30,
     height: 260,
     justifyContent: "center",
@@ -417,25 +418,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image_1: {
-    width: 80, 
-    height: 110, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
+    width: 0.23 * WIDTH, 
+    height: 120, 
   },
   image_2: {
-    width: 150, 
-    height: 110, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
-    
+    width: 0.45 * WIDTH, 
+    height: 120, 
+   
   },
   cameraIcon: {
     position: "absolute",

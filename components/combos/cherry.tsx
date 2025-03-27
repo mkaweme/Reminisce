@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -13,6 +13,8 @@ const PRICE: number = 380;
 const SIZE: string = "1 X A3 | 2 X A4";
 const NAME : string = "CHERRY";
 const TYPE: string = "COMBO";
+
+const WIDTH = Dimensions.get("window").width;
 
 const Cherry = () => {
 
@@ -85,7 +87,7 @@ const Cherry = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 121, height: 158 }} 
+              style={styles.image_1} 
             />
             {
               pathName.includes("upload") && (
@@ -118,7 +120,7 @@ const Cherry = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 144, height: 193, }} 
+              style={styles.image_2} 
             />
             {
               pathName.includes("upload") && (
@@ -151,7 +153,7 @@ const Cherry = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 121, height: 158 }} 
+              style={styles.image_1} 
             />
             {
               pathName.includes("upload") && (
@@ -241,7 +243,6 @@ const styles = StyleSheet.create({
   },
   section: {
     height: 490,
-    width: "96%",
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 12,
@@ -255,10 +256,10 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
+    columnGap: 5,
     marginTop: 30,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   imageContainer : {
     display: "flex",
@@ -270,6 +271,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+  },
+  image_1: {
+    width: 0.25*WIDTH,
+    height: 160,
+  },
+  image_2: {
+    width: 0.40*WIDTH,
+    height: 220,
   },
   cameraIcon: {
     position: "absolute",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Dimensions, Image, StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -14,6 +14,7 @@ const SIZE: string = "1: 59CM X 35CM | 4: 20CM X 40CM";
 const NAME : string = "MOMENTS";
 const TYPE : string = "COMBO";
 
+const WIDTH = Dimensions.get("window").width;
 const Moments: React.FC = () => {
       
   //Define state variables
@@ -86,7 +87,7 @@ const Moments: React.FC = () => {
             <View style={styles.imageContainer}>
               <Image 
                 source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
-                style={{ width: 120, height: 60 }} 
+                style={styles.image_1} 
               />
               {
                 pathName.includes("upload") && (
@@ -124,7 +125,7 @@ const Moments: React.FC = () => {
               <Image source={
                 image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }
               } 
-              style={{ width: 120, height: 60 }} />
+              style={styles.image_1} />
               {
                 pathName.includes("upload") && (
                   <TouchableOpacity 
@@ -162,7 +163,7 @@ const Moments: React.FC = () => {
             <Image 
               source={
                 image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }
-              } style={styles.image} 
+              } style={styles.image_2} 
             />
             {
               pathName.includes("upload") && (
@@ -202,7 +203,7 @@ const Moments: React.FC = () => {
                 source={
                   image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }
                 } 
-                style={{ width: 120, height: 60 }} 
+                style={styles.image_1} 
               />
               {
                 pathName.includes("upload") && (
@@ -241,7 +242,7 @@ const Moments: React.FC = () => {
                 source={
                   image_5 ? { uri: image_5 } : { uri : "https://picsum.photos/200/300" }
                 } 
-                style={{ width: 120, height: 60 }} 
+                style={styles.image_1} 
               />
               {
                 pathName.includes("upload") && (
@@ -350,7 +351,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "95%",
+    columnGap: 5,
     marginTop: 30,
     height: 250,
     justifyContent: "space-between",
@@ -377,15 +378,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2.5,
     elevation: 5,
   },
-  image: {
-    width: 120, 
+  image_1: {
+    width: 0.32 * WIDTH, 
+    height: 60, 
+  },
+  image_2: {
+    width: 0.30 * WIDTH, 
     height: 180, 
-    resizeMode: "stretch",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
   },
   cameraIcon: {
     position: "absolute",

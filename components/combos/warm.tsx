@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -14,6 +14,7 @@ const SIZE: string = "4 X A4";
 const NAME : string = "WARM";
 const TYPE: string = "COMBO";
 
+const WIDTH = Dimensions.get("window").width;
 const Warm: React.FC = () => {
  
   //Define state variables
@@ -85,7 +86,7 @@ const Warm: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 95, height: 154 }} 
+              style={styles.image} 
             />
             {
               pathName.includes("upload") && (
@@ -118,7 +119,7 @@ const Warm: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 95, height: 154, }} 
+              style={styles.image} 
             />
             {
               pathName.includes("upload") && (
@@ -151,7 +152,7 @@ const Warm: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 95, height: 154 }}
+              style={styles.image}
             />
             {
               pathName.includes("upload") && (
@@ -183,7 +184,7 @@ const Warm: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 95, height: 154 }} 
+              style={styles.image} 
             />
             {
               pathName.includes("upload") && (
@@ -226,14 +227,14 @@ const Warm: React.FC = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload all images before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -243,20 +244,25 @@ const Warm: React.FC = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
-            <Link href={{
-              pathname: "/uploadCombo",
-              params: {
-                name: NAME,
-              }
-            }}
-            asChild
-            >
-              <TouchableOpacity style={styles.orderButton}>
-                <Text style={styles.orderButtonText}>SELECT</Text>
-              </TouchableOpacity>
-            </Link>
           )
+        }
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            )
+          )
+        }
+
+        {
+          (pathName.includes("products") || pathName.includes("combo")) && 
+          <Link href={{ pathname: "/uploadCombo", params: { name: NAME } }} asChild >
+            <TouchableOpacity style={styles.orderButton}>
+              <Text style={styles.orderButtonText}>SELECT</Text>
+            </TouchableOpacity>
+          </Link>
         }
       </View>   
     </View>
@@ -287,10 +293,9 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
+    columnGap: 5,
     marginTop: 30,
     alignItems: "center",
-    justifyContent: "space-between",
   },
   imageContainer : {
     display: "flex",
@@ -302,6 +307,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+  },
+  image: {
+    width: 0.23 * WIDTH,
+    height: 154,
   },
   cameraIcon: {
     position: "absolute",

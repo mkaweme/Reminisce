@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link, usePathname } from "expo-router";
@@ -13,6 +13,8 @@ const PRICE: number = 540;
 const SIZE: string = "2 X A3 | 4 X A4";
 const NAME : string = "TIME";
 const TYPE: string = "COMBO";
+
+const WIDTH = Dimensions.get("window").width;
 
 const Time: React.FC = () => {
     
@@ -39,7 +41,7 @@ const Time: React.FC = () => {
     } else return null;
   };
 
-  const cartItems = useSelector((state : RootState) => state.cart.items);
+  const cartItems: CanvasItem[] = useSelector((state : RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   //Define a function that adds an item to the cart
@@ -85,7 +87,7 @@ const Time: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 80, height: 113 }}
+              style={styles.image_1}
             />
             {
               pathName.includes("upload") && (
@@ -118,7 +120,7 @@ const Time: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }}
-              style={{ width: 100, height: 141, }} 
+              style={styles.image_2} 
             />
             {
               pathName.includes("upload") && (
@@ -151,7 +153,7 @@ const Time: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 100, height: 141, }} 
+              style={styles.image_2} 
             />
             {
               pathName.includes("upload") && (
@@ -184,7 +186,7 @@ const Time: React.FC = () => {
           <View style={styles.imageContainer}>
             <Image 
               source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} 
-              style={{ width: 80, height: 113 }} 
+              style={styles.image_1} 
             />
             {
               pathName.includes("upload") && (
@@ -288,7 +290,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    width: "95%",
+    columnGap: 5,
     marginTop: 30,
     alignItems: "center",
     justifyContent: "space-between",
@@ -304,6 +306,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+  },
+  image_1: {
+    width: 0.19 * WIDTH,
+    height: 115,
+  },
+  image_2: {
+    width: 0.28 * WIDTH,
+    height: 140,
   },
   cameraIcon: {
     position: "absolute",
