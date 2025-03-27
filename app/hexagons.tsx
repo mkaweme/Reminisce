@@ -73,7 +73,7 @@ const Hexagons = () => {
 
   return (
     <LinearGradient 
-      colors={["#2dcc9f", "#62004d"]} 
+      colors={["#525252", "#b6b6b8"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   

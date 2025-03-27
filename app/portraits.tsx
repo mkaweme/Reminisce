@@ -17,12 +17,12 @@ const Portraits = () => {
 
   return (
     <LinearGradient 
-      colors={["#2dcc9f", "#62004d"]} 
+      colors={["#75606a", "#b39fbc"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   
     >
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ alignItems: "center" }} >
         <Text style={styles.header}>Select Portrait Size</Text>
         {PORTRAITS.map((portrait, index) => (
           <Link key={index} 

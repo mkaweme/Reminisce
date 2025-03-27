@@ -36,7 +36,7 @@ const UploadCombo: React.FC = () => {
 
   return (
     <LinearGradient 
-      colors={["#34ffc688", "#62004d"]} 
+      colors={["#80523d", "#b6977b"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   

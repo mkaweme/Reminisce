@@ -13,7 +13,7 @@ const Combos: React.FC = () => {
 
   return (
     <LinearGradient 
-      colors={["#053046", "#41758f"]} 
+      colors={["#80523d", "#b6977b"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   
