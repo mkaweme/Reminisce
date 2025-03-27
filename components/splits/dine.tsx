@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
@@ -72,27 +72,25 @@ const Dine = () => {
     };
     dispatch(cartActions.removeFromCart(item));
   };
-
+  
+  //Define a function that checks if this item is in the cart, 
+  // if it is, set the image to the imageurl from the item in the cart
+  const checkCart = () => {
+    if (cartItems.length > 0) {
+      const item = cartItems.find((item) => item.name === NAME);
+      if (item) {
+        setImage(item.imageUrls[0]);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    checkCart();
+  }, []);
+  
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <MaskedView
-          maskElement={(
-            <View
-              style={[
-                StyleSheet.absoluteFill, 
-                { borderWidth : 3, borderRadius: 10 }]}
-            />
-          )}
-          style={[StyleSheet.absoluteFill]}
-        >
-          <LinearGradient
-            colors={["#d900aa", "#34ffc6"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={[StyleSheet.absoluteFill]}
-          />
-        </MaskedView>
         <Text style={styles.canvasType}>3 PIECE {NAME}</Text>
         <View style={styles.splitContainer}>
           <View style={styles.previewContainer}>
