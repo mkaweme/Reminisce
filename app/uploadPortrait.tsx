@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
@@ -83,9 +83,27 @@ const UploadPortrait = () => {
 
   };
 
+  const cart = useSelector((state: RootState) => state.cart);
+
+  //Define a function that checks if this item is in the cart, 
+  // if it is, set the image to the imageurl from the item in the cart
+  const checkCart = () => {
+    if (cart.items.length > 0) {
+      const item = cart.items.find((item) => item.size === size);
+      if (item) {
+        setImage_1(item.imageUrls[0]);
+        setImage_2(item.imageUrls[1]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkCart();
+  }, []);
+
   return (
     <LinearGradient 
-      colors={["#2dcc9f", "#62004d"]} 
+      colors={["#75606a", "#b39fbc"]} 
       start={{ x:0, y: 0 }} 
       end={{ x: 1, y: 1 }} 
       style={styles.gradientContainer}   
