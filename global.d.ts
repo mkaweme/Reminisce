@@ -11,11 +11,11 @@ declare module "*.ttf";
 
 declare type CanvasItem = {
   id: string;
+  imageUrls: string[];
   name: string;
   price: number;
-  size: string;
-  imageUrls: string[];
   quantity: number ;
+  size: string;
   totalPrice: number;
   type: string
 };
