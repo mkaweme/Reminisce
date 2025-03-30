@@ -13,12 +13,15 @@ const PRICE: number = 650;
 const SIZE: string = "3 : 70CM X 90CM";
 const NAME : string = "DINE";
 const TYPE : string = "SPLIT";
-const Dine = () => {
+
+const Dine: React.FC = () => {
 
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
   const [noImage, setNoImage] = useState<boolean>(false);
+  const [isNavigating, setIsNavigating] = useState<boolean>(false);
 
+  //define a variable for the path name
   const pathName: string = usePathname();
 
   //Define a function for selecting an image from the device
@@ -36,7 +39,7 @@ const Dine = () => {
     } else return null;
   };
   
-  const cartItems = useSelector((state : RootState) => state.cart.items);
+  const cartItems: CanvasItem[] = useSelector((state : RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   //Define a function that adds an item to the cart
@@ -87,7 +90,7 @@ const Dine = () => {
   useEffect(() => {
     checkCart();
   }, []);
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -118,7 +121,7 @@ const Dine = () => {
             </View>
           </View>
           {
-            pathName.includes("upload") && (
+            pathName.includes("upload") && !isNavigating && (
               <TouchableOpacity 
                 style={styles.cameraIcon} 
                 onPress={async () => setImage(await pickImage())}
@@ -128,7 +131,8 @@ const Dine = () => {
                     <View
                       style={[
                         StyleSheet.absoluteFill, 
-                        { borderWidth : 3, borderRadius: 10 }]}
+                        { borderWidth : 3, borderRadius: 10 }]
+                      }
                     />
                   )}
                   style={[StyleSheet.absoluteFill]}
@@ -156,14 +160,14 @@ const Dine = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload an image before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -173,16 +177,27 @@ const Dine = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
-            <Link href={{
-              pathname: "/uploadSplit",
-              params: {
-                name: NAME,
-              }
-            }}
-            asChild
+          ) 
+        }
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            )
+          ) 
+        }
+        {  
+          pathName.includes("splits") && (
+            <Link 
+              href={{ pathname: "/uploadSplit", params: { name: NAME } }}
+              asChild
             >
-              <TouchableOpacity style={styles.orderButton}>
+              <TouchableOpacity 
+                style={styles.orderButton} 
+                onPress={() => setIsNavigating(true)}
+              >
                 <Text style={styles.orderButtonText}>SELECT</Text>
               </TouchableOpacity>
             </Link>
