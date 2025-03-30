@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -16,7 +16,7 @@ const TYPE: string = "COMBO";
 
 const WIDTH = Dimensions.get("window").width;
 
-const Cherry = () => {
+const Cherry: React.FC = () => {
 
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -35,13 +35,14 @@ const Cherry = () => {
       quality: 1,
     });
     
-    //If an images was selected and the process wasn't cancelled
+    //If an image was selected and the process wasn't cancelled
     if (!result.canceled) {
       setNoImage(false);
       return result.assets[0].uri;
     } else return null;
   };
 
+  //Define variables for holding cart items and the dispatch function
   const cartItems = useSelector((state : RootState) => state.cart.items);
   const dispatch = useDispatch();
 
@@ -79,6 +80,23 @@ const Cherry = () => {
     dispatch(cartActions.removeFromCart(item));
   };
 
+  //Define a function that checks if this item is in the cart, 
+  // if it is, set the image to the imageurl from the item in the cart
+  const checkCart = () => {
+    if (cartItems.length > 0) {
+      const item = cartItems.find((item) => item.name === NAME);
+      if (item) {
+        setImage_1(item.imageUrls[0]);
+        setImage_2(item.imageUrls[1]);
+        setImage_3(item.imageUrls[2]);
+      }
+    }
+  };
+    
+  useEffect(() => {
+    checkCart();
+  }, []);
+    
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -196,14 +214,14 @@ const Cherry = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload all images before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -213,21 +231,31 @@ const Cherry = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
-            <Link href={{
-              pathname: "/uploadCombo",
-              params: {
-                name: NAME,
-              }
-            }}
-            asChild
-            >
-              <TouchableOpacity style={styles.orderButton}>
-                <Text style={styles.orderButtonText}>SELECT</Text>
-              </TouchableOpacity>
-            </Link>
           )
-        }   
+        } 
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            ) 
+          )
+        } 
+        { pathName.includes("combos") && (
+          <Link href={{
+            pathname: "/uploadCombo",
+            params: {
+              name: NAME,
+            }
+          }}
+          asChild
+          >
+            <TouchableOpacity style={styles.orderButton}>
+              <Text style={styles.orderButtonText}>SELECT</Text>
+            </TouchableOpacity>
+          </Link>
+        )}   
       </View>
     </View>
   );
