@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -26,6 +26,7 @@ const Fun: React.FC = () => {
   const [image_5, setImage_5] = useState<string | null>(null);
   const [image_6, setImage_6] = useState<string | null>(null);
   const [noImage, setNoImage] = useState<boolean>(false);
+  const [isNavigating, setIsNavigating] = useState<boolean>(false);      
 
   //define a variable for the path name
   const pathName: string = usePathname();
@@ -46,7 +47,7 @@ const Fun: React.FC = () => {
   };
 
   //Define variables for holding cart items and the dispatch function
-  const cartItems = useSelector((state : RootState) => state.cart.items);
+  const cartItems: CanvasItem[] = useSelector((state : RootState) => state.cart.items);
   const dispatch = useDispatch();
 
   //Define a function that adds an item to the cart
@@ -83,6 +84,26 @@ const Fun: React.FC = () => {
     dispatch(cartActions.removeFromCart(item));
   };
 
+  //Define a function that checks if this item is in the cart, 
+  // if it is, set the image to the imageurl from the item in the cart
+  const checkCart = () => {
+    if (cartItems.length > 0) {
+      const item = cartItems.find((item) => item.name === NAME);
+      if (item) {
+        setImage_1(item.imageUrls[0]);
+        setImage_2(item.imageUrls[1]);
+        setImage_3(item.imageUrls[2]);
+        setImage_4(item.imageUrls[3]);
+        setImage_5(item.imageUrls[4]);
+        setImage_6(item.imageUrls[5]);
+      }
+    }
+  };
+      
+  useEffect(() => {
+    checkCart();
+  }, []);
+    
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -105,7 +126,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 10 }]
+                            { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -120,7 +141,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -143,7 +164,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 10 }]
+                            { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -158,7 +179,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -183,7 +204,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 10 }]
+                            { borderWidth : 3, borderRadius: 9 }]
                           }
                         />
                       )}
@@ -198,7 +219,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={20} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -221,7 +242,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 10 }]
+                            { borderWidth : 3, borderRadius: 9 }]
                           }
                         />
                       )}
@@ -236,7 +257,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={20} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -261,7 +282,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 10 }]
+                            { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -276,7 +297,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -298,7 +319,7 @@ const Fun: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 10 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -313,7 +334,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -334,14 +355,14 @@ const Fun: React.FC = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload all images before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && !isNavigating && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -351,21 +372,32 @@ const Fun: React.FC = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
-            <Link href={{
-              pathname: "/uploadCombo",
-              params: {
-                name: NAME,
-              }
-            }}
-            asChild
+          )
+        }
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            )
+          )
+        }
+        {
+          pathName.includes("combos") && (
+            <Link 
+              href={{ pathname: "/uploadCombo",params: { name: NAME } }}
+              asChild
             >
-              <TouchableOpacity style={styles.orderButton}>
+              <TouchableOpacity 
+                style={styles.orderButton} 
+                onPress={() => setIsNavigating(true)}
+              >
                 <Text style={styles.orderButtonText}>SELECT</Text>
               </TouchableOpacity>
             </Link>
           )
-        }
+        } 
       </View>
     </View>
   );
