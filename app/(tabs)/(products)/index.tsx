@@ -290,19 +290,19 @@ const styles = StyleSheet.create({
   },
   splitPreviewContainer_1: {
     position: "relative",
-    top: 25,
+    top: 15,
   },
   splitPreviewContainer_2: {
     position: "relative",
   },
   splitPreviewWindow: {
     width: 75,
-    height: 180,
+    height: 220,
     overflow: "hidden",
   },
   splitImage_1: {
     width: 300,
-    height: 210,
+    height: 230,
     top: -25,
   },
   SplitImage_2: {
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   },
   splitImage_3: {
     width: 300,
-    height: 210,
+    height: 230,
     position: "absolute",
     left: -150,
     top: -25,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    columnGap: 10,
+    columnGap: 5,
     marginTop: 30,
     height: 260,
     justifyContent: "center",
@@ -351,8 +351,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   comboImage_1: {
-    width: 70, 
-    height: 90, 
+    width: 80, 
+    height: 110, 
     resizeMode: "stretch",
     shadowColor: "#000000",
     shadowOffset: { width: 2, height: 2 },
