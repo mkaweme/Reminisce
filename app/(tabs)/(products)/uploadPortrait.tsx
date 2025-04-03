@@ -111,18 +111,6 @@ const UploadPortrait = () => {
     >
       <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center" }}>
         <View style={styles.section}>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.canvasType}>{size}</Text>
-            <Text style={styles.canvasType}> : </Text>
-            <LinearGradient 
-              colors={["#34ffc6", "#d900aa" ]} 
-              start={{ x:0, y: 0 }} 
-              end={{ x: 1, y: 1 }} 
-              style={styles.priceContainer}   
-            >
-              <Text style={styles.price}>K{price}</Text>
-            </LinearGradient>
-          </View>
           <View style={styles.imageContainer}>
             <Image 
               source={image_1 ? { uri: image_1 } : { uri: "https://picsum.photos/200/300" }} 
@@ -153,7 +141,7 @@ const UploadPortrait = () => {
             </TouchableOpacity>
           </View>
           {
-            size == "A4 X 2" ? (
+            size == "A4 X 2" && (
               <View style={styles.imageContainer}>
                 <Image 
                   source={
@@ -185,13 +173,26 @@ const UploadPortrait = () => {
                   <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
                 </TouchableOpacity>
               </View>
-        
-            ) : null
+            )
           }
+          <View style={styles.detailsContainer}>
+            <Text style={styles.canvasType}>{size}</Text>
+            <Text style={styles.canvasType}> : </Text>
+            <LinearGradient 
+              colors={["#34ffc6", "#d900aa" ]} 
+              start={{ x:0, y: 0 }} 
+              end={{ x: 1, y: 1 }} 
+              style={styles.priceContainer}   
+            >
+              <Text style={styles.price}>K{price}</Text>
+            </LinearGradient>
+          </View>
           { 
             noImage && (
               <Text style={styles.warning}>
-                Please upload an image before adding an item to cart
+                Please upload {
+                  size == "A4 X 2" ? "all images" : "an image"
+                } before adding an item to cart
               </Text>
             )
           }
