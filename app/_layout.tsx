@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import BebasNeueRegular from "../assets/fonts/BebasNeue-Regular.ttf";
 import GaladaRegular from "../assets/fonts/Galada-Regular.ttf";
+import Montserrat_Medium from "../assets/fonts/Montserrat/Montserrat-Medium.ttf";
 import { useFonts } from "expo-font";
 
 export default function RootLayout() {
@@ -11,6 +12,7 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     "BebasNeue-Regular": BebasNeueRegular,
     "Galada-Regular":   GaladaRegular,
+    "Montserrat-Medium": Montserrat_Medium,
   });
   
   if (!fontsLoaded) {
@@ -26,4 +28,4 @@ export default function RootLayout() {
       </Stack>  
     </Provider>
   );
-}  
+}; 
