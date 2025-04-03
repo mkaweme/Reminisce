@@ -27,18 +27,6 @@ const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: "center" }}>
       <View style={styles.section}>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.canvasType}>{item.size}</Text>
-          <Text style={styles.canvasType}> : </Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{item.price}</Text>
-          </LinearGradient>
-        </View>
         <View style={styles.imageContainer}>
           <Image 
             source={ 
@@ -63,6 +51,18 @@ const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => {
             </View>
           )
         }          
+        <View style={styles.detailsContainer}>
+          <Text style={styles.canvasType}>{item.size}</Text>
+          <Text style={styles.canvasType}> : </Text>
+          <LinearGradient 
+            colors={["#34ffc6", "#d900aa" ]} 
+            start={{ x:0, y: 0 }} 
+            end={{ x: 1, y: 1 }} 
+            style={styles.priceContainer}   
+          >
+            <Text style={styles.price}>K{item.price}</Text>
+          </LinearGradient>
+        </View>
         <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
           <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
         </TouchableOpacity>
@@ -77,27 +77,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  detailsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    margin: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  detailsText: {
-    color: "#fff",
-    fontFamily: "BebasNeue-Regular",
-    fontSize: 30,
-  },
   section : {
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  imageContainer : {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2.5,
+    elevation: 5,
+  },
+  portrait: {
+    width: 200,
+    height: 300,
+  },
+  detailsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
   canvasType: {
     position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
     color: "#ffffff"
   },
   priceContainer: {
@@ -105,7 +115,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
     color: "#ffffff",
     alignItems: "center",
     borderRadius:5,
@@ -114,28 +123,6 @@ const styles = StyleSheet.create({
     fontFamily: "BebasNeue-Regular",
     color: "#ffffff",
     fontSize: 40,
-  },
-  portrait: {
-    width: 200,
-    height: 300,
-    margin: 20,
-  },
-  fullImageContainer: {
-    height: 550,
-    width: "100%",
-    alignItems: "center",
-  },
-  imageContainer : {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
-    elevation: 5,
   },
   orderButton : {
     width: 250,
