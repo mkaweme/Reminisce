@@ -164,14 +164,14 @@ const Nice: React.FC = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload an image before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -181,7 +181,19 @@ const Nice: React.FC = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
+          ) 
+        }
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            )
+          ) 
+        }
+        {
+          pathName.includes("splits") && (
             <Link href={{
               pathname: "/uploadSplit",
               params: {

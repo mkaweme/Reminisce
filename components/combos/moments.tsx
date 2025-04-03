@@ -290,14 +290,14 @@ const Moments: React.FC = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload all images before adding an item to cart
             </Text>
-          ) : null
+          )
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -307,7 +307,19 @@ const Moments: React.FC = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
+          )
+        }
+        {
+          pathName.includes("upload") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            )
+          )
+        }
+        { 
+          pathName.includes("combos") && (
             <Link href={{
               pathname: "/uploadCombo",
               params: {

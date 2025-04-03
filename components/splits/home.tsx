@@ -175,7 +175,7 @@ const Home = () => {
             )
           }
         </View>
-        <View style={styles.details}>
+        <View style={styles.detailsContainer}>
           <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
           <LinearGradient 
             colors={["#34ffc6", "#d900aa" ]} 
@@ -187,14 +187,14 @@ const Home = () => {
           </LinearGradient>
         </View>
         { 
-          noImage ? (
+          noImage && (
             <Text style={styles.warning}>
               Please upload an image before adding an item to cart
             </Text>
-          ) : null
+          ) 
         }
         {
-          pathName.includes("upload") ? (
+          pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -204,7 +204,19 @@ const Home = () => {
                 <Text style={styles.orderButtonText}>ADD TO CART</Text>
               </TouchableOpacity>
             )
-          ) : (
+          )
+        }
+        {
+          pathName.includes("cart") && (
+            cartItems.some((value) => value.size == SIZE ) && (
+              <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+                <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+              </TouchableOpacity>
+            ) 
+          )
+        }
+        { 
+          pathName.includes("splits") && (
             <Link href={{
               pathname: "/uploadSplit",
               params: {
@@ -232,7 +244,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  section : {
+  section: {
     width: "95%",
     padding: 3,
     justifyContent: "space-between",
@@ -243,7 +255,8 @@ const styles = StyleSheet.create({
     position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginTop: 5,
+    marginBottom: 15,
     color: "#ffffff",
   },
   fullImageContainer: {
@@ -322,7 +335,7 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 4,
   },
-  details: {
+  detailsContainer: {
     width: 300,
     flexDirection: "row",
     marginTop: 20,
