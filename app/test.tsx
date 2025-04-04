@@ -5,37 +5,34 @@ import MaskedView from "@react-native-masked-view/masked-view";
 
 const Test = () => {
   return (
-    <LinearGradient 
-      colors={["#ff9900", "#ff0000"]} // Adjust gradient colors
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.container}
-    >
-      <View style={styles.section}>
-        <MaskedView
-          maskElement={(
-            <View
-              style={[
-                StyleSheet.absoluteFill, 
-                { borderWidth : 10, borderRadius: 10, padding: 10 }]}
-            ></View>
-          )}
+   
+    <View style={styles.section}>
+      <MaskedView
+        maskElement={(
+          <View
+            style={[
+              StyleSheet.absoluteFill, 
+              { borderWidth : 10, borderRadius: 150, padding: 10 }]}
+          ></View>
+        )}
+        style={[StyleSheet.absoluteFill]}
+      >
+        <LinearGradient
+          colors={["red", "orange"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
           style={[StyleSheet.absoluteFill]}
         >
-          <LinearGradient
-            colors={["red", "orange"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={[StyleSheet.absoluteFill]}
-          >
 
-          </LinearGradient>
-        </MaskedView>
-        <Text style={{ fontSize: 26 }}>View</Text>
-      </View>  
-    </LinearGradient>
+        </LinearGradient>
+      </MaskedView>
+      <Text style={{ fontSize: 26 }}> A Masked View</Text>
+    </View>  
+    
   );
 };
+
+export default Test;
 
 const styles = StyleSheet.create({
   container: {
@@ -50,5 +47,3 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   }
 });
-
-export default Test;
