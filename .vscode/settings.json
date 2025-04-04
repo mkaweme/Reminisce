@@ -2,5 +2,6 @@
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "java.compile.nullAnalysis.mode": "automatic"
 }
