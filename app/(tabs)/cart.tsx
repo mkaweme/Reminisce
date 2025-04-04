@@ -22,7 +22,7 @@ import Nice from "components/splits/nice";
 import Sweet from "components/splits/sweet";
 import Time from "components/combos/time";
 import Warm from "components/combos/warm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import EmptyCart from "assets/images/empty-cart.jpg";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,6 +33,9 @@ import Constants from "expo-constants";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
+import CheckMark from "components/checkMark";
+import { cartActions } from "app/CartReducer";
+import { router } from "expo-router";
 
 export type OpenMapArgs = {
   lat: string | number;
@@ -43,7 +46,6 @@ export type OpenMapArgs = {
 const Cart: React.FC = () => {
 
   //Define state variables
-  // const [showModal, setShowModal] = useState<boolean>(false);
   const [cartEmpty, setCartEmpty] = useState<boolean>(true);
   const [delivery, setDelivery] = useState<boolean>(false);
   const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
@@ -52,8 +54,10 @@ const Cart: React.FC = () => {
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [orderPlaced, setOrderPlaced] = useState<boolean>(false);
   
-  //Define a variable for holding the cart items
+  //Define a variable for holding the dispatch function and cart items
+  const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
 
   const getLocationPersmission = async () => {
@@ -82,7 +86,6 @@ const Cart: React.FC = () => {
     if (data.routes.length) {
       const meters = data.routes[0].legs[0].distance.value;
       setDistance(meters / 1000); // Convert to km
-      console.log("Distance is", meters / 1000);
     }
 
     setDeliveryFee(calculateFee(distance));
@@ -133,6 +136,17 @@ const Cart: React.FC = () => {
     setOrderTotal(orderTotal);
   };
   
+  //Define a function that places the order
+  const placeOrder = () => {
+    //Send all info to database
+    //When succesful, 
+    //Clear cart
+    dispatch(cartActions.clearCart());
+    //display checkmark
+    setShowModal(false);
+    setOrderPlaced(true);
+  };
+  
   //Use a useEffect to rerender and new cart items and new order items total
   //when items in the cart change
   useEffect(() => {
@@ -149,7 +163,13 @@ const Cart: React.FC = () => {
   useEffect(() => {
     setDeliveryFee(calculateFee(distance));   
   }, [distance]);
-    
+  
+  //navigate to home
+  const navigatetoHome = () => {
+    router.replace("/");
+    setOrderPlaced(false);
+  };
+
   return (
     <LinearGradient 
       colors={["#34ffc688", "#62004d"]} 
@@ -157,17 +177,22 @@ const Cart: React.FC = () => {
       end={{ x: 1, y: 1 }}  
       style={styles.gradientContainer}
     >
-      {cartEmpty && (
+      {cartEmpty && !orderPlaced && (
         <View style={styles.cartEmptyContainer}>
           <Image source={EmptyCart} width={512} height={512} style={styles.cartEmptyImage}/>
           <Text style={styles.cartEmptyText}>Your cart is empty</Text>
+        </View>
+      )}
+      { orderPlaced && (
+        <View style={styles.cartEmptyContainer}>
+          <CheckMark />
         </View>
       )}
       <Modal 
         visible={showModal} 
         onRequestClose={() => setShowModal(false)}
         animationType="slide"
-      >
+      > 
         <SafeAreaView style={styles.modal}>
           <View style={styles.modalHeader}>
             <Text style={styles.canvasType}>Confrim Order</Text>
@@ -175,8 +200,8 @@ const Cart: React.FC = () => {
               <AntDesign name="closecircleo" size={24} color="white" />
             </Pressable>
           </View>
+          <Divider />
           <ScrollView>
-            <Divider />
             {cart.items.map((item, index) => {
               const Component = typeof item.name === "string" && item.name in componentsMap 
                 ? componentsMap[item.name as keyof typeof componentsMap] 
@@ -188,14 +213,39 @@ const Cart: React.FC = () => {
                 </View>
                 : null;
             })}
-            <TouchableOpacity style={styles.orderButton} onPress={() => setShowModal(true)}>
-              <Text style={styles.addressButtonText}>Pay</Text>
+            <View style={{ ...styles.totalContainer, marginBottom: 30 }}>
+              <View style={styles.totalItem}>
+                <Text style={styles.totalText}>Items </Text>
+                <Text style={styles.totalText}>K{itemsTotal}</Text>
+              </View>
+              <View style={styles.totalItem}>
+                <Text style={styles.totalText}>Courier </Text>
+                <Text style={styles.totalText}>K{deliveryFee}</Text>
+              </View>
+              <View style={styles.totalItem}>
+                <Text style={styles.totalText}>Order Total </Text>
+                <Text style={styles.totalText}>K{orderTotal}</Text>
+              </View>
+            </View>
+            <Divider width={2} style={{ marginBottom: 30 }}/>
+            <TouchableOpacity style={styles.orderButton} onPress={() => placeOrder()}>
+              <Text style={styles.addressButtonText}>Pay</Text> 
             </TouchableOpacity>
           </ScrollView>
         </SafeAreaView>
       </Modal>
       <View style={styles.container}>
-        <Text style={{ ...styles.canvasType, marginTop: 0 }}>Your order</Text>
+        <Text 
+          style={{ 
+            ...styles.canvasType, 
+            marginTop: 0, 
+            backgroundColor: 
+            "#ffffff", 
+            color: "#000000" 
+          }}
+        >
+          Your order
+        </Text>
         <ScrollView>
           <Divider width={2}/>
           {cart.items.map((item, index) => {
@@ -281,7 +331,7 @@ const Cart: React.FC = () => {
           colors={["#34ffc688", "#d900aa"]} 
           start={{ x:0, y: 0 }} 
           end={{ x: 1, y: 1 }}  
-          style={styles.orderButton}
+          style={{ ...styles.orderButton, position: "absolute" }}
         >
           <TouchableOpacity  onPress={() => setShowModal(true)}>
             <Text style={{ ...styles.deliveryFeeText, color: "#ffffff" }}>
@@ -317,6 +367,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 2,
   },
   cartEmptyImage: {
     height: 400,
@@ -329,6 +380,7 @@ const styles = StyleSheet.create({
     color: "#00000088",
   },
   modal: {
+    flex: 1,
     backgroundColor: "#454545",
   },
   modalHeader:{
@@ -411,7 +463,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: 15,
     borderRadius: 90,
-    position: "absolute",
     bottom: 20,
   },
 });
