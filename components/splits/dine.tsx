@@ -242,14 +242,13 @@ const styles = StyleSheet.create({
     width: 275,
     marginTop: 15,
     justifyContent: "space-between",
-    shadowColor: "#000",
-    shadowOffset: { 
-      width: 5, 
-      height: 5 
-    },
+    shadowColor: "#000000",
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 10,
+    // backgroundColor: "#ffffff",
+    // borderRadius: 5,
   },
   previewContainer: {
     position: "relative",
