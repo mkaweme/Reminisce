@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "expo-router";
 import { 
   Image, 
-  SafeAreaView, 
   ScrollView, 
   StyleSheet, 
   Text, 
@@ -17,12 +16,15 @@ import MaskedView from "@react-native-masked-view/masked-view";
 const Products = () => {
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <LinearGradient 
         colors={["#34ffc688", "#62004d"]} 
         start={{ x:0, y: 0 }} 
         end={{ x: 1, y: 1 }}    
       >
+        <View style={styles.customHeader}>
+          <Text style={styles.headerText}>Products</Text>
+        </View>
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <View style={styles.section}>
             <MaskedView
@@ -221,7 +223,7 @@ const Products = () => {
           </View>    
         </ScrollView>
       </LinearGradient>    
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -235,6 +237,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 15,
     paddingBottom: 45,
+  },
+  customHeader: {
+    height: 70, 
+    backgroundColor: "#fff",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "semibold",
+    marginBottom: 5
   },
   section : {
     width: "90%",
@@ -274,54 +291,73 @@ const styles = StyleSheet.create({
   splitContainer: {
     flexDirection: "row",
     width: 305,
-    height: 220,
-    alignContent: "center",
-    alignItems: "center",
+    height: 250,
     marginTop: 15,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { 
-      width: 5, 
-      height: 5 
+      width: 10, 
+      height: 10 
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 5,
   },
   splitPreviewContainer_1: {
-    position: "relative",
-    top: 15,
+    top: 35,
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 20, 
+      height: 20 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   splitPreviewContainer_2: {
-    position: "relative",
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000",
+    shadowOffset: { 
+      width: 10, 
+      height: 10 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   splitPreviewWindow: {
     width: 75,
-    height: 220,
+    height: 210,
     overflow: "hidden",
   },
   splitImage_1: {
     width: 300,
-    height: 230,
-    top: -25,
+    height: 240,
+    top: -35,
   },
   SplitImage_2: {
-    width: 300,
-    height: 210,
     position: "absolute",
+    width: 300,
+    height: 240,
     left: -75,
   },
   splitImage_3: {
-    width: 300,
-    height: 230,
     position: "absolute",
+    width: 300,
+    height: 240,
     left: -150,
-    top: -25,
+    top: -35,
+    
   },
   splitImage_4: {
-    width: 300,
-    height: 210,
     position: "absolute",
+    width: 300,
+    height: 240,
     left: -225,
   },
   comboImagesContainer: {
