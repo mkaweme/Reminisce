@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { cartActions } from "app/CartReducer";
+import Details from "components/details";
 
 const PRICE: number = 750;
 const SIZE: string = "2 X A3 | 4 X A4";
@@ -141,7 +142,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={18} 
+                      size={16} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -179,7 +180,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={18} 
+                      size={16} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -204,7 +205,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 9 }]
+                            { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -219,7 +220,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={20} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -242,7 +243,7 @@ const Fun: React.FC = () => {
                         <View
                           style={[
                             StyleSheet.absoluteFill, 
-                            { borderWidth : 3, borderRadius: 9 }]
+                            { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -257,7 +258,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={20} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -297,7 +298,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={18} 
+                      size={16} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -334,7 +335,7 @@ const Fun: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={18} 
+                      size={16} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -343,17 +344,7 @@ const Fun: React.FC = () => {
             </View>
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -412,25 +403,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section: {
-    minHeight: 490,
-    width: "96%",
+    minHeight: 500,
+    width: "95%",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 12,
+    marginVertical: 15,
   },
   canvasType: {
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginBottom: 10,
     color: "#ffffff",
   },
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    columnGap: 5,
-    marginTop: 30,
-    height: 260,
+    columnGap: 15,
+    marginTop: 5,
     justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2.5,
+    elevation: 5,
   },
   columnImagesContainer: {
     display: "flex",
@@ -439,22 +434,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   imageContainer : {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
     shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 2.5,
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
     elevation: 5,
   },
   image_1: {
-    width: 0.23 * WIDTH, 
+    width: 0.21 * WIDTH, 
     height: 120, 
   },
   image_2: {
-    width: 0.45 * WIDTH, 
+    width: 0.42 * WIDTH, 
     height: 120, 
    
   },
@@ -463,32 +454,6 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 5,
     right: 4,
-  },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
+import Details from "components/details";
 
 const PRICE: number = 380;
 const SIZE: string = "1 X A3 | 2 X A4";
@@ -202,24 +203,16 @@ const Cherry: React.FC = () => {
             }
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
+        <Details price={PRICE} size={SIZE}/>
+        <View style={styles.warningContainer}>
+          { 
+            noImage && (
+              <Text style={styles.warning}>
+                Please upload all images before adding an item to cart
+              </Text>
+            )
+          }
         </View>
-        { 
-          noImage && (
-            <Text style={styles.warning}>
-              Please upload all images before adding an item to cart
-            </Text>
-          )
-        }
         {
           pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
@@ -270,43 +263,47 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section: {
-    height: 490,
+    minHeight: 500,
+    width: "95%",
+    padding: 3,
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 12,
+    marginVertical: 15,
   },
   canvasType: {
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
-    color: "#ffffff"
+    marginBottom: 10,
+    color: "#ffffff",
   },
   imagesContainer: {
-    display: "flex",
     flexDirection: "row",
-    columnGap: 5,
-    marginTop: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  imageContainer : {
-    display: "flex",
-    flexDirection: "column",
+    columnGap: 15,
+    marginTop: 5,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
   },
+  imageContainer : {
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
   image_1: {
-    width: 0.25*WIDTH,
-    height: 160,
+    width: 0.23*WIDTH,
+    height: 140,
   },
   image_2: {
-    width: 0.40*WIDTH,
-    height: 220,
+    width: 0.35*WIDTH,
+    height: 200,
   },
   cameraIcon: {
     position: "absolute",
@@ -314,31 +311,10 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 4,
   },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
+  warningContainer: {
+    minHeight: 20, 
+    justifyContent: "center", 
+    alignItems: "center"
   },
   warning : {
     color: "white",

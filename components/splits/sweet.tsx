@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import { cartActions } from "app/CartReducer";
+import Details from "components/details";
 
 const PRICE: number = 850;
 const SIZE: string = "90CM X 150CM";
@@ -59,7 +60,7 @@ const Sweet = () => {
     dispatch(cartActions.addToCart(item));
   };
 
-  //Define a function that aremoves an item from the cart
+  //Define a function that removes an item from the cart
   const removeItemFromCart = () => {
     const item = {
       id: SIZE,
@@ -162,17 +163,7 @@ const Sweet = () => {
             )
           }
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -232,7 +223,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section : {
-    height: 490,
+    height: 510,
     width: "95%",
     padding: 3,
     justifyContent: "space-between",
@@ -243,27 +234,28 @@ const styles = StyleSheet.create({
     position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginBottom: 10,
     color: "#ffffff"
-  },
-  fullImageContainer: {
-    height: 500,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   splitContainer: {
     flexDirection: "row",
     width: 310,
-    height: 225,
+    height: 260,
     alignContent: "center",
     justifyContent: "space-between",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
   },
   previewContainer_1: {
-    position: "relative",
-    top: 25,
+    top: 40,
     height: 140,
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: { 
       width: 5, 
       height: 5 
@@ -273,10 +265,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   previewContainer_2: {
-    position: "relative",
-    top: 10,
+    top: 20,
     height: 160,
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: { 
       width: 5, 
       height: 5 
@@ -286,9 +277,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   previewContainer_3: {
-    position: "relative",
     height: 180,
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: { 
       width: 5, 
       height: 5 
@@ -299,41 +289,38 @@ const styles = StyleSheet.create({
   },
   previewWindow_1: {
     width: 60,
-    height: 130,
+    height: 180,
     overflow: "hidden",
   },
   previewWindow_2: {
     width: 60,
-    height: 160,
+    height: 220,
     overflow: "hidden",
   },
   previewWindow_3: {
     width: 60,
-    height: 180,
+    height: 260,
     overflow: "hidden",
   },
   image_1: {
     width: 300,
     height: 180,
-    top: -25,
+    top: -10,
   },
   image_2: {
     width: 300,
-    height: 180,
-    position: "absolute",
+    height: 220,
     left: -60,
     top: -10,
   },
   image_3: {
     width: 300,
-    height: 180,
-    position: "absolute",
+    height: 260,
     left: -120,
   },
   image_4: {
     width: 300,
-    height: 180,
-    position: "absolute",
+    height: 220,
     left: -180,
     top: -10,  
   },
@@ -342,39 +329,13 @@ const styles = StyleSheet.create({
     height: 180,
     position: "absolute",
     left: -240,
-    top: -25,  
+    top: -10,  
   },
   cameraIcon: {
     position: "absolute",
     padding: 5,
     bottom: 5,
     right: 4,
-  },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

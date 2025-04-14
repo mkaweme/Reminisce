@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
+import Details from "components/details";
 
 const PRICE: number = 540;
 const SIZE: string = "2 X A3 | 4 X A4";
@@ -100,7 +101,7 @@ const Time: React.FC = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -112,7 +113,7 @@ const Time: React.FC = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={16} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -133,7 +134,7 @@ const Time: React.FC = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -145,7 +146,7 @@ const Time: React.FC = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -166,7 +167,7 @@ const Time: React.FC = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -178,7 +179,7 @@ const Time: React.FC = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={18} color="white" />
                 </TouchableOpacity>
               )
             }
@@ -199,7 +200,7 @@ const Time: React.FC = () => {
                       <View
                         style={[
                           StyleSheet.absoluteFill, 
-                          { borderWidth : 3, borderRadius: 10 }]}
+                          { borderWidth : 3, borderRadius: 8 }]}
                       />
                     )}
                     style={[StyleSheet.absoluteFill]}
@@ -211,30 +212,22 @@ const Time: React.FC = () => {
                       style={[StyleSheet.absoluteFill]}
                     />
                   </MaskedView>
-                  <MaterialCommunityIcons name="camera-plus-outline" size={24} color="white" />
+                  <MaterialCommunityIcons name="camera-plus-outline" size={16} color="white" />
                 </TouchableOpacity>
               )
             }
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
+        <Details price={PRICE} size={SIZE}/>
+        <View style={styles.warningContainer}>
+          { 
+            noImage && (
+              <Text style={styles.warning}>
+                Please upload all images before adding an item to cart
+              </Text>
+            )
+          }
         </View>
-        { 
-          noImage && (
-            <Text style={styles.warning}>
-              Please upload all images before adding an item to cart
-            </Text>
-          )
-        }
         {
           pathName.includes("upload") && (
             cartItems.some((value) => value.size == SIZE ) ? (
@@ -287,44 +280,46 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section: {
-    minHeight: 490,
-    width: "96%",
+    minHeight: 500,
+    width: "95%",
+    padding: 3,
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 12,
+    marginVertical: 15,
   },
   canvasType: {
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginBottom: 10,
     color: "#ffffff",
   },
   imagesContainer: {
-    display: "flex",
     flexDirection: "row",
-    columnGap: 5,
-    marginTop: 30,
+    columnGap: 10,
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  imageContainer : {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "yellow",
     shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
+    height: 140,
+  },
+  imageContainer : {
+    justifyContent: "center",
+    backgroundColor: "yellow",
+    shadowColor: "#000000",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   image_1: {
-    width: 0.19 * WIDTH,
-    height: 115,
+    width: 0.17 * WIDTH,
+    height: 110,
   },
   image_2: {
-    width: 0.28 * WIDTH,
+    width: 0.25 * WIDTH,
     height: 140,
   },
   cameraIcon: {
@@ -333,31 +328,10 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 4,
   },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
+  warningContainer: {
+    minHeight: 20, 
+    justifyContent: "center", 
+    alignItems: "center"
   },
   warning : {
     color: "white",

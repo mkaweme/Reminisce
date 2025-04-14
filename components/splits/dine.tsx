@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { RootState } from "app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "app/CartReducer";
+import Details from "components/details";
 
 const PRICE: number = 650;
 const SIZE: string = "3 : 70CM X 90CM";
@@ -96,29 +97,23 @@ const Dine: React.FC = () => {
       <View style={styles.section}>
         <Text style={styles.canvasType}>3 PIECE {NAME}</Text>
         <View style={styles.splitContainer}>
-          <View style={styles.previewContainer}>
-            <View style={styles.previewWindow}>
-              <Image 
-                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-                style={styles.image_1} 
-              />
-            </View>
+          <View style={styles.previewWindow}>
+            <Image 
+              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              style={styles.image_1} 
+            />
           </View>
-          <View style={styles.previewContainer}>
-            <View style={styles.previewWindow}>
-              <Image 
-                source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-                style={styles.image_2} 
-              />
-            </View>
+          <View style={styles.previewWindow}>
+            <Image 
+              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              style={styles.image_2} 
+            />
           </View>
-          <View style={styles.previewContainer}>
-            <View style={styles.previewWindow}>
-              <Image 
-                source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
-                style={styles.image_3} 
-              />
-            </View>
+          <View style={styles.previewWindow}>
+            <Image 
+              source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              style={styles.image_3} 
+            />
           </View>
           {
             pathName.includes("upload") && !isNavigating && (
@@ -148,17 +143,7 @@ const Dine: React.FC = () => {
               </TouchableOpacity>
             )}
         </View>
-        <View style={styles.details}>
-          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -217,7 +202,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section : {
-    height: 490,
+    minHeight: 500,
     width: "95%",
     padding: 3,
     justifyContent: "space-between",
@@ -225,33 +210,20 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
-    color: "#ffffff"
-  },
-  fullImageContainer: {
-    height: 500,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between",
+    marginBottom: 10,
+    color: "#ffffff",
   },
   splitContainer: {
     flexDirection: "row",
     width: 275,
-    marginTop: 15,
     justifyContent: "space-between",
     shadowColor: "#000000",
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 10,
-    // backgroundColor: "#ffffff",
-    // borderRadius: 5,
-  },
-  previewContainer: {
-    position: "relative",
   },
   previewWindow: {
     width: 90,
@@ -280,31 +252,10 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 4,
   },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   splitCanvasDimensions: {
     fontSize: 30,
     fontFamily: "BebasNeue-Regular",
     color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

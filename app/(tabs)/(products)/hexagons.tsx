@@ -8,6 +8,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../CartReducer";
+import Details from "components/details";
 
 const PRICE:number = 680;
 const NAME: string = "HEXAGONS";
@@ -171,17 +172,7 @@ const Hexagons = () => {
             </View>
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage ? (
             <Text style={styles.warning}>

@@ -2,7 +2,7 @@ import React from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../app/CartReducer";
-import { LinearGradient } from "expo-linear-gradient";
+import Details from "./details";
 
 const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => { 
     
@@ -51,18 +51,7 @@ const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => {
             </View>
           )
         }          
-        <View style={styles.detailsContainer}>
-          <Text style={styles.canvasType}>{item.size}</Text>
-          <Text style={styles.canvasType}> : </Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{item.price}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={item.price} size={item.size}/>
         <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
           <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
         </TouchableOpacity>
@@ -88,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000000",
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.25,
     shadowRadius: 2.5,
     elevation: 5,
@@ -96,33 +85,6 @@ const styles = StyleSheet.create({
   portrait: {
     width: 200,
     height: 300,
-  },
-  detailsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    marginTop: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  canvasType: {
-    position: "relative",
-    fontSize: 40,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff"
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   orderButton : {
     width: 250,

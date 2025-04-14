@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import { cartActions } from "app/CartReducer";
+import Details from "components/details";
 
 const PRICE: number = 780;
 const SIZE: string = "3:50CM X 25CM 3:25CM X 25CM";
@@ -175,17 +176,7 @@ const Home = () => {
             )
           }
         </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -259,16 +250,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     color: "#ffffff",
   },
-  fullImageContainer: {
-    height: 500,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   splitContainer: {
     flexDirection: "row",
     width: 305,
-    height: 305,
+    height: 300,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { 
@@ -334,34 +319,6 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 5,
     right: 4,
-  },
-  detailsContainer: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  splitCanvasDimensions: {
-    width: 200,
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-    
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

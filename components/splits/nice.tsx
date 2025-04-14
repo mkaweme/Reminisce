@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { cartActions } from "app/CartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
+import Details from "components/details";
 
 const PRICE: number = 750;
 const SIZE: string = "90CM X 120CM";
@@ -152,17 +153,7 @@ const Nice: React.FC = () => {
             )
           }
         </View>
-        <View style={styles.details}>
-          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -222,7 +213,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section : {
-    height: 490,
+    height: 510,
     width: "95%",
     padding: 3,
     justifyContent: "space-between",
@@ -230,29 +221,29 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
+    marginBottom: 10,
     color: "#ffffff"
-  },
-  fullImageContainer: {
-    height: 500,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   splitContainer: {
     flexDirection: "row",
     width: 310,
-    height: 225,
+    height: 260,
     alignContent: "center",
     justifyContent: "space-between",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
   },
   previewContainer_1: {
-    position: "relative",
     top: 55,
-    height: 140,
+    height: 160,
     shadowColor: "#000",
     shadowOffset: { 
       width: 5, 
@@ -260,12 +251,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 15,
   },
   previewContainer_2: {
-    position: "relative",
     top: 30,
-    height: 140,
+    height: 180,
     shadowColor: "#000",
     shadowOffset: { 
       width: 5, 
@@ -276,8 +266,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   previewContainer_3: {
-    position: "relative",
-    height: 140,
+    height: 200,
     shadowColor: "#000",
     shadowOffset: { 
       width: 5, 
@@ -289,40 +278,38 @@ const styles = StyleSheet.create({
   },
   previewWindow_1: {
     width: 75,
-    height: 160,
+    height: 180,
     overflow: "hidden",
   },
   previewWindow_2: {
     width: 75,
-    height: 200,
+    height: 220,
     overflow: "hidden",
   },
   previewWindow_3: {
     width: 75,
-    height: 220,
+    height: 260,
     overflow: "hidden",
   },
   image_1: {
     width: 300,
-    height: 225,
+    height: 255,
     top: -55,
   },
   image_2: {
     width: 300,
-    height: 225,
-    position: "absolute",
+    height: 255,
     left: -75,
     top: -30,
   },
   image_3: {
     width: 300,
-    height: 225,
-    position: "absolute",
+    height: 260,
     left: -150,
   },
   image_4: {
     width: 300,
-    height: 225,
+    height: 245,
     position: "absolute",
     left: -225,
     top: -55, 
@@ -332,32 +319,6 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 5,
     right: 4,
-  },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  splitCanvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

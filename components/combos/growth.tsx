@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
+import Details from "components/details";
 
 const PRICE: number = 1090;
 const SIZE: string = "2 X A2 | 2 X A3 | 6 X A4";
@@ -115,7 +116,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -152,7 +153,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -189,7 +190,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -213,42 +214,46 @@ const Growth: React.FC = () => {
             </View>
           </View>
           <View style={styles.columnImagesContainer}>
-            <View style={styles.imageContainer}>
-              <Image 
-                source={image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }} 
-                style={styles.image_3} 
-              />
-              {
-                pathName.includes("upload") && (
-                  <TouchableOpacity 
-                    style={styles.cameraIcon} 
-                    onPress={async () => setImage_4(await pickImage())}
-                  >
-                    <MaskedView
-                      maskElement={(
-                        <View
-                          style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 9 }]
-                          }
-                        />
-                      )}
-                      style={[StyleSheet.absoluteFill]}
+            <View style={styles.A3Container}>
+              <View style={styles.imageContainer}>
+                <Image 
+                  source={
+                    image_4 ? { uri: image_4 } : { uri : "https://picsum.photos/200/300" }
+                  } 
+                  style={styles.image_3} 
+                />
+                {
+                  pathName.includes("upload") && (
+                    <TouchableOpacity 
+                      style={styles.cameraIcon} 
+                      onPress={async () => setImage_4(await pickImage())}
                     >
-                      <LinearGradient
-                        colors={["#d900aa", "#34ffc6"]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
+                      <MaskedView
+                        maskElement={(
+                          <View
+                            style={
+                              [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
+                            }
+                          />
+                        )}
                         style={[StyleSheet.absoluteFill]}
+                      >
+                        <LinearGradient
+                          colors={["#d900aa", "#34ffc6"]}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={[StyleSheet.absoluteFill]}
+                        />
+                      </MaskedView>
+                      <MaterialCommunityIcons 
+                        name="camera-plus-outline" 
+                        size={18} 
+                        color="white" 
                       />
-                    </MaskedView>
-                    <MaterialCommunityIcons 
-                      name="camera-plus-outline" 
-                      size={20} 
-                      color="white" 
-                    />
-                  </TouchableOpacity>
-                )
-              }
+                    </TouchableOpacity>
+                  )
+                }
+              </View>
             </View>
             <View style={styles.imageContainer}>
               <Image 
@@ -265,7 +270,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 10 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -280,7 +285,7 @@ const Growth: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={24} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
@@ -302,43 +307,6 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 10 }]
-                          }
-                        />
-                      )}
-                      style={[StyleSheet.absoluteFill]}
-                    >
-                      <LinearGradient
-                        colors={["#d900aa", "#34ffc6"]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                        style={[StyleSheet.absoluteFill]}
-                      />
-                    </MaskedView>
-                    <MaterialCommunityIcons 
-                      name="camera-plus-outline" 
-                      size={24} 
-                      color="white" 
-                    />
-                  </TouchableOpacity>
-                )
-              }
-            </View>
-            <View style={styles.imageContainer}>
-              <Image 
-                source={image_7 ? { uri: image_7 } : { uri : "https://picsum.photos/200/300" }} 
-                style={styles.image_3} 
-              />
-              {
-                pathName.includes("upload") && (
-                  <TouchableOpacity 
-                    style={styles.cameraIcon} 
-                    onPress={async () => setImage_7(await pickImage())}
-                  >
-                    <MaskedView
-                      maskElement={(
-                        <View
-                          style={
                             [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
@@ -354,12 +322,53 @@ const Growth: React.FC = () => {
                     </MaskedView>
                     <MaterialCommunityIcons 
                       name="camera-plus-outline" 
-                      size={20} 
+                      size={18} 
                       color="white" 
                     />
                   </TouchableOpacity>
                 )
               }
+            </View>
+            <View style={styles.A3Container}>
+              <View style={styles.imageContainer}>
+                <Image 
+                  source={
+                    image_7 ? { uri: image_7 } : { uri : "https://picsum.photos/200/300" }
+                  }
+                  style={styles.image_3} 
+                />
+                {
+                  pathName.includes("upload") && (
+                    <TouchableOpacity 
+                      style={styles.cameraIcon} 
+                      onPress={async () => setImage_7(await pickImage())}
+                    >
+                      <MaskedView
+                        maskElement={(
+                          <View
+                            style={
+                              [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
+                            }
+                          />
+                        )}
+                        style={[StyleSheet.absoluteFill]}
+                      >
+                        <LinearGradient
+                          colors={["#d900aa", "#34ffc6"]}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 1 }}
+                          style={[StyleSheet.absoluteFill]}
+                        />
+                      </MaskedView>
+                      <MaterialCommunityIcons 
+                        name="camera-plus-outline" 
+                        size={18} 
+                        color="white" 
+                      />
+                    </TouchableOpacity>
+                  )
+                }
+              </View>
             </View>
           </View>
           <View style={styles.columnImagesContainer}>
@@ -378,7 +387,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -415,7 +424,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -454,7 +463,7 @@ const Growth: React.FC = () => {
                       maskElement={(
                         <View
                           style={
-                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 7 }]
+                            [StyleSheet.absoluteFill, { borderWidth : 3, borderRadius: 8 }]
                           }
                         />
                       )}
@@ -478,17 +487,7 @@ const Growth: React.FC = () => {
             </View>
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.canvasDimensions}>{SIZE}</Text>
-          <LinearGradient
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -548,8 +547,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   section: {
-    minHeight: 490,
-    width: "96%",
+    minHeight: 500,
+    width: "95%",
+    padding: 3,
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 12,
@@ -557,21 +557,20 @@ const styles = StyleSheet.create({
   canvasType: {
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 30,
+    marginBottom: 10,
     color: "#ffffff",
   },
   imagesContainer: {
     display: "flex",
     flexDirection: "row",
-    columnGap: 10,
-    marginTop: 30,
-    height: 410,
+    columnGap: 15,
+    marginTop: 15,
     justifyContent: "space-between",
   },
   columnImagesContainer: {
-    display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
+    rowGap: 15,
   },
   imageContainer : {
     display: "flex",
@@ -584,16 +583,19 @@ const styles = StyleSheet.create({
     shadowRadius: 2.5,
     elevation: 5,
   },
+  A3Container: {
+    alignSelf: "center",
+  },
   image_1: {
-    width: 0.2 * WIDTH, 
-    height: 90, 
+    width: 0.17 * WIDTH, 
+    height: 80, 
   },
   image_2: {
-    width: 0.5 * WIDTH, 
-    height: 110, 
+    width: 0.45 * WIDTH, 
+    height: 100, 
   },
   image_3: {
-    width: 0.35 * WIDTH, 
+    width: 0.33 * WIDTH, 
     height: 75, 
   },
   cameraIcon: {
@@ -601,32 +603,6 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 2,
     right: 2,
-  },
-  details: {
-    width: "95%",
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",

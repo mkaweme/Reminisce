@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "app/store";
 import { cartActions } from "app/CartReducer";
+import Details from "components/details";
 
 const PRICE: number = 780;
 const SIZE: string = "70CM X 120CM";
@@ -110,7 +111,7 @@ const Joy = () => {
             </View>
           </View>
           <View style={styles.previewContainer_1}>
-            <View style={{ width: 75, height: 140, overflow: "hidden" }}>
+            <View style={styles.previewWindow}>
               <Image 
                 source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
                 style={styles.image_3} 
@@ -153,17 +154,7 @@ const Joy = () => {
             )
           }
         </View>
-        <View style={styles.details}>
-          <Text style={styles.splitCanvasDimensions}>{SIZE}</Text>
-          <LinearGradient 
-            colors={["#34ffc6", "#d900aa" ]} 
-            start={{ x:0, y: 0 }} 
-            end={{ x: 1, y: 1 }} 
-            style={styles.priceContainer}   
-          >
-            <Text style={styles.price}>K{PRICE}</Text>
-          </LinearGradient>
-        </View>
+        <Details price={PRICE} size={SIZE}/>
         { 
           noImage && (
             <Text style={styles.warning}>
@@ -231,70 +222,77 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
+    marginBottom: 10,
     color: "#ffffff"
-  },
-  fullImageContainer: {
-    height: 500,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   splitContainer: {
     flexDirection: "row",
     width: 305,
-    height: 180,
-    alignContent: "center",
-    alignItems: "center",
-    marginTop: 15,
+    height: 240, 
     justifyContent: "space-between",
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: { 
       width: 5, 
       height: 5 
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 10,
   },
   previewContainer_1: {
-    position: "relative",
-    top: 25,
+    top: 35,
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 20, 
+      height: 20 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
   },
   previewContainer_2: {
-    position: "relative",
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 10, 
+      height: 10 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   previewWindow: {
     width: 75,
-    height: 140,
+    height: 205,
     overflow: "hidden",
+    backgroundColor: "pink",
   },
   image_1: {
     width: 300,
-    height: 170,
-    top: -25,
+    height: 240,
+    top: -35,
   },
   image_2: {
     width: 300,
-    height: 170,
-    position: "absolute",
+    height: 240,
     left: -75,
-    top: 0,
   },
   image_3: {
     width: 300,
-    height: 170,
-    position: "absolute",
+    height: 240,
     left: -150,
-    top: -25,
+    top: -35,
   },
   image_4: {
     width: 300,
-    height: 170,
-    position: "absolute",
+    height: 240,
     left: -225,
   },
   cameraIcon: {
@@ -302,32 +300,6 @@ const styles = StyleSheet.create({
     padding: 5,
     bottom: 5,
     right: 4,
-  },
-  details: {
-    width: 300,
-    flexDirection: "row",
-    marginTop: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  splitCanvasDimensions: {
-    fontSize: 30,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
   },
   warning : {
     color: "white",
