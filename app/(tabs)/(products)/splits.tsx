@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { Platform, ScrollView, StyleSheet } from "react-native";
 import Dine from "../../../components/splits/dine";
 import Joy from "../../../components/splits/joy";
 import Nice from "../../../components/splits/nice";
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
     height: "100%",
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,

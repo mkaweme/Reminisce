@@ -1,5 +1,5 @@
 import React from "react";
-import {  StyleSheet, ScrollView } from "react-native";
+import {  StyleSheet, ScrollView, Platform } from "react-native";
 import Cherry from "../../../components/combos/cherry";
 import Time from "../../../components/combos/time";
 import Warm from "../../../components/combos/warm";
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
     height: "100%",
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,

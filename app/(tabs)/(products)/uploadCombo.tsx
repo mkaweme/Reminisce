@@ -1,5 +1,6 @@
 import React from "react";
 import {  
+  Platform,
   ScrollView, 
   StyleSheet, 
 } from "react-native";
@@ -53,7 +54,8 @@ export default UploadCombo;
 const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
-    height: "100%"
+    height: "100%",
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,

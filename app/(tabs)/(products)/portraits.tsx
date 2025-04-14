@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
     alignItems: "center",
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,
