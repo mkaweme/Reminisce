@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "expo-router";
 import { 
   Image, 
+  Platform, 
   ScrollView, 
   StyleSheet, 
   Text, 
@@ -20,11 +21,9 @@ const Products = () => {
       <LinearGradient 
         colors={["#34ffc688", "#62004d"]} 
         start={{ x:0, y: 0 }} 
-        end={{ x: 1, y: 1 }}    
+        end={{ x: 1, y: 1 }} 
+        style={styles.gradientContainer}   
       >
-        <View style={styles.customHeader}>
-          <Text style={styles.headerText}>Products</Text>
-        </View>
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <View style={styles.section}>
             <MaskedView
@@ -234,24 +233,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   gradientContainer: {
-    alignItems: "center",
-    paddingTop: 15,
-    paddingBottom: 45,
-  },
-  customHeader: {
-    height: 70, 
-    backgroundColor: "#fff",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    elevation: 4,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "semibold",
-    marginBottom: 5
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   section : {
     width: "90%",
@@ -291,73 +273,54 @@ const styles = StyleSheet.create({
   splitContainer: {
     flexDirection: "row",
     width: 305,
-    height: 250,
+    height: 220,
+    alignContent: "center",
+    alignItems: "center",
     marginTop: 15,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { 
-      width: 10, 
-      height: 10 
+      width: 5, 
+      height: 5 
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 5,
   },
   splitPreviewContainer_1: {
-    top: 35,
-    width: 75,
-    height: 205,
-    backgroundColor: "#000000",
-    shadowColor: "#000",
-    shadowOffset: { 
-      width: 20, 
-      height: 20 
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 5,
+    position: "relative",
+    top: 15,
   },
   splitPreviewContainer_2: {
-    width: 75,
-    height: 205,
-    backgroundColor: "#000000",
-    shadowColor: "#000",
-    shadowOffset: { 
-      width: 10, 
-      height: 10 
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 5,
+    position: "relative",
   },
   splitPreviewWindow: {
     width: 75,
-    height: 210,
+    height: 220,
     overflow: "hidden",
   },
   splitImage_1: {
     width: 300,
-    height: 240,
-    top: -35,
+    height: 230,
+    top: -25,
   },
   SplitImage_2: {
-    position: "absolute",
     width: 300,
-    height: 240,
+    height: 210,
+    position: "absolute",
     left: -75,
   },
   splitImage_3: {
-    position: "absolute",
     width: 300,
-    height: 240,
+    height: 230,
+    position: "absolute",
     left: -150,
-    top: -35,
-    
+    top: -25,
   },
   splitImage_4: {
-    position: "absolute",
     width: 300,
-    height: 240,
+    height: 210,
+    position: "absolute",
     left: -225,
   },
   comboImagesContainer: {

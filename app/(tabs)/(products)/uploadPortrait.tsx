@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { 
+  Image, 
+  Platform, 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  View 
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -14,6 +22,7 @@ const UploadPortrait = () => {
   //Deconstruct the URL parameters and convert price to a number
   const { size, price, aspectRatio: aspectRatioParam, type } = useLocalSearchParams();
   const itemPrice: number = Number(price);
+  const canvasSize = Array.isArray(size) ? size[0] : size;
 
   //Define state variables
   const aspectRatio = Array.isArray(aspectRatioParam) ? 
@@ -31,15 +40,15 @@ const UploadPortrait = () => {
     if(!image_1) {
       setNoImage(true);
       return;
-    } else if (size === "A4 X 2" && !image_2) {
+    } else if (canvasSize === "A4 X 2" && !image_2) {
       setNoImage(true);
       return;
     }
     const item = {
-      id: size,
-      name: size,
+      id: canvasSize,
+      name: canvasSize,
       price: itemPrice,
-      size: size,
+      size: canvasSize,
       imageUrls: [image_1, image_2],
       quantity: 1,
       totalPrice: itemPrice,
@@ -50,10 +59,10 @@ const UploadPortrait = () => {
   //Define a function that aremoves an item from the cart
   const removeItemFromCart = () => {
     const item = {
-      id: size,
-      name: size,
+      id: canvasSize,
+      name: canvasSize,
       price: itemPrice,
-      size: size,
+      size: canvasSize,
       imageUrls: [image_1, image_2],
       quantity: 1,
       totalPrice: itemPrice,
@@ -141,7 +150,7 @@ const UploadPortrait = () => {
             </TouchableOpacity>
           </View>
           {
-            size == "A4 X 2" && (
+            canvasSize == "A4 X 2" && (
               <View style={styles.imageContainer}>
                 <Image 
                   source={
@@ -219,54 +228,13 @@ const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
     height: "100%",
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,
   },
-  detailsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    margin: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  detailsText: {
-    color: "#fff",
-    fontFamily: "BebasNeue-Regular",
-    fontSize: 30,
-  },
   section : {
     justifyContent: "space-between",
-    alignItems: "center",
-  },
-  canvasType: {
-    position: "relative",
-    fontSize: 40,
-    fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
-    color: "#ffffff"
-  },
-  priceContainer: {
-    fontSize: 40,
-    width: 100,
-    height: 50,
-    fontFamily: "BebasNeue-Regular",
-    marginTop: 20,
-    color: "#ffffff",
-    alignItems: "center",
-    borderRadius:5,
-  },
-  price: {
-    fontFamily: "BebasNeue-Regular",
-    color: "#ffffff",
-    fontSize: 40,
-  },
-  portrait: {
-    width: 250,
-    height: 350,
-  },
-  fullImageContainer: {
-    width: "100%",
     alignItems: "center",
   },
   imageContainer : {
@@ -281,11 +249,48 @@ const styles = StyleSheet.create({
     shadowRadius: 2.5,
     elevation: 5,
   },
+  portrait: {
+    width: 250,
+    height: 350,
+  },
   cameraIcon: {
     position: "absolute",
     padding: 5,
     bottom: 5,
     right: 5,
+  },
+  detailsContainer: {
+    width: 200,
+    display: "flex",
+    flexDirection: "row",
+    margin: 40,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  detailsText: {
+    color: "#fff",
+    fontFamily: "BebasNeue-Regular",
+    fontSize: 30,
+  },
+  canvasType: {
+    position: "relative",
+    fontSize: 40,
+    fontFamily: "BebasNeue-Regular",
+    color: "#ffffff"
+  },
+  priceContainer: {
+    fontSize: 40,
+    width: 100,
+    height: 50,
+    fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    alignItems: "center",
+    borderRadius:5,
+  },
+  price: {
+    fontFamily: "BebasNeue-Regular",
+    color: "#ffffff",
+    fontSize: 40,
   },
   warning : {
     color: "white",
@@ -293,7 +298,7 @@ const styles = StyleSheet.create({
   orderButton : {
     width: 250,
     height: 40,
-    margin: 40,
+    margin: 30,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,

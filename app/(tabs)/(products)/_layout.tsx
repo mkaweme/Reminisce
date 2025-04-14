@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 export default function RootLayout() {
 
   return (
-    <Stack screenOptions={{ headerTitleAlign: "center" }}>
+    <Stack screenOptions={{ headerTitleAlign: "center" }} >
       <Stack.Screen name="index" options={{ title: "Products" }} />
       <Stack.Screen name="combos" options={{ title: "Combos" }} />
       <Stack.Screen name="splits" options={{ title: "Splits" }} />
