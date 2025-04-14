@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import 
 Animated, 
@@ -48,7 +48,6 @@ const CheckMark = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Your order has been placed!!</Text>
       <Svg width={width} height={height}>
         <Circle 
           cx={width / 2} 
@@ -101,13 +100,12 @@ const styles = StyleSheet.create({
     height: height,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "yellow",
   },
   innerCircle: {
     position: "absolute",
     width: 3,
     height: 3,
-    borderRadius: 150,
+    borderRadius: 200,
     backgroundColor: "#54b325",
   },
   checkMark: {
