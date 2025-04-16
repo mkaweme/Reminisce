@@ -17,7 +17,12 @@ const TYPE: string = "COMBO";
 
 const WIDTH = Dimensions.get("window").width;
 
-const Cherry: React.FC = () => {
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Cherry: React.FC<ComponentProps> = ({ modalOpen }) => {
 
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -227,7 +232,7 @@ const Cherry: React.FC = () => {
           )
         } 
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

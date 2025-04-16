@@ -15,7 +15,11 @@ const SIZE: string = "70CM X 120CM";
 const NAME : string = "JOY";
 const TYPE: string = "SPLIT";
 
-const Joy = () => {
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+const Joy: React.FC<ComponentProps> = ({ modalOpen }) => {
       
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
@@ -176,7 +180,7 @@ const Joy = () => {
           )
         }
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
@@ -229,7 +233,7 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 305,
+    width: 306,
     height: 240, 
     justifyContent: "space-between",
     shadowColor: "#000000",

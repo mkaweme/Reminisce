@@ -15,7 +15,12 @@ const SIZE: string = "3:50CM X 25CM 3:25CM X 25CM";
 const NAME : string = "HOME";
 const TYPE: string = "SPLIT";
 
-const Home = () => {
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Home: React.FC<ComponentProps> = ({ modalOpen }) => {
 
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
@@ -198,7 +203,7 @@ const Home = () => {
           )
         }
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

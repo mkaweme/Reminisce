@@ -13,7 +13,13 @@ import Details from "components/details";
 const PRICE:number = 680;
 const NAME: string = "HEXAGONS";
 const SIZE: string = "3: 30cm X 30CM";
-const Hexagons = () => {
+
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Hexagons: React.FC<ComponentProps> = ({ modalOpen }) => {
   
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -181,15 +187,15 @@ const Hexagons = () => {
           ) : null
         }
         {
-          cartItems.some((value) => value.size == SIZE ) ? (
+          !modalOpen ? ( cartItems.some((value) => value.size == SIZE ) ? (
             <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
               <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
             </TouchableOpacity>
-          ) : (
+          ) : ( 
             <TouchableOpacity style={styles.orderButton} onPress={addItemToCart}>
               <Text style={styles.orderButtonText}>ADD TO CART</Text>
             </TouchableOpacity>
-          )
+          )) : null
         } 
       </ScrollView>
     </LinearGradient>

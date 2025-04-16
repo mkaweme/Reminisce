@@ -15,7 +15,12 @@ const SIZE: string = "90CM X 120CM";
 const NAME : string = "NICE";
 const TYPE: string = "SPLIT";
 
-const Nice: React.FC = () => {
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Nice: React.FC<ComponentProps> = ({ modalOpen }) => {
     
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
@@ -175,7 +180,7 @@ const Nice: React.FC = () => {
           ) 
         }
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

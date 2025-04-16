@@ -15,7 +15,12 @@ const SIZE: string = "3 : 70CM X 90CM";
 const NAME : string = "DINE";
 const TYPE : string = "SPLIT";
 
-const Dine: React.FC = () => {
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Dine: React.FC<ComponentProps> = ({ modalOpen }) => {
 
   //Define state variables
   const [image, setImage] = useState<string | null> (null);
@@ -165,7 +170,7 @@ const Dine: React.FC = () => {
           ) 
         }
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

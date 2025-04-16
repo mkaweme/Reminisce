@@ -15,8 +15,13 @@ const SIZE: string = "1: 59CM X 35CM | 4: 20CM X 40CM";
 const NAME : string = "MOMENTS";
 const TYPE : string = "COMBO";
 
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
 const WIDTH = Dimensions.get("window").width;
-const Moments: React.FC = () => {
+const Moments: React.FC<ComponentProps> = ({ modalOpen }) => {
       
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -306,7 +311,7 @@ const Moments: React.FC = () => {
           )
         }
         {
-          pathName.includes("upload") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

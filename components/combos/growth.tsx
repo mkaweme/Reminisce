@@ -15,9 +15,14 @@ const SIZE: string = "2 X A2 | 2 X A3 | 6 X A4";
 const NAME : string = "GROWTH";
 const TYPE : string = "COMBO";
 
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
 const WIDTH = Dimensions.get("window").width;
 
-const Growth: React.FC = () => {
+const Growth: React.FC<ComponentProps> = ({ modalOpen }) => {
     
   //Define state variables
   const [image_1, setImage_1] = useState<string | null>(null);
@@ -509,7 +514,7 @@ const Growth: React.FC = () => {
           )
         }
         {
-          pathName.includes("cart") && (
+          !modalOpen && pathName.includes("cart") && (
             cartItems.some((value) => value.size == SIZE ) && (
               <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
                 <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>

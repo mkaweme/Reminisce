@@ -4,7 +4,12 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../app/CartReducer";
 import Details from "./details";
 
-const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => { 
+type ComponentProps = {
+  item: CanvasItem;
+  modalOpen?: boolean;
+};
+
+const Portrait: React.FC<ComponentProps> = ({ item, modalOpen }) => { 
     
   //Define variables for the dispatch function
   const dispatch = useDispatch();
@@ -52,9 +57,11 @@ const Portrait: React.FC<{ item: CanvasItem }> = ({ item }) => {
           )
         }          
         <Details price={item.price} size={item.size}/>
-        <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
-          <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
-        </TouchableOpacity>
+        { (!modalOpen) &&
+          <TouchableOpacity style={styles.orderButton} onPress={removeItemFromCart}>
+            <Text style={styles.orderButtonText}>REMOVE FROM CART</Text>
+          </TouchableOpacity>
+        }
       </View>  
     </ScrollView>
   );
