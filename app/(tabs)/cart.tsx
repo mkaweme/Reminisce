@@ -1,11 +1,13 @@
 import { 
   Image,
   Modal, 
+  Platform, 
   Pressable, 
   SafeAreaView, 
   ScrollView, 
   StyleSheet, 
   Text, 
+  TextInput, 
   TouchableOpacity, 
   View 
 } from "react-native";
@@ -36,6 +38,7 @@ import MapView, { Marker } from "react-native-maps";
 import CheckMark from "components/checkMark";
 import { cartActions } from "app/CartReducer";
 import { router } from "expo-router";
+import { PrismaClient } from "../../generated/prisma";
 
 export type OpenMapArgs = {
   lat: string | number;
@@ -46,7 +49,6 @@ export type OpenMapArgs = {
 const Cart: React.FC = () => {
 
   //Define state variables
-  const [cartEmpty, setCartEmpty] = useState<boolean>(true);
   const [delivery, setDelivery] = useState<boolean>(false);
   const [location, setLocation] = useState<Location.LocationObjectCoords | null>(null);
   const [distance, setDistance] = useState<number>(0);
@@ -55,6 +57,10 @@ const Cart: React.FC = () => {
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [orderPlaced, setOrderPlaced] = useState<boolean>(false);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  // const [address, setAddress] = useState<string>("");
   
   //Define a variable for holding the dispatch function and cart items
   const dispatch = useDispatch();
@@ -73,22 +79,28 @@ const Cart: React.FC = () => {
   //Define a function that fetches the delivery route and calculates the distance
   const fetchRoute = async () => {  
     if (!location) return;
-    const origin = `${-15.3339709},${28.3523437}`;
-    const destination = `${location.latitude},${location.longitude}`;
-    const apiKey = Constants.expoConfig?.extra?.googleMapsApiKey;
-    console.log("API key is ", apiKey);
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=
-    ${origin}&destination=${destination}&key=${apiKey}`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (data.routes.length) {
-      const meters = data.routes[0].legs[0].distance.value;
-      setDistance(meters / 1000); // Convert to km
+    try {
+      const origin = `${-15.3339709},${28.3523437}`;
+      const destination = `${location.latitude},${location.longitude}`;
+      const apiKey = Constants.expoConfig?.extra?.googleMapsApiKey;
+      const url = `https://maps.googleapis.com/maps/api/directions/json?origin=
+      ${origin}&destination=${destination}&key=${apiKey}`;
+      
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.routes.length) {
+        const meters = data.routes[0].legs[0].distance.value;
+        const courierFee = calculateFee(meters / 1000);
+        setDistance(meters / 1000);
+        setDeliveryFee(courierFee);
+        console.log("Distance in kilometers:", meters / 1000);
+        console.log("Courier fee:", courierFee);
+        console.log("Delivery fee:", deliveryFee);
+      }
+    } catch (error) {
+      console.error("Error fetching route:", error);
     }
-
-    setDeliveryFee(calculateFee(distance));
   };
 
   //Define a function that calculates the delivery fee
@@ -126,37 +138,64 @@ const Cart: React.FC = () => {
 
   //Calculate items total
   const calculateItemsTotal = () => {
+    if(cart.items.length === 0) return;
     const total = cart.items
       .map((item) => (item.price * item.quantity))
       .reduce((acc, item) => {
         return acc + item;
       });
     setItemsTotal(total);
-    const orderTotal = delivery ? total + deliveryFee : total;
+    if(!delivery) {
+      setDeliveryFee(0);     
+    } 
+    const orderTotal = total + deliveryFee;
     setOrderTotal(orderTotal);
   };
   
+  const prisma = new PrismaClient();
+
+  // async function testConnection() {
+  //   const orders = await prisma.order.findMany();
+  //   console.log(orders);
+  // }
+  
+  // testConnection();
+
   //Define a function that places the order
-  const placeOrder = () => {
-    //Send all info to database
-    //When succesful, 
-    //Clear cart
+  const placeOrder = async() => {
+    
+    await prisma.order.create({
+
+      data: {
+        id: cart.items.map((item) => item.id).join(""),
+        first_Name: firstName,
+        last_Name: lastName,
+        phoneNumber: phoneNumber,
+        latitude: location?.latitude,
+        longitude: location?.longitude,
+        photos: cart.items.map((item) => item.imageUrls),
+        items: cart.items,
+        delivery: delivery,
+        deliveryFee: deliveryFee,
+        distance: distance,
+        total: orderTotal,
+      },
+    });
+
+    //When succesful, clear cart
     dispatch(cartActions.clearCart());
+   
     //display checkmark
     setShowModal(false);
     setOrderPlaced(true);
+    navigatetoHome();
   };
   
   //Use a useEffect to rerender and new cart items and new order items total
   //when items in the cart change
-  useEffect(() => {
-    if (cart.items.length === 0) {
-      setCartEmpty(true);
-    } else {
-      setCartEmpty(false); 
-      calculateItemsTotal();
-    }
-  }, [cart.items.length, delivery]);
+  useEffect(() => {  
+    calculateItemsTotal();
+  }, [cart.items.length, delivery, deliveryFee]);
 
   //Use a useEffect to rerender the component and show new delivery fee when 
   //the distance changes
@@ -164,10 +203,15 @@ const Cart: React.FC = () => {
     setDeliveryFee(calculateFee(distance));   
   }, [distance]);
   
-  //navigate to home
+  //navigate to hom
   const navigatetoHome = () => {
-    router.replace("/");
-    setOrderPlaced(false);
+    setTimeout(() => {
+      setOrderPlaced(false);
+      setDelivery(false);
+      setLocation(null);
+      router.replace("/");
+      router.dismissAll();
+    }, 5000);
   };
 
   return (
@@ -177,15 +221,18 @@ const Cart: React.FC = () => {
       end={{ x: 1, y: 1 }}  
       style={styles.gradientContainer}
     >
-      {cartEmpty && !orderPlaced && (
+      {cart.items.length === 0 && !orderPlaced && (
         <View style={styles.cartEmptyContainer}>
           <Image source={EmptyCart} width={512} height={512} style={styles.cartEmptyImage}/>
           <Text style={styles.cartEmptyText}>Your cart is empty</Text>
         </View>
       )}
       { orderPlaced && (
-        <View style={styles.cartEmptyContainer}>
+        <View style={{ ...styles.cartEmptyContainer, justifyContent: "space-around" }}>
           <CheckMark />
+          <Text style={{ ...styles.cartEmptyText, marginBottom: 10 }}>
+            Your order has been placed!!
+          </Text>
         </View>
       )}
       <Modal 
@@ -195,7 +242,7 @@ const Cart: React.FC = () => {
       > 
         <SafeAreaView style={styles.modal}>
           <View style={styles.modalHeader}>
-            <Text style={styles.canvasType}>Confrim Order</Text>
+            <Text style={{ ...styles.canvasType, marginTop: 0 }}>Confrim Order</Text>
             <Pressable style={styles.modalCloseButton} onPress={() => setShowModal(!showModal)}>
               <AntDesign name="closecircleo" size={24} color="white" />
             </Pressable>
@@ -208,11 +255,26 @@ const Cart: React.FC = () => {
                 : null;
               return Component ? 
                 <View key={index}>
-                  <Component item={item}/> 
-                  <Divider width={1}/>
+                  <Component item={item} modalOpen={true}/> 
+                  <Divider/>
                 </View>
                 : null;
             })}
+            <View style={styles.contactsContainer}>
+              <View style={styles.contactContainer}>
+                <Text style={styles.contactText}>First Name :</Text>
+                <Text style={styles.contactInput}>{firstName}</Text>
+              </View>
+              <View style={styles.contactContainer}>
+                <Text style={styles.contactText}>Last Name :</Text>
+                <Text style={styles.contactInput}>{lastName}</Text>
+              </View>
+              <View style={styles.contactContainer}>
+                <Text style={styles.contactText}>Phone No. : </Text>
+                <Text style={styles.contactInput}>{phoneNumber}</Text>
+              </View>
+            </View>
+            <Divider />
             <View style={{ ...styles.totalContainer, marginBottom: 30 }}>
               <View style={styles.totalItem}>
                 <Text style={styles.totalText}>Items </Text>
@@ -227,7 +289,7 @@ const Cart: React.FC = () => {
                 <Text style={styles.totalText}>K{orderTotal}</Text>
               </View>
             </View>
-            <Divider width={2} style={{ marginBottom: 30 }}/>
+            <Divider/>
             <TouchableOpacity style={styles.orderButton} onPress={() => placeOrder()}>
               <Text style={styles.addressButtonText}>Pay</Text> 
             </TouchableOpacity>
@@ -235,26 +297,14 @@ const Cart: React.FC = () => {
         </SafeAreaView>
       </Modal>
       <View style={styles.container}>
-        <Text 
-          style={{ 
-            ...styles.canvasType, 
-            marginTop: 0, 
-            backgroundColor: 
-            "#ffffff", 
-            color: "#000000" 
-          }}
-        >
-          Your order
-        </Text>
         <ScrollView>
-          <Divider width={2}/>
           {cart.items.map((item, index) => {
             const Component = typeof item.name === "string" && item.name in componentsMap 
               ? componentsMap[item.name as keyof typeof componentsMap] 
               : null;
             return Component ? 
               <View key={index}>
-                <Component item={item}/> 
+                <Component item={item} modalOpen={false}/> 
                 <Divider width={1}/>
               </View>
               : null;
@@ -264,9 +314,9 @@ const Cart: React.FC = () => {
             setDelivery(!delivery);
           }}>
             { delivery ? 
-              <MaterialIcons name="radio-button-on" size={24} color="black" />
+              <MaterialIcons name="radio-button-on" size={24} color="#ffffff" />
               :
-              <MaterialIcons name="radio-button-off" size={24} color="black" />
+              <MaterialIcons name="radio-button-off" size={24} color="#ffffff" />
             }
             <Text style={styles.deliveryButtonText}>Add Delivery</Text>
           </TouchableOpacity>
@@ -311,6 +361,35 @@ const Cart: React.FC = () => {
               </View>
             </View>
           ) }
+          <Divider width={1}/>
+          <View style={styles.contactsContainer}>
+            <View style={styles.contactContainer}>
+              <Text style={styles.contactText}>First Name :</Text>
+              <TextInput
+                style={styles.contactInput}
+                value={firstName}
+                onChangeText={setFirstName}
+              />
+            </View>
+            <View style={styles.contactContainer}>
+              <Text style={styles.contactText}>Last Name :</Text>
+              <TextInput
+                style={styles.contactInput}
+                value={lastName}
+                onChangeText={setLastName}
+              />
+            </View>
+            <View style={styles.contactContainer}>
+              <Text style={styles.contactText}>Phone No. : </Text>
+              <TextInput
+                style={styles.contactInput}
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+                placeholder="0977123456"
+              />
+            </View>
+          </View>
+          <Divider width={1}/>
           <View style={styles.totalContainer}>
             <View style={styles.totalItem}>
               <Text style={styles.totalText}>Items </Text>
@@ -324,21 +403,21 @@ const Cart: React.FC = () => {
               <Text style={styles.totalText}>Order Total </Text>
               <Text style={styles.totalText}>K{orderTotal}</Text>
             </View>
-            <Divider width={2} style={{ marginTop: 20 }}/>
           </View>
+          <Divider width={1}/>
+          <LinearGradient 
+            colors={["#34ffc688", "#d900aa"]}  
+            start={{ x:0, y: 0 }} 
+            end={{ x: 1, y: 1 }}  
+            style={styles.orderButton}
+          >
+            <TouchableOpacity  onPress={() => setShowModal(true)}>
+              <Text style={{ ...styles.deliveryFeeText, color: "#ffffff" }}>
+                Confirm Order
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </ScrollView>
-        <LinearGradient 
-          colors={["#34ffc688", "#d900aa"]} 
-          start={{ x:0, y: 0 }} 
-          end={{ x: 1, y: 1 }}  
-          style={{ ...styles.orderButton, position: "absolute" }}
-        >
-          <TouchableOpacity  onPress={() => setShowModal(true)}>
-            <Text style={{ ...styles.deliveryFeeText, color: "#ffffff" }}>
-              Confirm Order
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
       </View>
     </LinearGradient>
   );
@@ -349,6 +428,7 @@ export default Cart;
 const styles = StyleSheet.create({
   gradientContainer: {
     flex: 1,
+    paddingBottom: Platform.OS === "ios" ? 65 : 55,
   },
   container: {
     flex: 1,
@@ -378,6 +458,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 20,
     color: "#00000088",
+    textAlign: "center",
   },
   modal: {
     flex: 1,
@@ -395,28 +476,27 @@ const styles = StyleSheet.create({
   },
   deliveryButton : {
     flexDirection: "row",
-    backgroundColor: "#ffffff",
-    height: 40,
+    height: 60,
     alignItems: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   deliveryButtonText : {
     marginLeft: 20,
     fontSize: 24,
     fontWeight: "bold",
+    color: "#ffffff",
   },
   mapContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ffffff",
   },
   map: {
     width: "100%",
-    height: 300,
+    height: 400,
   },
   addressButton : {
     flexDirection: "row",
-    backgroundColor: "#454545",
+    backgroundColor: "#45454566",
     width: 160,
     height: 45,
     alignItems: "center",
@@ -437,11 +517,39 @@ const styles = StyleSheet.create({
   deliveryFeeText : {
     fontSize: 24,
     fontFamily: "Montserrat-Medium",
+    color: "#ffffff",
+  },
+  contactsContainer: {
+    flexDirection: "column",
+    margin: 10,
+  },
+  contactContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: 5,
+  },
+  contactText : {
+    fontSize: 16,
+    fontFamily: "Montserrat-Medium",
+    color: "#ffffff",
+    width: 120,
+  },
+  contactInput : {
+    flex: 1,
+    fontSize: 20,
+    fontFamily: "Montserrat-Medium",
+    color: "#ffffff",
+    backgroundColor: "#45454566",  
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   totalContainer: {
     flexDirection: "column",
     marginTop: 20,
-    marginBottom: 80,
+    marginBottom: 40,
+    paddingHorizontal: 10,
   },
   totalItem: {
     flexDirection: "row",
@@ -461,8 +569,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+    marginVertical: 20,
     paddingHorizontal: 15,
     borderRadius: 90,
-    bottom: 20,
   },
 });
