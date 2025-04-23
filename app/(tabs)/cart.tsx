@@ -60,9 +60,9 @@ const Cart: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  // const [address, setAddress] = useState<string>("");
+  const [contactDetails, setContactDetails] = useState<boolean>(true);
   
-  //Define a variable for holding the dispatch function and cart items
+  //Define variables for holding the dispatch function and cart items
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart);
 
@@ -94,9 +94,6 @@ const Cart: React.FC = () => {
         const courierFee = calculateFee(meters / 1000);
         setDistance(meters / 1000);
         setDeliveryFee(courierFee);
-        console.log("Distance in kilometers:", meters / 1000);
-        console.log("Courier fee:", courierFee);
-        console.log("Delivery fee:", deliveryFee);
       }
     } catch (error) {
       console.error("Error fetching route:", error);
@@ -107,9 +104,9 @@ const Cart: React.FC = () => {
   const calculateFee = (distance: number) => {
     if(!delivery) return 0;
     if (distance <= 5) return 30;
-    if (distance <= 10) return 50;
-    if (distance <= 15) return 80;
-    if (distance <= 20) return 150;
+    if (distance <= 13) return 50;
+    if (distance <= 20) return 80;
+    if (distance <= 30) return 150;
     return 200;
   };
 
@@ -154,56 +151,67 @@ const Cart: React.FC = () => {
   
   const prisma = new PrismaClient();
 
-  // async function testConnection() {
-  //   const orders = await prisma.order.findMany();
-  //   console.log(orders);
-  // }
-  
-  // testConnection();
+  //Define a function that confirms the order
+  const confirmOrder = () => {
+    if(!firstName || !lastName || !phoneNumber) {
+      setContactDetails(false);
+      return;
+    };
+    setContactDetails(true);
+    setShowModal(true);
+  };
 
   //Define a function that places the order
   const placeOrder = async() => {
-    
-    await prisma.order.create({
+    try {
+      await prisma.order.create({
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+          latitude: location?.latitude,
+          longitude: location?.longitude,
+          delivery: delivery,
+          totalAmount: orderTotal,
+          createdAt: new Date(),
+          orderID: cart.items.map((item) => item.id).join("-"),
+          items: {
+            create: cart.items.map((item) => ({
+              id: item.id,
+              imageUrls: item.imageUrls,
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+              size: item.size,
+              totalPrice: item.totalPrice,
+              type: item.type,
+            }))
+          },
+        },
+      });
+  
+      dispatch(cartActions.clearCart()); //When succesful, clear cart
+     
+      //display checkmark
+      setShowModal(false);
+      setOrderPlaced(true);
+      navigatetoHome();
 
-      data: {
-        id: cart.items.map((item) => item.id).join(""),
-        first_Name: firstName,
-        last_Name: lastName,
-        phoneNumber: phoneNumber,
-        latitude: location?.latitude,
-        longitude: location?.longitude,
-        photos: cart.items.map((item) => item.imageUrls),
-        items: cart.items,
-        delivery: delivery,
-        deliveryFee: deliveryFee,
-        distance: distance,
-        total: orderTotal,
-      },
-    });
-
-    //When succesful, clear cart
-    dispatch(cartActions.clearCart());
-   
-    //display checkmark
-    setShowModal(false);
-    setOrderPlaced(true);
-    navigatetoHome();
+    } catch (error) {
+      console.error(" Error placing order:", error);
+    }
   };
   
-  //Use a useEffect to rerender and new cart items and new order items total
-  //when items in the cart change
+  //rerender when items in the cart change or delivery fee changes
   useEffect(() => {  
     calculateItemsTotal();
   }, [cart.items.length, delivery, deliveryFee]);
 
-  //Use a useEffect to rerender the component and show new delivery fee when 
-  //the distance changes
+  //Rerender the component when the distance changes
   useEffect(() => {
     setDeliveryFee(calculateFee(distance));   
   }, [distance]);
   
-  //navigate to hom
   const navigatetoHome = () => {
     setTimeout(() => {
       setOrderPlaced(false);
@@ -388,6 +396,13 @@ const Cart: React.FC = () => {
                 placeholder="0977123456"
               />
             </View>
+            {
+              !contactDetails && (
+                <Text style={{ color: "white" }}>
+                  Please enter full contact details
+                </Text>
+              )
+            }
           </View>
           <Divider width={1}/>
           <View style={styles.totalContainer}>
@@ -411,7 +426,7 @@ const Cart: React.FC = () => {
             end={{ x: 1, y: 1 }}  
             style={styles.orderButton}
           >
-            <TouchableOpacity  onPress={() => setShowModal(true)}>
+            <TouchableOpacity  onPress={() => confirmOrder()}>
               <Text style={{ ...styles.deliveryFeeText, color: "#ffffff" }}>
                 Confirm Order
               </Text>
