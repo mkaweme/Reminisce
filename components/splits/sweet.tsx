@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   canvasType: {
-    position: "relative",
     fontSize: 40,
     fontFamily: "BebasNeue-Regular",
     marginBottom: 10,
@@ -244,7 +243,7 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 310,
+    width: 300,
     height: 260,
     alignContent: "center",
     justifyContent: "space-between",
@@ -255,7 +254,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 10,
+    elevation: 5,
   },
   previewContainer_1: {
     top: 40,
@@ -309,14 +308,14 @@ const styles = StyleSheet.create({
   },
   image_1: {
     width: 300,
-    height: 180,
-    top: -10,
+    height: 260,
+    top: -40,
   },
   image_2: {
     width: 300,
-    height: 220,
+    height: 260,
     left: -60,
-    top: -10,
+    top: -20,
   },
   image_3: {
     width: 300,
@@ -325,16 +324,15 @@ const styles = StyleSheet.create({
   },
   image_4: {
     width: 300,
-    height: 220,
+    height: 260,
     left: -180,
-    top: -10,  
+    top: -20,  
   },
   image_5: {
     width: 300,
-    height: 180,
-    position: "absolute",
+    height: 260,
     left: -240,
-    top: -10,  
+    top: -40,  
   },
   cameraIcon: {
     position: "absolute",

@@ -272,11 +272,8 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 305,
-    height: 220,
-    alignContent: "center",
-    alignItems: "center",
-    marginTop: 15,
+    width: 306,
+    height: 240,
     justifyContent: "space-between",
     shadowColor: "#000",
     shadowOffset: { 
@@ -288,39 +285,56 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   splitPreviewContainer_1: {
-    position: "relative",
-    top: 15,
+    top: 35,
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   splitPreviewContainer_2: {
-    position: "relative",
+    width: 75,
+    height: 205,
+    backgroundColor: "#000000",
+    shadowColor: "#000000",
+    shadowOffset: { 
+      width: 5, 
+      height: 5 
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   splitPreviewWindow: {
     width: 75,
-    height: 220,
+    height: 205,
     overflow: "hidden",
   },
   splitImage_1: {
     width: 300,
-    height: 230,
-    top: -25,
+    height: 240,
+    top: -35,
   },
   SplitImage_2: {
     width: 300,
-    height: 210,
-    position: "absolute",
+    height: 240,
     left: -75,
   },
   splitImage_3: {
     width: 300,
-    height: 230,
-    position: "absolute",
+    height: 240,
     left: -150,
-    top: -25,
+    top: -35,
   },
   splitImage_4: {
     width: 300,
-    height: 210,
-    position: "absolute",
+    height: 240,
     left: -225,
   },
   comboImagesContainer: {

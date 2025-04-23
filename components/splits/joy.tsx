@@ -252,12 +252,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     shadowColor: "#000000",
     shadowOffset: { 
-      width: 20, 
-      height: 20 
+      width: 5, 
+      height: 5 
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 10,
+    elevation: 5,
   },
   previewContainer_2: {
     width: 75,
@@ -265,8 +265,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     shadowColor: "#000000",
     shadowOffset: { 
-      width: 10, 
-      height: 10 
+      width: 5, 
+      height: 5 
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -276,7 +276,6 @@ const styles = StyleSheet.create({
     width: 75,
     height: 205,
     overflow: "hidden",
-    backgroundColor: "pink",
   },
   image_1: {
     width: 300,

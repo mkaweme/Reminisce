@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   },
   splitContainer: {
     flexDirection: "row",
-    width: 310,
+    width: 306,
     height: 260,
     alignContent: "center",
     justifyContent: "space-between",
@@ -309,12 +309,12 @@ const styles = StyleSheet.create({
   },
   image_3: {
     width: 300,
-    height: 260,
+    height: 255,
     left: -150,
   },
   image_4: {
     width: 300,
-    height: 245,
+    height: 255,
     position: "absolute",
     left: -225,
     top: -55, 
