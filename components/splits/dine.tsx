@@ -104,19 +104,25 @@ const Dine: React.FC<ComponentProps> = ({ modalOpen }) => {
         <View style={styles.splitContainer}>
           <View style={styles.previewWindow}>
             <Image 
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              source={
+                image ? { uri: image } : { uri: "https://picsum.photos/seed/picsum/200/300"  }
+              } 
               style={styles.image_1} 
             />
           </View>
           <View style={styles.previewWindow}>
             <Image 
-              source={image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              source={
+                image ? { uri: image } : { uri: "https://picsum.photos/seed/picsum/200/300"  }
+              } 
               style={styles.image_2} 
             />
           </View>
           <View style={styles.previewWindow}>
             <Image 
-              source={ image ? { uri: image } : { uri: "https://picsum.photos/200/300" }} 
+              source={ 
+                image ? { uri: image } : { uri: "https://picsum.photos/seed/picsum/200/300"  }
+              } 
               style={styles.image_3} 
             />
           </View>

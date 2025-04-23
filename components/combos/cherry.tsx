@@ -110,7 +110,12 @@ const Cherry: React.FC<ComponentProps> = ({ modalOpen }) => {
         <View style={styles.imagesContainer}>
           <View style={styles.imageContainer}>
             <Image 
-              source={image_1 ? { uri: image_1 } : { uri : "https://picsum.photos/200/300" }} 
+              source={ 
+                image_1 ? { 
+                  uri: image_1 
+                } : {
+                  uri : "https://picsum.photos/seed/picsum/200/300" 
+                }} 
               style={styles.image_1} 
             />
             {
@@ -143,7 +148,12 @@ const Cherry: React.FC<ComponentProps> = ({ modalOpen }) => {
           </View>
           <View style={styles.imageContainer}>
             <Image 
-              source={image_2 ? { uri: image_2 } : { uri : "https://picsum.photos/200/300" }} 
+              source={ 
+                image_2 ? { 
+                  uri: image_2 
+                } : { 
+                  uri : "https://picsum.photos/seed/picsum/200/300"
+                }} 
               style={styles.image_2} 
             />
             {
@@ -176,7 +186,12 @@ const Cherry: React.FC<ComponentProps> = ({ modalOpen }) => {
           </View>
           <View style={styles.imageContainer}>
             <Image 
-              source={image_3 ? { uri: image_3 } : { uri : "https://picsum.photos/200/300" }} 
+              source={ 
+                image_3 ? {
+                  uri: image_3 
+                } : { 
+                  uri : "https://picsum.photos/seed/picsum/200/300" 
+                }} 
               style={styles.image_1} 
             />
             {
