@@ -16,12 +16,11 @@ datasource db {
 
 model Order {
   id          Int          @id @default(autoincrement())
-  first_Name  String
-  last_Name   String
+  firstName   String
+  lastName    String
   phoneNumber String
-  address     String
-  Latitude    Float
-  longitude   Float
+  latitude    Float?
+  longitude   Float?
   delivery    Boolean
   totalAmount Float
   orderID     String

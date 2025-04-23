@@ -1004,25 +1004,24 @@ export namespace Prisma {
 
   export type OrderAvgAggregateOutputType = {
     id: number | null
-    Latitude: number | null
+    latitude: number | null
     longitude: number | null
     totalAmount: number | null
   }
 
   export type OrderSumAggregateOutputType = {
     id: number | null
-    Latitude: number | null
+    latitude: number | null
     longitude: number | null
     totalAmount: number | null
   }
 
   export type OrderMinAggregateOutputType = {
     id: number | null
-    first_Name: string | null
-    last_Name: string | null
+    firstName: string | null
+    lastName: string | null
     phoneNumber: string | null
-    address: string | null
-    Latitude: number | null
+    latitude: number | null
     longitude: number | null
     delivery: boolean | null
     totalAmount: number | null
@@ -1032,11 +1031,10 @@ export namespace Prisma {
 
   export type OrderMaxAggregateOutputType = {
     id: number | null
-    first_Name: string | null
-    last_Name: string | null
+    firstName: string | null
+    lastName: string | null
     phoneNumber: string | null
-    address: string | null
-    Latitude: number | null
+    latitude: number | null
     longitude: number | null
     delivery: boolean | null
     totalAmount: number | null
@@ -1046,11 +1044,10 @@ export namespace Prisma {
 
   export type OrderCountAggregateOutputType = {
     id: number
-    first_Name: number
-    last_Name: number
+    firstName: number
+    lastName: number
     phoneNumber: number
-    address: number
-    Latitude: number
+    latitude: number
     longitude: number
     delivery: number
     totalAmount: number
@@ -1062,25 +1059,24 @@ export namespace Prisma {
 
   export type OrderAvgAggregateInputType = {
     id?: true
-    Latitude?: true
+    latitude?: true
     longitude?: true
     totalAmount?: true
   }
 
   export type OrderSumAggregateInputType = {
     id?: true
-    Latitude?: true
+    latitude?: true
     longitude?: true
     totalAmount?: true
   }
 
   export type OrderMinAggregateInputType = {
     id?: true
-    first_Name?: true
-    last_Name?: true
+    firstName?: true
+    lastName?: true
     phoneNumber?: true
-    address?: true
-    Latitude?: true
+    latitude?: true
     longitude?: true
     delivery?: true
     totalAmount?: true
@@ -1090,11 +1086,10 @@ export namespace Prisma {
 
   export type OrderMaxAggregateInputType = {
     id?: true
-    first_Name?: true
-    last_Name?: true
+    firstName?: true
+    lastName?: true
     phoneNumber?: true
-    address?: true
-    Latitude?: true
+    latitude?: true
     longitude?: true
     delivery?: true
     totalAmount?: true
@@ -1104,11 +1099,10 @@ export namespace Prisma {
 
   export type OrderCountAggregateInputType = {
     id?: true
-    first_Name?: true
-    last_Name?: true
+    firstName?: true
+    lastName?: true
     phoneNumber?: true
-    address?: true
-    Latitude?: true
+    latitude?: true
     longitude?: true
     delivery?: true
     totalAmount?: true
@@ -1205,12 +1199,11 @@ export namespace Prisma {
 
   export type OrderGroupByOutputType = {
     id: number
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude: number | null
+    longitude: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -1238,11 +1231,10 @@ export namespace Prisma {
 
   export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    first_Name?: boolean
-    last_Name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    Latitude?: boolean
+    latitude?: boolean
     longitude?: boolean
     delivery?: boolean
     totalAmount?: boolean
@@ -1254,11 +1246,10 @@ export namespace Prisma {
 
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    first_Name?: boolean
-    last_Name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    Latitude?: boolean
+    latitude?: boolean
     longitude?: boolean
     delivery?: boolean
     totalAmount?: boolean
@@ -1268,11 +1259,10 @@ export namespace Prisma {
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    first_Name?: boolean
-    last_Name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    Latitude?: boolean
+    latitude?: boolean
     longitude?: boolean
     delivery?: boolean
     totalAmount?: boolean
@@ -1282,11 +1272,10 @@ export namespace Prisma {
 
   export type OrderSelectScalar = {
     id?: boolean
-    first_Name?: boolean
-    last_Name?: boolean
+    firstName?: boolean
+    lastName?: boolean
     phoneNumber?: boolean
-    address?: boolean
-    Latitude?: boolean
+    latitude?: boolean
     longitude?: boolean
     delivery?: boolean
     totalAmount?: boolean
@@ -1294,7 +1283,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "first_Name" | "last_Name" | "phoneNumber" | "address" | "Latitude" | "longitude" | "delivery" | "totalAmount" | "orderID" | "createdAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "phoneNumber" | "latitude" | "longitude" | "delivery" | "totalAmount" | "orderID" | "createdAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -1309,12 +1298,11 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      first_Name: string
-      last_Name: string
+      firstName: string
+      lastName: string
       phoneNumber: string
-      address: string
-      Latitude: number
-      longitude: number
+      latitude: number | null
+      longitude: number | null
       delivery: boolean
       totalAmount: number
       orderID: string
@@ -1744,11 +1732,10 @@ export namespace Prisma {
    */
   interface OrderFieldRefs {
     readonly id: FieldRef<"Order", 'Int'>
-    readonly first_Name: FieldRef<"Order", 'String'>
-    readonly last_Name: FieldRef<"Order", 'String'>
+    readonly firstName: FieldRef<"Order", 'String'>
+    readonly lastName: FieldRef<"Order", 'String'>
     readonly phoneNumber: FieldRef<"Order", 'String'>
-    readonly address: FieldRef<"Order", 'String'>
-    readonly Latitude: FieldRef<"Order", 'Float'>
+    readonly latitude: FieldRef<"Order", 'Float'>
     readonly longitude: FieldRef<"Order", 'Float'>
     readonly delivery: FieldRef<"Order", 'Boolean'>
     readonly totalAmount: FieldRef<"Order", 'Float'>
@@ -3352,11 +3339,10 @@ export namespace Prisma {
 
   export const OrderScalarFieldEnum: {
     id: 'id',
-    first_Name: 'first_Name',
-    last_Name: 'last_Name',
+    firstName: 'firstName',
+    lastName: 'lastName',
     phoneNumber: 'phoneNumber',
-    address: 'address',
-    Latitude: 'Latitude',
+    latitude: 'latitude',
     longitude: 'longitude',
     delivery: 'delivery',
     totalAmount: 'totalAmount',
@@ -3396,6 +3382,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3474,12 +3468,11 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: IntFilter<"Order"> | number
-    first_Name?: StringFilter<"Order"> | string
-    last_Name?: StringFilter<"Order"> | string
+    firstName?: StringFilter<"Order"> | string
+    lastName?: StringFilter<"Order"> | string
     phoneNumber?: StringFilter<"Order"> | string
-    address?: StringFilter<"Order"> | string
-    Latitude?: FloatFilter<"Order"> | number
-    longitude?: FloatFilter<"Order"> | number
+    latitude?: FloatNullableFilter<"Order"> | number | null
+    longitude?: FloatNullableFilter<"Order"> | number | null
     delivery?: BoolFilter<"Order"> | boolean
     totalAmount?: FloatFilter<"Order"> | number
     orderID?: StringFilter<"Order"> | string
@@ -3489,12 +3482,11 @@ export namespace Prisma {
 
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
-    first_Name?: SortOrder
-    last_Name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    Latitude?: SortOrder
-    longitude?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     delivery?: SortOrder
     totalAmount?: SortOrder
     orderID?: SortOrder
@@ -3507,12 +3499,11 @@ export namespace Prisma {
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
-    first_Name?: StringFilter<"Order"> | string
-    last_Name?: StringFilter<"Order"> | string
+    firstName?: StringFilter<"Order"> | string
+    lastName?: StringFilter<"Order"> | string
     phoneNumber?: StringFilter<"Order"> | string
-    address?: StringFilter<"Order"> | string
-    Latitude?: FloatFilter<"Order"> | number
-    longitude?: FloatFilter<"Order"> | number
+    latitude?: FloatNullableFilter<"Order"> | number | null
+    longitude?: FloatNullableFilter<"Order"> | number | null
     delivery?: BoolFilter<"Order"> | boolean
     totalAmount?: FloatFilter<"Order"> | number
     orderID?: StringFilter<"Order"> | string
@@ -3522,12 +3513,11 @@ export namespace Prisma {
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
-    first_Name?: SortOrder
-    last_Name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    Latitude?: SortOrder
-    longitude?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     delivery?: SortOrder
     totalAmount?: SortOrder
     orderID?: SortOrder
@@ -3544,12 +3534,11 @@ export namespace Prisma {
     OR?: OrderScalarWhereWithAggregatesInput[]
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Order"> | number
-    first_Name?: StringWithAggregatesFilter<"Order"> | string
-    last_Name?: StringWithAggregatesFilter<"Order"> | string
+    firstName?: StringWithAggregatesFilter<"Order"> | string
+    lastName?: StringWithAggregatesFilter<"Order"> | string
     phoneNumber?: StringWithAggregatesFilter<"Order"> | string
-    address?: StringWithAggregatesFilter<"Order"> | string
-    Latitude?: FloatWithAggregatesFilter<"Order"> | number
-    longitude?: FloatWithAggregatesFilter<"Order"> | number
+    latitude?: FloatNullableWithAggregatesFilter<"Order"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Order"> | number | null
     delivery?: BoolWithAggregatesFilter<"Order"> | boolean
     totalAmount?: FloatWithAggregatesFilter<"Order"> | number
     orderID?: StringWithAggregatesFilter<"Order"> | string
@@ -3634,12 +3623,11 @@ export namespace Prisma {
   }
 
   export type OrderCreateInput = {
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude?: number | null
+    longitude?: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -3649,12 +3637,11 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateInput = {
     id?: number
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude?: number | null
+    longitude?: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -3663,12 +3650,11 @@ export namespace Prisma {
   }
 
   export type OrderUpdateInput = {
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
@@ -3678,12 +3664,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
@@ -3693,12 +3678,11 @@ export namespace Prisma {
 
   export type OrderCreateManyInput = {
     id?: number
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude?: number | null
+    longitude?: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -3706,12 +3690,11 @@ export namespace Prisma {
   }
 
   export type OrderUpdateManyMutationInput = {
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
@@ -3720,12 +3703,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
@@ -3841,6 +3823,22 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -3850,11 +3848,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -3874,17 +3867,21 @@ export namespace Prisma {
     none?: CanvasItemWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type CanvasItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder
-    first_Name?: SortOrder
-    last_Name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    Latitude?: SortOrder
+    latitude?: SortOrder
     longitude?: SortOrder
     delivery?: SortOrder
     totalAmount?: SortOrder
@@ -3894,18 +3891,17 @@ export namespace Prisma {
 
   export type OrderAvgOrderByAggregateInput = {
     id?: SortOrder
-    Latitude?: SortOrder
+    latitude?: SortOrder
     longitude?: SortOrder
     totalAmount?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder
-    first_Name?: SortOrder
-    last_Name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    Latitude?: SortOrder
+    latitude?: SortOrder
     longitude?: SortOrder
     delivery?: SortOrder
     totalAmount?: SortOrder
@@ -3915,11 +3911,10 @@ export namespace Prisma {
 
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder
-    first_Name?: SortOrder
-    last_Name?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     phoneNumber?: SortOrder
-    address?: SortOrder
-    Latitude?: SortOrder
+    latitude?: SortOrder
     longitude?: SortOrder
     delivery?: SortOrder
     totalAmount?: SortOrder
@@ -3929,7 +3924,7 @@ export namespace Prisma {
 
   export type OrderSumOrderByAggregateInput = {
     id?: SortOrder
-    Latitude?: SortOrder
+    latitude?: SortOrder
     longitude?: SortOrder
     totalAmount?: SortOrder
   }
@@ -3968,6 +3963,30 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -3982,14 +4001,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -4085,8 +4096,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -4095,6 +4106,14 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -4185,6 +4204,22 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -4194,11 +4229,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -4245,6 +4275,41 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -4259,14 +4324,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -4347,12 +4404,11 @@ export namespace Prisma {
   }
 
   export type OrderCreateWithoutItemsInput = {
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude?: number | null
+    longitude?: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -4361,12 +4417,11 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutItemsInput = {
     id?: number
-    first_Name: string
-    last_Name: string
+    firstName: string
+    lastName: string
     phoneNumber: string
-    address: string
-    Latitude: number
-    longitude: number
+    latitude?: number | null
+    longitude?: number | null
     delivery: boolean
     totalAmount: number
     orderID: string
@@ -4390,12 +4445,11 @@ export namespace Prisma {
   }
 
   export type OrderUpdateWithoutItemsInput = {
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
@@ -4404,12 +4458,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    first_Name?: StringFieldUpdateOperationsInput | string
-    last_Name?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
-    address?: StringFieldUpdateOperationsInput | string
-    Latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     delivery?: BoolFieldUpdateOperationsInput | boolean
     totalAmount?: FloatFieldUpdateOperationsInput | number
     orderID?: StringFieldUpdateOperationsInput | string
