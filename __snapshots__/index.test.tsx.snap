@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index screen Renders correctly 1`] = `
+<ViewManagerAdapter_ExpoLinearGradient
+  colors={
+    [
+      2285174726,
+      4284612685,
+    ]
+  }
+  endPoint={
+    [
+      1,
+      1,
+    ]
+  }
+  startPoint={
+    [
+      0,
+      0,
+    ]
+  }
+  style={
+    {
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <View
+        accessibilityIgnoresInvertColors={true}
+        style={
+          {
+            "alignItems": "center",
+            "height": 162,
+            "justifyContent": "center",
+            "marginVertical": 40,
+            "width": 162,
+          }
+        }
+      >
+        <Image
+          source={
+            {
+              "testUri": "../../../assets/images/logo_background.png",
+            }
+          }
+          style={
+            [
+              {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              {
+                "height": 162,
+                "width": 162,
+              },
+              undefined,
+            ]
+          }
+        />
+        <Image
+          height={766}
+          source={
+            {
+              "testUri": "../../../assets/images/logo_2_transparent.png",
+            }
+          }
+          style={
+            {
+              "height": 125,
+              "width": 100,
+            }
+          }
+          width={684}
+        />
+      </View>
+      <Text
+        style={
+          {
+            "color": "#ffffff",
+            "fontFamily": "Galada-Regular",
+            "fontSize": 36,
+            "textAlign": "center",
+            "width": "60%",
+          }
+        }
+      >
+        WELCOME TO REMINISCE CANVAS.
+      </Text>
+    </View>
+    <Text
+      style={
+        {
+          "color": "#ffffff",
+          "fontFamily": "Inter-Regular",
+          "fontSize": 16,
+          "margin": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      At Reminisce Canvas we do much more than just print photos on canvas, we work with our customers to create personalized home decor art that they will love and appreciate!
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#ffffff",
+          "borderRadius": 50,
+          "height": 64,
+          "justifyContent": "center",
+          "marginTop": 30,
+          "opacity": 1,
+          "width": 200,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#1f1f1f",
+            "fontSize": 18,
+            "fontWeight": "500",
+          }
+        }
+      >
+        See Products
+      </Text>
+    </View>
+  </View>
+</ViewManagerAdapter_ExpoLinearGradient>
+`;
