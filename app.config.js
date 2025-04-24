@@ -1,4 +1,6 @@
-{
+import "dotenv/config";
+
+export default {
   "expo": {
     "name": "Reminisce",
     "slug": "Reminisce",
@@ -41,7 +43,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": 
+            "The app accesses your photos to let you share them with your friends."
         }
       ]
     ],
@@ -49,7 +52,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "googleMapsApiKey": "@GOOGLE_MAPS_API_KEY"
+      "googleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY,
     }
   }
-}
+};
