@@ -15,21 +15,24 @@ const Index = () => {
       end={{ x: 1, y: 1 }}  
       style={styles.container}
     >
-      <View style={styles.banner}>
-        <ImageBackground source={logoBackground} style={styles.logoContainer} >
-          <Image source={logo} width={684} height={766} style={styles.logo}/>
-        </ImageBackground>
-        <Text style={styles.title}>WELCOME TO REMINISCE CANVAS.</Text>
+      <View>
+        <View style={styles.banner}>
+          <ImageBackground source={logoBackground} style={styles.logoContainer} >
+            <Image source={logo} width={684} height={766} style={styles.logo}/>
+          </ImageBackground>
+          <Text style={styles.title}>WELCOME TO REMINISCE CANVAS.</Text>
+        </View>
+        <Text style={styles.text}>
+          At Reminisce Canvas we do much more than just print photos on canvas, we work 
+          with our customers to create personalized home decor art that they will love 
+          and appreciate!
+        </Text>
+        <Link href="/(tabs)/(products)" asChild>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>See Products</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
-      <Text style={styles.text}>
-        At Reminisce Canvas we do much more than just print photos on canvas, we work with 
-        our customers to create personalized home decor art that they will love and appreciate!
-      </Text>
-      <Link href="/(tabs)/(products)" asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>See Products</Text>
-        </TouchableOpacity>
-      </Link>
     </LinearGradient>
   );
 };
