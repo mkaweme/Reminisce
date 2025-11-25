@@ -1,50 +1,47 @@
-# Welcome to your Expo app 👋
+<div align="center">
+    <img src="https://github.com/mkaweme/Reminisce/blob/without-bottom-tabbar/assets/images/logo_mini_transparent.png"
+      width="60" height="60" alt="Reminisce logo">
+  </a>
+</div>
+<h1 align="center">Welcome to Reminisce Canvas</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://twitter.com/kaweme" target="_blank">
+    <img alt="Twitter: kaweme" src="https://img.shields.io/twitter/follow/kaweme.svg?style=social" />
+  </a>
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> An app for a Canvas Service. Users can select the types of canvas the wish to order, upload photos, select delivery preference, review the order and finally place it. It's build with react native and typescript. 
 
-## Get started
+## Install
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+npx expo install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Usage
 
-## Learn more
+```sh
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Run tests
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```sh
+npm run test
+```
 
-## Join the community
+## Author
 
-Join our community of developers creating universal apps.
+👤 **Makoba Kaweme**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+* Twitter: [@kaweme](https://twitter.com/kaweme)
+* Github: [@kaweme](https://github.com/kaweme)
+* LinkedIn: [@Makoba Kaweme](https://linkedin.com/in/Makoba Kaweme)
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
