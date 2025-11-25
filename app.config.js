@@ -46,7 +46,13 @@ export default {
           "photosPermission": 
             "The app accesses your photos to let you share them with your friends."
         }
-      ]
+      ],
+      [
+        "expo-maps",
+        {
+          googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+        }
+      ],
     ],
     "experiments": {
       "typedRoutes": true
