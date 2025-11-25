@@ -1,4 +1,9 @@
-<h1 align="center">Welcome to Reminisce Canvas 👋</h1>
+<div align="center">
+    <img src="https://github.com/mkaweme/Reminisce/blob/master/app/favicon.ico"
+      width="60" height="60" alt="Reminisce logo">
+  </a>
+</div>
+<h1 align="center">Welcome to Reminisce Canvas</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/kaweme" target="_blank">
