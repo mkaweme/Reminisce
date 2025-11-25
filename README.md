@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/mkaweme/Reminisce/blob/without-bottom-tabbar/app/favicon.ico"
+    <img src="https://github.com/mkaweme/Reminisce/blob/without-bottom-tabbar/assets/images/logo_mini_transparent.png"
       width="60" height="60" alt="Reminisce logo">
   </a>
 </div>
